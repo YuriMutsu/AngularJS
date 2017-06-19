@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Binding Object</title>
+	<script type="text/javascript" src="./angular.js"></script>
+	<script type="text/javascript" src="./app.js"></script>
+</head>
+<body ng-app="app">
+	<div ng-controller="myController">
+		Name: {{employee.name}} <br>
+		Address: {{employee.address}} <br>
+		Age: {{employee.age}} <br>
+
+		<br>
+	</div>
+
+	<div ng-controller="mycontroller2">
+		Name: <input type="text" ng-model="employee.name"> <br>
+		Address: <input type="text" ng-model="employee.address"> <br>
+		Age: <input type="text" ng-model="employee.age"> <br>
+
+		Name: {{employee.name}} <br>
+		Address: {{employee.address}} <br>
+		Age: {{employee.age}} <br>
+	</div>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Filter</title>
+	<script type="text/javascript" src="./angular.js"></script>
+	<script type="text/javascript" src="./app.js"></script>
+	<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<style type="text/css">
+.arrow-up {
+  width: 0; 
+  height: 0; 
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+ 
+  border-bottom: 5px solid black;
+  display: inline-block;
+}
+
+.arrow-down {
+  width: 0; 
+  height: 0; 
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  
+  border-top: 5px solid black;
+  display: inline-block;
+}
+
+</style>
+
+</head>
+<body>
+	<div ng-app="app" class="container">
+		<div ng-controller="myController">
+		<select ng-model="sortColumn">
+			<option value="name">Name</option>
+			<option value="date">Date</option>
+			<option value="price">Price</option>
+		</select>
+		<input type="number" ng-model="row" class="form-control">
+			<table class="table">
+				<thead>					
+					<tr>
+						<td ng-click="sortData('name')">
+							Name
+							<div ng-class="getSortClass('name')" ></div>
+						</td>
+						<td ng-click="sortData('date')">Date<div ng-class="getSortClass('date')" ></div></td>
+						<td ng-click="sortData('price')">Price<div ng-class="getSortClass('price')" ></div></td>
+					</tr>
+				</thead>
+				
+				<tr ng-repeat="pro in products | orderBy : sortColumn:reverse | limitTo:row">
+					<td>{{pro.name | uppercase}}</td>
+					<td>{{pro.date | date:"yyyy/MM/dd"}}</td>
+					<td>{{pro.price | number:0}}</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

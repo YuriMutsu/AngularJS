@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Ng - Click</title>
+	<script type="text/javascript" src="./angular.js"></script>
+	<script type="text/javascript" src="./app.js"></script>
+</head>
+<body ng-app="app">
+	<div ng-controller="myController">
+		<table>
+			<tr>
+				<td>Name</td>
+				<td>Likes</td>
+				<td>DisLikes</td>
+				<td>Actions</td>
+			</tr>
+			<tr ng-repeat="tec in technoloies">
+				<td>{{tec.name}}</td>
+				<td>{{tec.likes}}</td>
+				<td>{{tec.dislikes}}</td>
+				<td>
+					<input type="button" value="Like" ng-click="onClickLike(tec)">
+					<input type="button" value="DisLike" ng-click="onClickDisLike(tec)">
+				</td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>
