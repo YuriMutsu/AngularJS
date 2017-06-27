@@ -46,12 +46,35 @@
 		};
 
 
-		$scope.submit = function(){
+		$scope.submitAdd = function(){
 			$scope.poem.id = $scope.poem.id + 1;
 			$scope.listPoem.push($scope.poem);
 			alert("Submit");
 		};
 
+		$scope.submitSearch = function(){
+			$scope.list = [];
+			for (var i = 0; i<$scope.listPoem.length; i++){
+				if ($scope.criteria == "Title"){
+					if ($scope.listPoem[i].title.toUpperCase().search($scope.term.toUpperCase())>-1){
+						$scope.list.push($scope.listPoem[i]);
+					}
+				}else if ($scope.criteria == "Author"){
+					if ($scope.listPoem[i].author.toUpperCase().search($scope.term.toUpperCase())>-1){
+						$scope.list.push($scope.listPoem[i]);
+					}
+				}else if ($scope.criteria == "Category"){
+					if ($scope.listPoem[i].category.toUpperCase().search($scope.term.toUpperCase())>-1){
+						$scope.list.push($scope.listPoem[i]);
+					}
+				}else{
+					if ($scope.listPoem[i].content.toUpperCase().search($scope.term.toUpperCase())>-1){
+						$scope.list.push($scope.listPoem[i]);
+					}
+						
+				}
+			}
+		}
 	}]);
 
 
