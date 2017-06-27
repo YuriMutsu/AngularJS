@@ -10,7 +10,7 @@
 <body ng-app="myApp">
 	<div class="container" ng-controller="myController">
 		<div class="panel-body">
-			<form class="form-horizontal" action="#">
+			<form class="form-horizontal" ng-submit="submit()">
 				<div class="form-group">
 					<label class="col-sm-2 control-label">Title</label>
 					<div class="col-sm-4">
@@ -28,8 +28,8 @@
 				<div class="form-group">
 					<label class="col-sm-2 control-label">Category</label>
 					<div class="col-sm-4">
-						<select>
-							<option class="form-control" ng-model="poem.category">Romantic</option>
+						<select ng-model="poem.category">
+							<option class="form-control">Romantic</option>
 							<option class="form-control">Resistance</option>
 							<option class="form-control">Affection</option>
 							<option class="form-control">Poetry</option>
@@ -52,11 +52,23 @@
 					</div>
 				</div>
 			</form>	
+
+
+			<table class="table">
+				<thead>
+					<tr>
+						<td>NAME POEM</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="po in listPoem">
+						<td><b>{{po.title}}</b></td>
+						<td class="col-sm-1"><a href="add.html" style="color:blue" ng-click="clickDetail(po.id)">detail</a></td>
+						<td class="col-sm-1"><a href="" style="color:red;" ng-click="clickDelete(po.id)">delete</a></td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
-		{{poem.title}}<br>
-		{{poem.author}}<br>
-		{{poem.content}}<nr>
-		{{poem.category}}<nr>
 	</div>
 </body>
 </html>
