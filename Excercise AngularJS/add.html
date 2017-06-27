@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head >
+	<title>Add Poem</title>
+	<meta charset="utf-8"/>
+ 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+ 	<script type="text/javascript" src="./js/angular/angular.js"></script>
+  	<script type="text/javascript" src="./js/app.js"></script>
+</head>
+<body ng-app="myApp">
+	<div class="container" ng-controller="myController">
+		<div class="panel-body">
+			<form class="form-horizontal" action="#">
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Title</label>
+					<div class="col-sm-4">
+						<input type="text" class="form-control" ng-model="poem.title" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Author</label>
+					<div class="col-sm-4">
+						<input type="text" class="form-control" ng-model="poem.author" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Category</label>
+					<div class="col-sm-4">
+						<select>
+							<option class="form-control" ng-model="poem.category">Romantic</option>
+							<option class="form-control">Resistance</option>
+							<option class="form-control">Affection</option>
+							<option class="form-control">Poetry</option>
+							<option class="form-control">Fleer</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Content</label>
+					<div class="col-sm-4">
+						<textarea class="form-control" rows="10"  ng-model="poem.content"></textarea>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10 ">
+						<input type="submit" class="btn btn-success" value="Save">
+						<a href="index.html" class="btn btn-danger">Cancel</a>
+					</div>
+				</div>
+			</form>	
+		</div>
+		{{poem.title}}<br>
+		{{poem.author}}<br>
+		{{poem.content}}<nr>
+		{{poem.category}}<nr>
+	</div>
+</body>
+</html>

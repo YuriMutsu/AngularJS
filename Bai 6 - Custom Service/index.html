@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>My Service</title>
+	<script type="text/javascript" src="./angular.js"></script>
+	<script type="text/javascript" src="./app.js"></script>
+
+</head>
+<body ng-app="app">
+	<div ng-controller="myController">
+		Input <Input type="text" ng-model="input"/>
+		Output <Input type="text" ng-model="output"/>
+
+		<button ng-click="toLower(input)">ToLower</button>
+
+	</div>
+
+	<div ng-controller="userController">
+		Name <Input type="text" ng-model="name"/><br>
+		Address <Input type="text" ng-model="address"/><br>
+		Age <Input type="number" ng-model="age"/><br>
+		<button ng-click="createUser(name,address,age)">Create User</button>
+		<table>
+			<thead>
+				<tr>
+					<td>Name</td>
+					<td>Address</td>
+					<td>Age</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="u in users">
+					<td>{{u.name}}</td>
+					<td>{{u.address}}</td>
+					<td>{{u.age}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
