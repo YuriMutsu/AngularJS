@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search</title>
+    <meta charset="utf-8"/>
+    <!-- Angular Material style sheet -->
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+
+    <!-- Angular Material requires Angular.js Libraries -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+
+    <!-- Angular Material Library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+
+    <script type="text/javascript" src="js/app.js"></script>
+
+</head>
+<body ng-app="myApp" ng-cloak>
+<div ng-controller="searchController">
+    <md-content layout="row" layout-align="space-around" layout-padding="layout-padding" ng-cloak="ng-cloak">
+        <md-card flex="flex" flex-gt-sm="50" flex-gt-md="43">
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h2><span>Search</span></h2>
+                </div>
+            </md-toolbar>
+            <div>
+                <form ng-submit="submitSearch()" name="Form">
+                    <div>
+                        <md-input-container class="md-block">
+                            <input mdInput placeholder="Term">
+                        </md-input-container>
+                    </div>
+
+                    <div>
+                        <div>
+                            <md-input-container class="md-block">
+                                <label>Criteria</label>
+                                <md-select ng-model="criteria">
+                                    <md-option ng-repeat="se in selection" value="{{se.value}}">
+                                        {{se.value}}
+                                    </md-option>
+                                </md-select>
+                            </md-input-container>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div>
+                            <md-button class="md-raised md-primary">Search</md-button>
+                        </div>
+                    </div>
+                </form>
+               <!-- ng-hide="hidenTable" -->
+                <table >
+                    <thead>
+                    <tr>
+                        <td>Title</td>
+                        <td>Author</td>
+                        <td>Category</td>
+                        <td>Content</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="po in listPoem">
+                        <td>{{po.title}}</td>
+                        <td>{{po.author}}</td>
+                        <td>{{po.category}}</td>
+                        <td>{{po.content}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </md-card>
+    </md-content>
+</div>
+</body>
+</html>
