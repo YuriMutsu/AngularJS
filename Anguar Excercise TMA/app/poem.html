@@ -23,17 +23,22 @@
 <div ng-controller="myController">
     <md-content layout="row" layout-align="space-around" layout-padding="layout-padding" ng-cloak="ng-cloak">
         <md-card flex="flex" flex-gt-sm="50" flex-gt-md="43">
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h2><span>List</span></h2>
+                </div>
+            </md-toolbar>
             <div>
                 <table >
                     <tbody>
                         <tr ng-repeat="po in listPoem">
                             <td><b>{{po._source.title}}</b></td>
-                            <td><a href="add.html" style="color:blue" ng-click="clickDetail(po.id)">detail</a></td>
-                            <td><a href="" style="color:red;" ng-click="clickDelete(po.id)">delete</a></td>
+                            <td><a href="" style="color:blue" ng-click="clickDetail(po._id)">detail</a></td>
+                            <td><a href="" style="color:red;" ng-click="clickDelete(po._id)">delete</a></td>
                         </tr>
                     </tbody>
                 </table>
-                <md-button class="md-primary" ng-href="{{pageAdd}}">Add</md-button>
+                <md-button class="md-primary" ng-click="showPageAdd($event)">Add</md-button>
             </div>
         </md-card>
     </md-content>

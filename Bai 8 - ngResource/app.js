@@ -24,7 +24,7 @@ app.factory('myService', ['$http', '$q', function($http, $q) {
             },
 
             addNewPoem : function () {
-
+            	
             },
 
             updatePoem : function () {
@@ -57,5 +57,6 @@ app.controller('myController', ['$scope', 'myService', function($scope, myServic
             }
         );
     }
+
 
 }]);
