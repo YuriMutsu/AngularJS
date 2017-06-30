@@ -39,16 +39,8 @@
             </div>
 
             <div>
-                <md-button ng-click="submitAdd(poem, listPoem)">{{poem.title ? 'Add' : 'Update'}}</md-button>
+                <md-button ng-click="submitAdd(poem, listPoem)">Add</md-button>
             </div>
         </form>
-
-        {{poem.title}}
-        <div ng-if="status" id="status">
-            <b layout="row" layout-align="center center" class="md-padding">
-                {{status}}
-            </b>
-        </div>
-
     </md-dialog>
 </div>

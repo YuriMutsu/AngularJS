@@ -40,6 +40,55 @@
                 </table>
                 <md-button class="md-primary" ng-click="showPageAdd($event)">Add</md-button>
             </div>
+
+            <!-- Infomation -->
+
+            <div ng-hide="hideDetail">
+                <md-toolbar>
+                    <div class="md-toolbar-tools">
+                        <h2><span>Infomation</span></h2>
+                    </div>
+                </md-toolbar>
+
+                <form ng-submit="submitAdd()" name="myForm">
+                    <div>
+                        <md-input-container class="md-block">
+                            <input mdInput placeholder="Title" ng-model="poem.title" ng-minlength="2" ng-maxlength="32" name="uname">
+                        </md-input-container>
+
+                    </div>
+                    <div>
+                        <md-input-container class="md-block" >
+                            <input mdInput placeholder="Author" ng-model="poem.author" ng-minlength="6" ng-maxlength="32" required>
+                        </md-input-container>
+                    </div>
+
+                    <div>
+                        <md-input-container class="md-block">
+                            <label>Category</label>
+                            <md-select ng-model="poem.category">
+                                <md-option ng-repeat="ca in listCategory" value="{{ca.value}}">
+                                    {{ca.value}}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+                    </div>
+
+                    <div>
+                        <md-input-container class="md-block">
+                            <label>Content</label>
+                            <textarea ng-model="poem.content" md-maxlength="1000" rows="10" md-select-on-focus></textarea>
+                        </md-input-container>
+
+                    </div>
+
+                    <div>
+                        <md-button ng-click="updatePoem(poem)">Update</md-button>
+                        <md-button ng-click="clickHide()">Hide</md-button>
+                    </div>
+                </form>
+            </div>
+
         </md-card>
     </md-content>
 </div>

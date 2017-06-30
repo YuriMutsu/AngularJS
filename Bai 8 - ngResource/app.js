@@ -7,7 +7,7 @@ var app = angular.module('app', []);
 
 app.factory('myService', ['$http', '$q', function($http, $q) {
         var REST_SERVICE_URI = 'http://localhost:9200/list/poem/_search';
-
+		//var REST_SERVICE_URI = 'http://localhost:8080/Spring4MVCAngularJSExample/user/';
         var factory = {
             fetchAllPoems : function () {
                 var deferred = $q.defer();

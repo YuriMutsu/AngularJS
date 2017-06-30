@@ -9,10 +9,10 @@
             fetchAllPoems : function () {
                 var deferred = $q.defer();
                 $http.get(REST_SERVICE_URI).then(
-                    function (reponse) {
-                        deferred.resolve(reponse.data);
+                    function (response) {
+                        deferred.resolve(response.data);
                     },
-                    function (errReponse) {
+                    function (errResponse) {
                         console.error('Error while fetching Poems');
                         deferred.reject(errResponse);
                     }
@@ -22,11 +22,20 @@
 
             addNewPoem : function (poem, list) {
                 var deferred = $q.defer();
-                $http.post(REST_URI+(list.length+1), poem).then(
-                    function (reponse) {
-                        deferred.resolve(reponse.data);
+                if (list == ""){
+                    list.length = 0;
+                }
+                var max = 0;
+                for (var i=0;i<list.length;i++){
+                    if (parseInt(list[i]._id) > max )
+                        max = parseInt(list[i]._id);
+                }
+
+                $http.post(REST_URI+(max+1), poem).then(
+                    function (response) {
+                        deferred.resolve(response.data);
                     },
-                    function (errReponse) {
+                    function (errResponse) {
                         console.error('Error while fetching Poems');
                         deferred.reject(errResponse);
                     }
@@ -34,8 +43,18 @@
                 return deferred.promise;
             },
 
-            updatePoem : function () {
-
+            updatePoem : function (poem, id) {
+                var deferred = $q.defer();
+                $http.put(REST_URI+id, poem).then(
+                    function (response) {
+                        deferred.resolve(response.data);
+                    },
+                    function (errResponse) {
+                        console.error('Error while fetching Poems');
+                        deferred.reject(errResponse);
+                    }
+                );
+                return deferred.promise;
             },
 
             deletePoem : function (id) {
@@ -44,7 +63,7 @@
                     function (reponse) {
                         deferred.resolve(reponse.data);
                     },
-                    function (errReponse) {
+                    function (errResponse) {
                         console.error('Error while fetching Poems');
                         deferred.reject(errResponse);
                     }
@@ -65,7 +84,7 @@
 
         $scope.customFullscreen = false;
 
-        $scope.poem = {id: '', title: '', author: '', category: 'Romantic', content: ''};
+        $scope.poem = {title: '', author: '', category: 'Romantic', content: ''};
 
         $scope.clickPoem = function () {
             $scope.view = 'poem.html';
@@ -103,7 +122,6 @@
                 clickOutsideToClose:true
             }).then(
                 function (answer) {
-                    $scope.status = 'You said the information was "' + answer + '".';
                 },
                 function() {
                     $scope.status = 'You cancelled the dialog.';
@@ -122,47 +140,70 @@
             };
 
             $scope.answer = function(answer) {
-                $mdDialog.hide(answer);
+
             };
         }
 
-        $scope.id = 1;
+        $scope.hideDetail = true;
+        var position = -1;
 
         $scope.clickDetail = function (id) {
-            for (var i = 0;i<$scope.listPoem.length; i++){
-                if (i == id){
-                    $scope.poem.title = i;
-                }
+            if (position != id){
+                $scope.hideDetail = false;
+                position = id;
+            }else{
+                $scope.hideDetail = !$scope.hideDetail;
             }
 
-            $mdDialog.show({
-                controller: DialogController,
-                templateUrl: 'add.html',
-                parent: angular.element(document.body),
-                clickOutsideToClose:true,
-            }).then(
-                function (answer) {
-                    $scope.status = 'You said the information was "' + answer + '".';
-                    alert($scope.poem.title);
-                },
-                function() {
-                    $scope.status = 'You cancelled the dialog.';
+            for (var i =0 ; i<$scope.listPoem.length;i++){
+                if (id == $scope.listPoem[i]._id){
+                    $scope.poem.title = $scope.listPoem[i]._source.title;
+                    $scope.poem.author = $scope.listPoem[i]._source.author;
+                    $scope.poem.category = $scope.listPoem[i]._source.category;
+                    $scope.poem.content = $scope.listPoem[i]._source.content;
+                }
+            }
+        };
+
+        $scope.updatePoem = function (poem) {
+            myService.updatePoem(poem, position).then(
+                function () {
                     fetchAllPoems();
+                    alert("Update Complete!");
+                },
+                function (errResponse) {
+                    console.error("ERROR while UPDATE POEM");
                 }
             );
+        };
 
+        $scope.clickHide = function () {
+            $scope.hideDetail = true;
         };
 
         $scope.clickDelete = function (id) {
-            myService.deletePoem(id).then(
-                function () {
-                    fetchAllPoems();
-                    alert("Deleted");
-                },
-                function (errReponse) {
-                    console.error('Error while fetching Poems');
-                }
-            );
+            var confirm = $mdDialog.confirm()
+                .title('Would you like to delete your poem')
+                .ariaLabel('Lucky day')
+                .ok('YES')
+                .cancel('I think again');
+
+            $mdDialog.show(confirm).then(function() {
+                myService.deletePoem(id).then(
+                    function () {
+                        fetchAllPoems();
+                    },
+                    function (errReponse) {
+                        console.error('Error while fetching Poems');
+                        fetchAllPoems();
+                    }
+                );
+            }, function() {
+                $scope.status = 'You decided to keep your debt.';
+            });
+
+
+
         };
 
         $scope.submitAdd = function (poem, list) {
@@ -180,7 +221,7 @@
     }]);
 
     // SEARCH CONTROLLER
-    app.controller('searchController', ['$scope', 'myService', function ($scope, myService) {
+    app.controller('searchController', ['$scope',  '$mdDialog', 'myService', function ($scope, $mdDialog, myService) {
         $scope.poem = {id: '', title: '', author: '', category: 'Romantic', content: ''};
         $scope.hidenTable = true;
 
@@ -209,6 +250,7 @@
         });
 
         $scope.submitSearch = function () {
+
             for (var i = 0; i < $scope.listPoem.length; i++) {
                 if ($scope.term != null && $scope.term != "") {
                     if ($scope.criteria == "Title") {
@@ -229,6 +271,15 @@
                         }
                     }
                     $scope.hide = false;
+                }else{
+                    $mdDialog.show(
+                        $mdDialog.alert()
+                            .parent(angular.element(document.querySelector('#popupContainer')))
+                            .clickOutsideToClose(true)
+                            .title('Term is empty')
+                            .textContent('You should not leave Term blank')
+                            .ok('Retry')
+                    );
                 }
             }
         };
