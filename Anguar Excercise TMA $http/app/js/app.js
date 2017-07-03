@@ -11,7 +11,23 @@
 
         var REST_LIST_SONG_URI = 'http://localhost:9200/list/song/_search';
         var REST_SONG_URI = 'http://localhost:9200/list/song/';
+
+        var REST_LIST_ALL_URI = "http://localhost:9200/list/_search";
+
         var factory = {
+            fetchAll: function () {
+                var deferred = $q.defer();
+                $http.get(REST_LIST_ALL_URI).then(
+                    function (response) {
+                        deferred.resolve(response.data);
+                    },
+                    function (errResponse) {
+                        console.error('Error while fetching Poems');
+                        deferred.reject(errResponse);
+                    }
+                );
+                return deferred.promise;
+            },
             fetchAllPoems: function () {
                 var deferred = $q.defer();
                 $http.get(REST_LIST_POEM_URI).then(
@@ -214,11 +230,8 @@
 
     app.controller('myController', ['$scope', '$mdDialog', 'myService', function ($scope, $mdDialog, myService) {
 
-        $scope.pageAdd = 'add.html';
-        $scope.pagePoem = 'poem.html';
         $scope.pageSearch = 'search.html';
         $scope.view = 'poem.html';
-
         $scope.select = "poem";
 
         $scope.customFullscreen = false;
@@ -273,50 +286,59 @@
             return $scope.listPoem;
         }
 
+        fetchAll();
+        function fetchAll() {
+            myService.fetchAll()
+                .then(
+                    function (d) {
+                        $scope.listAll = d.hits.hits;
+                    },
+                    function (errResponse) {
+                        console.error('Error while fetching Poems');
+                    }
+                );
+            return $scope.listPoem;
+        }
+
         $scope.listPoem = fetchAllPoems();
+
+        function click(str){
+            $scope.view = 'poem.html';
+            $scope.hideDetail = true;
+            $scope.hideAdd = true;
+            $scope.select = str;
+            if (str == "poem"){
+                $scope.listPoem = fetchAllPoems();
+                $scope.listCategory = ('Romantic Resistance Affection Poetry Fleer').split(' ').map(function (categoly) {
+                    return {value: categoly};
+                });
+            }else if (str == "song"){
+                $scope.listPoem = fetchAllSongs();
+                $scope.listCategory = ('Pop Rock Jazz Blues R&B/Soul HipHop Country Dance').split(' ').map(function (categoly) {
+                    return {value: categoly};
+                });
+            }else{
+                $scope.listPoem = fetchAllStories();
+                $scope.listCategory = ('Adventure Legend').split(' ').map(function (categoly) {
+                    return {value: categoly};
+                });
+            }
+        }
 
         $scope.listCategory = ('Romantic Resistance Affection Poetry Fleer').split(' ').map(function (categoly) {
             return {value: categoly};
         });
 
         $scope.clickPoem = function () {
-            $scope.view = 'poem.html';
-            $scope.select.select = "poem";
-            $scope.listPoem = fetchAllPoems();
-
-            $scope.hideDetail = true;
-            $scope.listCategory = ('Romantic Resistance Affection Poetry Fleer').split(' ').map(function (categoly) {
-                return {value: categoly};
-            });
+            click("poem");
         };
 
         $scope.clickSong = function () {
-            $scope.view = 'poem.html';
-            $scope.select = "song";
-
-            fetchAllSongs();
-
-            $scope.hideDetail = true;
-            $scope.listCategory = ('Pop Rock Jazz Blues R&B/Soul HipHop Country Dance').split(' ').map(function (categoly) {
-                return {value: categoly};
-            });
-
+            click("song");
         };
 
         $scope.clickStory = function () {
-            $scope.view = 'poem.html';
-            $scope.select = "story";
-
-            fetchAllStories();
-
-            $scope.hideDetail = true;
-            $scope.listCategory = ('Adventure Legend').split(' ').map(function (categoly) {
-                return {value: categoly};
-            });
-        };
-
-        $scope.clickSearch = function () {
-            $scope.view = 'search.html';
+            click("story");
         };
 
         $scope.showPageAdd = function () {
@@ -472,121 +494,60 @@
 
         };
         // ================== END CRUD ======================= //
-    }]);
 
-    // SEARCH CONTROLLER
-    app.controller('searchController', ['$scope', '$mdDialog', 'myService', function ($scope, $mdDialog, myService) {
-        $scope.poem = {id: '', title: '', author: '', category: 'Romantic', content: ''};
+
+        // ================== SEARCH ======================= //
+
+        $scope.clickSearch = function () {
+            $scope.hideSearch = false;
+            $scope.view = $scope.pageSearch;
+
+            fetchAll;
+        };
+
         $scope.hidenTable = true;
-
         $scope.term = '';
         $scope.criteria = '';
-
-        fetchAllPoems();
-        function fetchAllPoems() {
-            myService.fetchAllPoems()
-                .then(
-                    function (d) {
-                        $scope.listPoem = d.hits.hits;
-                    },
-                    function (errResponse) {
-                        console.error('Error while fetching Users');
-                    }
-                );
-            return $scope.listPoem;
-        }
-
-        fetchAllStories();
-        function fetchAllStories() {
-            myService.fetchAllStories()
-                .then(
-                    function (d) {
-                        $scope.listPoem = d.hits.hits;
-                    },
-                    function (errResponse) {
-                        console.error('Error while fetching Poems');
-                    }
-                );
-            return $scope.listPoem;
-        }
-
-        fetchAllSongs();
-        function fetchAllSongs() {
-            myService.fetchAllSongs()
-                .then(
-                    function (d) {
-                        $scope.listPoem = d.hits.hits;
-                    },
-                    function (errResponse) {
-                        console.error('Error while fetching Poems');
-                    }
-                );
-            return $scope.listPoem;
-        }
-
-        $scope.hide = true;
-        $scope.list = [];
 
         $scope.selection = ('Title Author Category Content').split(' ').map(function (select) {
             return {value: select};
         });
 
-        $scope.selectType = ('Poem Story Song').split(' ').map(function (select) {
-            return {value: select};
-        });
-
-        $scope.listPoem = fetchAllPoems();
-
-        $scope.select = function(){
-            if ($scope.type == "Poem"){
-                $scope.listPoem = fetchAllPoems();
-            }else if ($scope.type == "Poem"){
-                $scope.listPoem = fetchAllSongs();
+        $scope.submitSearch = function () {
+            $scope.list = [];
+            if ($scope.term != null && $scope.term != ""){
+                for (var i=0;i<$scope.listAll.length;i++){
+                    if ($scope.criteria == "Title") {
+                        if ($scope.listAll[i]._source.title.toUpperCase().search($scope.term.toUpperCase()) > -1) {
+                            $scope.list.push($scope.listAll[i]);
+                        }
+                    } else if ($scope.criteria == "Author") {
+                        if ($scope.listAll[i]._source.author.toUpperCase().search($scope.term.toUpperCase()) > -1) {
+                            $scope.list.push($scope.listAll[i]);
+                        }
+                    } else if ($scope.criteria == "Category") {
+                        if ($scope.listAll[i]._source.category.toUpperCase().search($scope.term.toUpperCase()) > -1) {
+                            $scope.list.push($scope.listAll[i]);
+                        }
+                    } else {
+                        if ($scope.listAll[i]._source.content.toUpperCase().search($scope.term.toUpperCase()) > -1) {
+                            $scope.list.push($scope.listAll[i]);
+                        }
+                    }
+                }
+                $scope.hidenTable = false;
             }else{
-                $scope.listPoem = fetchAllStories();
+                $mdDialog.show(
+                    $mdDialog.alert()
+                        .parent(angular.element(document.querySelector('#popupContainer')))
+                        .clickOutsideToClose(true)
+                        .title('Term is empty')
+                        .textContent('You should not leave Term blank')
+                        .ok('Retry')
+                );
             }
         }
-
-        $scope.submitSearch = function () {
-            for (var i = 0; i < $scope.listPoem.length; i++) {
-                if ($scope.term != null && $scope.term != "") {
-                    if ($scope.type == "Poem"){
-                        if ($scope.criteria == "Title") {
-                            alert($scope.listPoem.length);
-                            if ($scope.listPoem[i]._source.title.toUpperCase().search($scope.term.toUpperCase()) > -1) {
-                                $scope.list.push($scope.listPoem[i]);
-                            }
-                        } else if ($scope.criteria == "Author") {
-                            if ($scope.listPoem[i]._source.author.toUpperCase().search($scope.term.toUpperCase()) > -1) {
-                                $scope.list.push($scope.listPoem[i]);
-                            }
-                        } else if ($scope.criteria == "Category") {
-                            if ($scope.listPoem[i]._source.category.toUpperCase().search($scope.term.toUpperCase()) > -1) {
-                                $scope.list.push($scope.listPoem[i]);
-                            }
-                        } else {
-                            if ($scope.listPoem[i]._source.content.toUpperCase().search($scope.term.toUpperCase()) > -1) {
-                                $scope.list.push($scope.listPoem[i]);
-                            }
-                        }
-                    }else if ($scope.type == "Song"){
-
-                    }else{
-
-                    }
-
-                    $scope.hide = false;
-                } else {
-                    $mdDialog.show(
-                        $mdDialog.alert()
-                            .parent(angular.element(document.querySelector('#popupContainer')))
-                            .clickOutsideToClose(true)
-                            .title('Term is empty')
-                            .textContent('You should not leave Term blank')
-                            .ok('Retry')
-                    );
-                }
-            }
-        };
-    }])
+    }]);
 })()
+
+
