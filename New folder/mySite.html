@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="description" content="Angular Material: Containers with the Layout API">
+    <link rel="stylesheet" href="myStyle/angular-material.min.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+</head>
+
+<body>
+    <div ng-app="starterApp" layout="column" ng-controller="myController" layout-fill>
+        <!-- Container #1 (see wireframe) -->
+         <md-toolbar>
+            <div class="md-toolbar-tools" layout="row" layout-align="start center">
+                <div layout-fill layout="row" layout-align="start center">
+                    <md-button ng-click="toggleSidenav()" class="md-icon-button">
+                        <md-icon aria-label="Menu" class="material-icons">menu</md-icon>
+                    </md-button>
+                    <h3>{{MainTitle}}</h3>
+                </div>
+
+                <md-input-container layout="row" layout-align="center center">
+                    <label ng-style="{'color':'white'}">Search</label>
+                    <input ng-style="{'color':'white'}" ng-model="search">
+                </md-input-container>
+            </div>
+        </md-toolbar>
+
+        <!-- Container #2 -->
+        <md-content layout="row" flex>
+            <!-- Container #3 -->
+            <md-sidenav flex=15 md-component-id="left" class="md-sidenav-left" md-is-locked-open="$mdMedia('gt-sm')" flex md-theme="dark-grey">
+                <md-list layout-fill layout="column" layout-align="center stretch">
+                    <!-- List item-->
+                    <md-list-item flex=33 ng-repeat="i in menuItems" class="pointer">
+                        <md-button layout-fill ng-click="onMenuItemClicked(this, i)" layout-align="center center">
+                            <div layout="column" layout-align="center center">
+                                <img ng-src="ico/{{i}}.png" width="48px" height="48px"></img>
+                                <h2 ng-style="{'color':'white'}">{{i}}</h2>
+                            </div>
+                        </md-button>
+                    </md-list-item>
+                </md-list>
+            </md-sidenav>
+
+            <!-- Container #4 -->
+            <!-- <md-content class="my-padding" layout-fill layout-padding layout="column" layout-align="center center" id="content">
+
+                <md-card layout-fill md-whiteframe="15" layout-wrap ng-hide=addNew>
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Card with image</span>
+                            <span class="md-subhead">Extra Large</span>
+                        </md-card-title-text>
+                    </md-card-title>
+                    <md-card-content layout="row" layout-align="space-between">
+                        <md-list layout-align="space-around stretch">
+                            <md-list-item ng-repeat="u in users">
+                                {{u.name}}
+                                <md-divider ng-if="!$last"></md-divider>
+                            </md-list-item>
+                        </md-list>
+                        <md-card-actions layout="column">
+                            <md-button ng-click="onAddNewBtnClicked()" class="md-fab">
+                                <md-icon class="material-icons">add</md-icon>
+                            </md-button>
+                        </md-card-actions>
+                    </md-card-content>
+                </md-card>
+
+
+                <md-card layout-fill md-whiteframe="15" layout-wrap ng-hide=!addNew>
+                    <md-card-title layout-fill layout="column" layout-align="start start">
+                        <md-card-title-text>
+                            <span class="md-headline">ADD NEW {{MainTitle | uppercase}}</span>
+                            <span class="md-subhead">Extra Large</span>
+                        </md-card-title-text>
+                    </md-card-title>
+                    <md-card-content layout="column">
+
+                        <form>
+                            <md-input-container layout="row" layout-align="center center">
+                                <label>Title</label>
+                                <input required ng-model="title">
+                            </md-input-container>
+                            <div layout="row">
+                                <md-input-container flex=50 layout="row" layout-align="center center">
+                                    <label>Author</label>
+                                    <input required ng-model="author">
+                                </md-input-container>
+                                <md-input-container flex=40 layout="row">
+                                    <label>Category</label>
+                                    <md-select required layout-fill ng-model="genre">
+                                        <md-option ng-repeat="g in genres">
+                                            {{g}}
+                                        </md-option>
+                                    </md-select>
+                                </md-input-container>
+                            </div>
+                            <md-input-container layout="column">
+                                <label>Content</label>
+                                <textarea rows="10" md-select-on-focus required ng-model="content"></textarea>
+                            </md-input-container>
+
+
+                            <md-card-actions layout-margin layout="column" layout-align="center end">
+                                <md-button ng-click="onAddNewBtnClicked()" class="md-fab">
+                                    <md-icon class="material-icons">done</md-icon>
+                                </md-button>
+                            </md-card-actions>
+                        </form>
+
+                    </md-card-content>
+                </md-card>
+            </md-content> -->
+        </md-content>
+    </div>
+
+
+
+
+    <script src="myJS/angular.min.js"></script>
+    <script src="myJS/angular-animate.min.js"></script>
+    <script src="myJS/angular-aria.min.js"></script>
+    <script src="myJS/angular-material.min.js"></script>
+    <script src="myJS/angular-resource.min.js"></script>
+
+    <script>
+        var app = angular.module('starterApp', ['ngMaterial', 'ngResource', 'ngAnimate']);
+        app.controller('myController', function($scope, $mdSidenav, Service, $mdToast) {
+            $scope.title;
+            $scope.author;
+            $scope.genre;
+            $scope.content;
+
+            $scope.MainTitle = "Poem";
+            $scope.addNew = false;
+            $scope.menuItems = makeMenuItem();
+            $scope.genres = createCategory();
+            $scope.toggleSidenav = function() {
+                return $mdSidenav('left').toggle();
+            };
+
+            $scope.showSimpleToast = function(c) {
+                $mdToast.show(
+                    $mdToast.simple()
+                    .textContent(c)
+                    .position("bottom right")
+                    .hideDelay(3000)
+                );
+            };
+
+            function makeMenuItem() {
+                var list = [];
+                list.push("Poem");
+                list.push("Story");
+                list.push("Song");
+                return list;
+            };
+
+            function createCategory() {
+                if ($scope.MainTitle == $scope.menuItems[0]) {
+                    var list = ["Narrative poetry", "Epic poetry", "Dramatic poetry", "Satirical poetry", "Light poetry", "Lyric poetry", "Elegy", "Verse fable", "Prose poetry", "Speculative poetry"];
+                    return list;
+                }
+                if ($scope.MainTitle == $scope.menuItems[1]) {
+                    var list = ["Absurdist", "Action", "Adventure", "Comedy", "Crime", "Drama", "Fantasy", "Historical", "Horror", "Magical realism", "Mystery", "Paranoid", "Philosophical", "Political", "Romance", "Saga", "Satire", "Science fiction", "Slice of Life", "Speculative", "Thriller", "Urban", "Western"];
+                    return list;
+
+                }
+                if ($scope.MainTitle == $scope.menuItems[2]) {
+                    var list = ["Narrative poetry", "Epic poetry", "Dramatic poetry", "Satirical poetry", "Light poetry", "Lyric poetry", "Elegy", "Verse fable", "Prose poetry", "Speculative poetry"];
+                    return list;
+                }
+
+            };
+
+            $scope.users = Service.query();
+
+            $scope.onMenuItemClicked = function(mdS, i) {
+                mdS.toggleSidenav();
+                $scope.MainTitle = i;
+                $scope.genres = createCategory();
+            };
+
+
+            $scope.onAddNewBtnClicked = function() {
+
+                if ($scope.addNew) {
+                    Service.save({
+                        title: $scope.title,
+                        author: $scope.author,
+                        genre: $scope.genre,
+                        content: $scope.content
+                    });
+                    $scope.showSimpleToast($scope.title);
+                }
+
+                $scope.addNew = !$scope.addNew;
+
+            };
+
+
+
+        });
+
+        app.factory('Service', function($resource) {
+            return $resource('http://127.0.0.1/:user', {
+                user: "@user"
+            });
+        });
+
+
+        app.config(function($mdThemingProvider) {
+            $mdThemingProvider.theme('dark-grey').backgroundPalette('grey').dark();
+        });
+
+    </script>
+
+    <style>
+        .my-padding {
+            padding: 50px;
+        }
+        
+        .pointer {
+            cursor: pointer;
+        }
+        
+        .animate-enter,
+        .animate-leave {
+            -webkit-transition: 300ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+            -moz-transition: 300ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+            -ms-transition: 300ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+            -o-transition: 300ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+            transition: 300ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+        }
+        
+        .animate-enter {
+            left: 100%;
+        }
+        
+        .animate-enter.animate-enter-active {
+            left: 0;
+        }
+        
+        .animate-leave {
+            left: 0;
+        }
+        
+        .animate-leave.animate-leave-active {
+            left: -100%;
+        }
+
+    </style>
+
+</body>
+
+</html>

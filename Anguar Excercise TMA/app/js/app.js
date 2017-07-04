@@ -2,11 +2,18 @@
 
     var app = angular.module("myApp", ['ngMaterial', 'ngResource']);
 
+    app.config(function($mdThemingProvider) {
+        $mdThemingProvider.theme('dark-grey').backgroundPalette('blue').dark();
+    });
+
     app.factory('myService', ['$resource', function ($resource) {
         var factory = {
             fetchList: function (URI) {
-                alert("Load Data Called")
-                return $resource(URI).get({}, null);
+               // alert("Function FetchList Called");
+                return $resource(URI).get({}, function (data) {
+
+
+                });
             },
 
             addNew : function(URI, data, list){
@@ -15,22 +22,25 @@
                     if (parseInt(list[i]._id) > max) max = parseInt(list[i]._id);
                 }
                 return $resource(URI+(max+1)).save({id: (max+1), title : data.title, author: data.author, category: data.category, content: data.content},function(){
-
+                   // alert("Add Completed");
                 });
             },
             update : function (URI, dataId, data) {
                 return $resource(URI+dataId).save({id: dataId, title : data.title, author: data.author, category: data.category, content: data.content},function(){
+                   // alert("Update Completed");
                 });
             },
             delete: function(URI, dataId){
-                return $resource(URI+dataId).delete({id: dataId}, null);
+                return $resource(URI+dataId).delete({id: dataId}, function (data) {
+                   // alert("Delected");
+                });
             }
         };
 
         return factory;
     }]);
 
-    app.controller('myController', ['$scope', '$mdDialog', 'myService', '$resource', function ($scope, $mdDialog, myService, $resource) {
+    app.controller('myController', ['$scope', '$mdDialog', 'myService','$mdSidenav', function ($scope, $mdDialog, myService,$mdSidenav) {
 
         var REST_LIST_POEM_URI = 'http://localhost:9200/list/poem/_search';
         var REST_POEM_URI = 'http://localhost:9200/list/poem/';
@@ -45,111 +55,105 @@
 
         $scope.pageSearch = 'search.html';
         $scope.view = 'poem.html';
-        $scope.select = "poem";
 
+        $scope.menuItems = ["Poem", "Song", "Story"];
         $scope.customFullscreen = false;
         $scope.hideDetail = true;
+        $scope.hideList = false;
         var position = -1;
 
-        function loadData(URI){
-            $scope.ListData = myService.fetchList(URI);
-            $scope.view = 'poem.html';
-            $scope.hideDetail = true;
-            $scope.hideAdd = true;
-        }
-
-        loadData(REST_LIST_POEM_URI);
-        //HIDE
-        $scope.clickHide = function () {
-            $scope.hideDetail = true;
-        };
-
         $scope.hideAdd = true;
+        $scope.data = {id : '', title: '', author: '', category: 'Romantic', content: ''};
 
-        function click(str){
+        $scope.onMenuItemClicked = function(index) {
+            $scope.hideList = false;
             $scope.view = 'poem.html';
             $scope.hideDetail = true;
             $scope.hideAdd = true;
-            $scope.select = str;
-            if (str == "poem"){
-                $scope.ListData = myService.fetchList(REST_LIST_POEM_URI);
+            if (index == $scope.menuItems[0]){
+                $scope.item = index;
+                $scope.listData =   myService.fetchList(REST_LIST_POEM_URI);
                 $scope.listCategory = ('Romantic Resistance Affection Poetry Fleer').split(' ').map(function (categoly) {
                     return {value: categoly};
                 });
-            }else if (str == "song"){
-                $scope.ListData = myService.fetchList(REST_LIST_SONG_URI);
+            }else if (index == $scope.menuItems[1]){
+                $scope.item = index;
+                $scope.listData = myService.fetchList(REST_LIST_SONG_URI);
                 $scope.listCategory = ('Pop Rock Jazz Blues R&B/Soul HipHop Country Dance').split(' ').map(function (categoly) {
                     return {value: categoly};
                 });
             }else{
-                $scope.ListData = myService.fetchList(REST_LIST_STORY_URI);
+                $scope.item = index;
+                $scope.listData = myService.fetchList(REST_LIST_STORY_URI);
                 $scope.listCategory = ('Adventure Legend').split(' ').map(function (categoly) {
                     return {value: categoly};
                 });
             }
         }
 
-        $scope.listCategory = ('Romantic Resistance Affection Poetry Fleer').split(' ').map(function (categoly) {
-            return {value: categoly};
-        });
-
-        $scope.clickPoem = function () {
-            click("poem");
-        };
-
-        $scope.clickSong = function () {
-            click("song");
-        };
-
-        $scope.clickStory = function () {
-            click("story");
-        };
+        $scope.onMenuItemClicked("Poem");
 
         $scope.showPageAdd = function () {
-            $scope.data = {id: '', title: '', author: '', category: 'Romantic', content: ''};
+            $scope.data = {id : '', title: '', author: '', category: 'Romantic', content: ''};
             $scope.hideDetail = true;
             if ($scope.hideAdd == true) {
                 $scope.hideAdd = false;
             } else {
                 $scope.hideAdd = true;
             }
+            $scope.hideList = true;
         };
 
         $scope.clickDetail = function (id) {
+            $scope.hideList = true;
             $scope.hideAdd = true;
-
             if (position != id) {
                 $scope.hideDetail = false;
                 position = id;
             } else {
                 $scope.hideDetail = !$scope.hideDetail;
             }
-            for (var i = 0; i < $scope.ListData.hits.hits.length; i++) {
-                if (id == $scope.ListData.hits.hits[i]._id) {
-                    $scope.data.id = $scope.ListData.hits.hits[i]._source.id;
-                    $scope.data.title = $scope.ListData.hits.hits[i]._source.title;
-                    $scope.data.author = $scope.ListData.hits.hits[i]._source.author;
-                    $scope.data.category = $scope.ListData.hits.hits[i]._source.category;
-                    $scope.data.content = $scope.ListData.hits.hits[i]._source.content;
+
+            for (var i = 0; i < $scope.listData.hits.hits.length; i++) {
+                if (id == $scope.listData.hits.hits[i]._id) {
+                    $scope.data.id = $scope.listData.hits.hits[i]._source.id;
+                    $scope.data.title = $scope.listData.hits.hits[i]._source.title;
+                    $scope.data.author = $scope.listData.hits.hits[i]._source.author;
+                    $scope.data.category = $scope.listData.hits.hits[i]._source.category;
+                    $scope.data.content = $scope.listData.hits.hits[i]._source.content;
                 }
             }
         };
 
-        $scope.data = {id : '', title: '', author: '', category: 'Romantic', content: ''};
+        $scope.onClickItemList = function(id, ev){
+            var confirm = $mdDialog.confirm()
+                .title('Would you like to delete your debt?')
+                .textContent('All of the banks have agreed to forgive you your debts.')
+                .ariaLabel('Lucky day')
+                .targetEvent(ev)
+                .ok('Detail')
+                .cancel('Delete');
+
+            $mdDialog.show(confirm).then(function() {
+                $scope.clickDetail(id);
+            }, function() {
+                $scope.clickDelete(id);
+            });
+        }
+
         // ================== CRUD ======================= //
 
         // ========= UPDATE ========= //
         $scope.updatePoem = function (id, data) {
             if ($scope.select == "poem") {
                 myService.update(REST_POEM_URI, id, data );
-                loadData(REST_LIST_POEM_URI);
-                alert("Update Complete");
+                click("poem");
             } else if ($scope.select == "song") {
                 myService.update(REST_SONG_URI, id, data);
-                alert("Update Complete");
+                click("song");
             } else {
                 myService.update(REST_STORY_URI, id, data);
-                alert("Update Complete");
+                click("story");
             }
             $scope.hideDetail = true;
         };
@@ -163,40 +167,34 @@
 
             $mdDialog.show(confirm).then(
                 function () {
-                    if ($scope.select == "poem") {
+                    if ($scope.item == $scope.menuItems[0]) {
                         myService.delete(REST_POEM_URI, id);
-                        $scope.ListData = myService.fetchList(REST_LIST_POEM_URI);
-                    } else if ($scope.select == "song") {
+                    } else if ($scope.item == $scope.menuItems[1]) {
                         myService.delete(REST_SONG_URI, id);
-                        $scope.ListData = myService.fetchList(REST_LIST_SONG_URI);
                     } else {
                         myService.delete(REST_STORY_URI, id);
-                        $scope.ListData = myService.fetchList(REST_LIST_STORY_URI);
                     }
+                    // myService.fetchList(REST_LIST_POEM_URI);
+                    //click($scope.select);
                 },
                 function () {
 
                 }
-
             );
         };
 
         // ========= SUBMIT ADD ========= //
         $scope.submitAdd = function (data, list) {
-            if ($scope.select == "poem") {
+            if ($scope.item == $scope.menuItems[0]) {
                 myService.addNew(REST_POEM_URI, data, list);
-                loadData(REST_LIST_POEM_URI);
-                alert("Add New Poem Complete !");
-            } else if ($scope.select == "song") {
+            } else if ($scope.item == $scope.menuItems[1]) {
                 myService.addNew(REST_SONG_URI, data, list);
-                loadData(REST_LIST_SONG_URI);
-                alert("Add New Song Complete !");
             } else {
                 myService.addNew(REST_STORY_URI, data, list);
-                loadData(REST_LIST_STORY_URI);
-                alert("Add New Story Complete !");
             }
+
             $scope.hideAdd = true;
+            $scope.hideList = false;
         };
 
 
@@ -250,6 +248,11 @@
                         .ok('Retry')
                 );
             }
+        }
+
+        //Display
+        $scope.showToolbar = function(){
+            return $mdSidenav('left').toggle();
         }
     }]);
 })()
