@@ -17,7 +17,6 @@
     });
 
     app.controller('myController', ['$scope', '$mdDialog', 'myService','$mdSidenav', '$resource', function ($scope, $mdDialog, myService,$mdSidenav, $resource) {
-
         var REST_LIST_POEM_URI = 'http://localhost:9200/list/poem/_search';
         var REST_POEM_URI = 'http://localhost:9200/list/poem/';
 
@@ -139,7 +138,7 @@
             $scope.hideList = true;
         };
 
-        $scope.clickDetail = function (id) {
+        $scope.onClickDetail = function (id) {
             $scope.hideList = true;
             $scope.hideAdd = true;
             if (position != id) {
@@ -190,7 +189,7 @@
         };
 
         // ========= DELETE ========= //
-        $scope.clickDelete = function (id) {
+        $scope.onClickDelete = function (id) {
             var confirm = $mdDialog.confirm()
                 .title('Would you like to delete')
                 .ok('YES')

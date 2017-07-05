@@ -69,11 +69,23 @@
                         </md-toolbar>
                         <!-- List -->
                         <md-list ng-repeat="item in listData.hits.hits">
-                            <md-list-item ng-click="onClickItemList(item._id, $event)" class="md-2-line">
+                            <md-list-item class="md-2-line noright" >
                                 <div class="md-list-item-text" layout="column">
                                     <h3><b>{{item._source.title}}</b></h3>
                                     <h4>{{item._source.author}}</h4>
+
                                 </div>
+                                <md-card-actions layout="column">
+                                    <md-button ng-click="onClickDetail(item._id)" class="md-fab md-mini">
+                                        <md-icon class="material-icons">update</md-icon>
+                                    </md-button>
+                                </md-card-actions>
+                                <md-card-actions layout="column">
+                                    <md-button ng-click="onClickDelete(item._id)" class="md-fab md-mini">
+                                        <md-icon class="material-icons" style="color: greenyellow;">delete</md-icon>
+                                    </md-button>
+                                </md-card-actions>
+
                             </md-list-item>
                         </md-list>
 
