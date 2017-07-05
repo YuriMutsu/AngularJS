@@ -290,6 +290,18 @@
                         .textContent('You should not leave Term blank')
                         .ok('Retry')
                 );
+                return;
+            }
+            if ($scope.list ==""){
+                $scope.hidenTable = true;
+                $mdDialog.show(
+                    $mdDialog.alert()
+                        .parent(angular.element(document.querySelector('#popupContainer')))
+                        .clickOutsideToClose(true)
+                        .title('Notify')
+                        .textContent('No data found')
+                        .ok('Retry')
+                );
             }
         }
 
