@@ -1,6 +1,6 @@
 (function () {
 
-    var app = angular.module("myApp", ['ngMaterial', 'ngResource']);
+    var app = angular.module("myApp", ['ngMaterial', 'ngResource', 'ngMessages']);
 
     app.config(function($mdThemingProvider) {
         $mdThemingProvider.theme('dark-grey').backgroundPalette('blue').dark();
@@ -29,16 +29,11 @@
         var REST_LIST_ALL_URI = "http://localhost:9200/list/_search";
 
         $scope.pageSearch = 'search.html';
-        $scope.view = 'poem.html';
 
-        $scope.menuItems = ["Poem", "Song", "Story"];
+        $scope.menuItems = ["Poem", "Song", "Story", "Search"];
         $scope.customFullscreen = false;
-        $scope.hideDetail = true;
-        $scope.hideList = false;
-        var position = -1;
 
-        $scope.hideAdd = true;
-        $scope.data = {id : '', title: '', author: '', category: 'Romantic', content: ''};
+        $scope.data = {id : '', title: '', author: '', category: '', content: ''};
 
         function fetch(URI) {
             alert($scope.function + " completed");
@@ -101,9 +96,9 @@
 
         $scope.onMenuItemClicked = function(index) {
             $scope.hideList = false;
-            $scope.view = 'poem.html';
             $scope.hideDetail = true;
             $scope.hideAdd = true;
+            $scope.hideSearch = true;
             if (index == $scope.menuItems[0]){
                 $scope.item = index;
                 fetchData(REST_LIST_POEM_URI);
@@ -116,19 +111,25 @@
                 $scope.listCategory = ('Pop Rock Jazz Blues R&B/Soul HipHop Country Dance').split(' ').map(function (categoly) {
                     return {value: categoly};
                 });
-            }else{
+            }else if (index == $scope.menuItems[2]){
                 $scope.item = index;
                 fetchData(REST_LIST_STORY_URI);
                 $scope.listCategory = ('Adventure Legend').split(' ').map(function (categoly) {
                     return {value: categoly};
                 });
+            }else{
+                $scope.hideSearch = false;
+                $scope.hideList = true;
+                $scope.hideAdd = true;
+                $scope.hideDetail = true;
+                fetchData(REST_LIST_ALL_URI);
             }
         }
 
         $scope.onMenuItemClicked("Poem");
 
         $scope.showPageAdd = function () {
-            $scope.data = {id : '', title: '', author: '', category: 'Romantic', content: ''};
+            $scope.data = {id : '', title: '', author: '', category: '', content: ''};
             $scope.hideDetail = true;
             if ($scope.hideAdd == true) {
                 $scope.hideAdd = false;
@@ -141,12 +142,7 @@
         $scope.onClickDetail = function (id) {
             $scope.hideList = true;
             $scope.hideAdd = true;
-            if (position != id) {
-                $scope.hideDetail = false;
-                position = id;
-            } else {
-                $scope.hideDetail = !$scope.hideDetail;
-            }
+            $scope.hideDetail = false;
 
             for (var i = 0; i < $scope.listData.hits.hits.length; i++) {
                 if (id == $scope.listData.hits.hits[i]._id) {
@@ -159,20 +155,8 @@
             }
         };
 
-        $scope.onClickItemList = function(id, ev){
-            var confirm = $mdDialog.confirm()
-                .title('You want to choose ?')
-                .targetEvent(ev)
-                .ok('Detail')
-                .cancel('Delete');
-
-            $mdDialog.show(confirm).then(function() {
-                $scope.clickDetail(id);
-            }, function() {
-                $scope.clickDelete(id);
-            });
+        $scope.onClickItemList = function(){
         }
-
         // ================== CRUD ======================= //
 
         // ========= UPDATE ========= //
@@ -212,17 +196,48 @@
         };
 
         // ========= SUBMIT ADD ========= //
-        $scope.submitAdd = function (data, list) {
-            if ($scope.item == $scope.menuItems[0]) {
-                addNew(REST_POEM_URI, data, list);
-            } else if ($scope.item == $scope.menuItems[1]) {
-                addNew(REST_SONG_URI, data, list);
-            } else {
-                addNew(REST_STORY_URI, data, list);
+        function checkData(data, list){
+            if (data.title.length < 2 || data.title.length > 32){
+                return false;
+            }
+            if (data.author.length < 4 || data.author.length > 32){
+                return false;
             }
 
-            $scope.hideAdd = true;
-            $scope.hideList = false;
+            if (data.content.length < 5 || data.content.length > 3000){
+                return false;
+            }
+
+            for (var i=0;i<list.length;i++){
+                if (data.title.toUpperCase() == list[i]._source.title.toUpperCase()){
+                    if (data.author.toUpperCase() == list[i]._source.author.toUpperCase()){
+                        $scope.data = {id : '', title: '', author: '', category: '', content: ''};
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        $scope.submitAdd = function (data, list) {
+            if (checkData(data, list)){
+                if ($scope.item == $scope.menuItems[0]) {
+                    addNew(REST_POEM_URI, data, list);
+                } else if ($scope.item == $scope.menuItems[1]) {
+                    addNew(REST_SONG_URI, data, list);
+                } else {
+                    addNew(REST_STORY_URI, data, list);
+                }
+                $scope.hideAdd = true;
+                $scope.hideList = false;
+            }else{
+                var confirm = $mdDialog.confirm()
+                    .title('Invalid data or existing')
+                    .ok('Try again')
+
+                $mdDialog.show(confirm);
+            }
         };
 
 
