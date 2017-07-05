@@ -170,6 +170,7 @@
 
             }
             $scope.hideDetail = true;
+            $scope.hideList = false;
         };
 
         // ========= DELETE ========= //
