@@ -38,6 +38,7 @@
 			<option value="date">Date</option>
 			<option value="price">Price</option>
 		</select>
+		<input type="text" ng-model="search">
 		<input type="number" ng-model="row" class="form-control">
 			<table class="table">
 				<thead>					
@@ -51,11 +52,12 @@
 					</tr>
 				</thead>
 				
-				<tr ng-repeat="pro in products | orderBy : sortColumn:reverse | limitTo:row">
+				<tr ng-repeat="pro in products | orderBy : sortColumn:reverse | limitTo:row | filter:search">
 					<td>{{pro.name | uppercase}}</td>
 					<td>{{pro.date | date:"yyyy/MM/dd"}}</td>
 					<td>{{pro.price | number:0}}</td>
 				</tr>
+				{{search}}
 			</table>
 		</div>
 	</div>

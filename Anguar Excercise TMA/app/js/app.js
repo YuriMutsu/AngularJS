@@ -142,6 +142,8 @@
         $scope.onClickDetail = function (id) {
             $scope.hideList = true;
             $scope.hideAdd = true;
+            $scope.hideSearch = true;
+            $scope.hidenTable = true;
             $scope.hideDetail = false;
 
             for (var i = 0; i < $scope.listData.hits.hits.length; i++) {
@@ -161,9 +163,9 @@
 
         // ========= UPDATE ========= //
         $scope.updatePoem = function (id, data) {
-            if ($scope.select == "poem") {
+            if ($scope.item == "Poem") {
                 updateData(REST_POEM_URI, id, data);
-            } else if ($scope.select == "song") {
+            } else if ($scope.item == "Song") {
                 updateData(REST_SONG_URI, id, data);
             } else {
                 updateData(REST_STORY_URI, id, data);

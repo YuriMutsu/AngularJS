@@ -52,11 +52,10 @@
         </md-sidenav>
         <!-- CONTAINER ADD - UPDATE -->
         <md-content class="my-padding" layout-fill layout-padding layout="column" layout-align="center center"
-                    id="content">
+                    id="content" flex>
             <!-- CONTAINER ** -->
-            <md-card layout-fill md-whiteframe="15" layout-wrap>
-                <md-card-content layout="column" layout-align="space-between">
-
+            <md-card layout="column" layout-fill md-whiteframe="15">
+                <md-card-content layout-align="space-between">
                     <!-- TOOL BAR - LIST -->
                     <div ng-hide="hideList">
                         <md-toolbar>
@@ -192,7 +191,7 @@
                     </div>
 
                     <!-- Search -->
-                    <div ng-hide="hideSearch" layout="column" layout-fill>
+                    <div ng-hide="hideSearch">
                         <md-toolbar>
                             <div class="md-toolbar-tools">
                                 <h2><span>Search</span></h2>
@@ -217,31 +216,31 @@
                         </md-button>
 
                         <!-- ng-hide="hidenTable" -->
-                        <table ng-hide="hidenTable">
-                            <thead>
-                            <tr>
-                                <td>Title</td>
-                                <td>Author</td>
-                                <td>Category</td>
-                                <td>Content</td>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr ng-repeat="po in list">
-                                <td>{{po._source.title}}</td>
-                                <td>{{po._source.author}}</td>
-                                <td>{{po._source.category}}</td>
-                                <td>{{po._source.content}}</td>
-                            </tr>
-                            </tbody>
-                        </table>
+                        <md-list ng-repeat="po in list" ng-hide="hidenTable">
+                            <md-list-item class="md-2-line" ng-click="onClickDetail(po._source.id)">
+                                <div class="md-list-item-text" layout="column">
+                                    <h3><b>Title: {{po._source.title}}</b></h3>
+                                    <h4>Author: {{po._source.author}}</h4>
+                                </div>
 
+                                <!--<md-card-actions layout="column">-->
+                                    <!--<md-button ng-click="onClickDetail(item._id)" class="md-fab md-mini">-->
+                                        <!--<md-icon class="material-icons">update</md-icon>-->
+                                    <!--</md-button>-->
+                                <!--</md-card-actions>-->
+                                <!--<md-card-actions layout="column">-->
+                                    <!--<md-button ng-click="onClickDelete(item._id)" class="md-fab md-mini">-->
+                                        <!--<md-icon class="material-icons" style="color: greenyellow;">delete</md-icon>-->
+                                    <!--</md-button>-->
+                                <!--</md-card-actions>-->
+
+                            </md-list-item>
+                        </md-list>
                     </div>
-</div>
-</md-card-content>
-</md-card>
-</md-content>
-</md-content>
+                </md-card-content>
+            </md-card>
+        </md-content>
+    </md-content>
 </div>
 </body>
 </html>

@@ -20,6 +20,7 @@
 
 		$scope.reverse = false;
 
+		$scope.search="";
 		$scope.sortData = function(column){
 			if ($scope.sortColumn == column){
 				$scope.reverse = !$scope.reverse;
