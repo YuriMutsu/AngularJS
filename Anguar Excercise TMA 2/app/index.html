@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Angular Excercise</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Angular Material style sheet -->
+    <link rel="stylesheet" href="css/angular-material.min.css">
+    <!-- Angular Material requires Angular.js Libraries -->
+    <script src="js/angular/angular.min.js"></script>
+    <script src="js/angular/angular-animate.min.js"></script>
+    <script src="js/angular/angular-aria.min.js"></script>
+    <script src="js/angular/angular-resource.min.js"></script>
+    <script src="js/angular/angular-messages.min.js"></script>
+    <!-- Angular Material Library -->
+    <script src="js/angular/angular-material.min.js"></script>
+
+    <script type="text/javascript" src="js/app.js"></script>
+</head>
+<body ng-app='myApp'>
+<div ng-controller="myController" layout="column" layout-fill>
+    <!-- TOOL BAR -->
+    <md-toolbar>
+        <div class="md-toolbar-tools" layout="row" layout-align="start center">
+            <div layout-fill layout="row" layout-align="start center">
+                <md-button ng-click="showToolbar()" class="md-icon-button">
+                    <md-icon aria-label="Menu" class="material-icons">menu</md-icon>
+                </md-button>
+                <h2><span>Excercise AngularJS</span></h2>
+            </div>
+        </div>
+    </md-toolbar>
+
+    <!-- CONTAINER -->
+    <md-content layout="row" flex layout-fill>
+        <!-- CONTAINER   LIST (POEM - SONG - STORY)-->
+        <md-sidenav flex=15 md-component-id="left" class="md-sidenav-left"
+                    md-is-locked-open="$mdMedia('gt-sm')" flex md-theme="dark-grey">
+            <md-list layout-fill layout="column" layout-align="center stretch">
+                <!-- List item-->
+                <md-list-item flex=33 ng-repeat="i in menuItems">
+                    <md-button layout-fill ng-click="onMenuItemClicked(i)"
+                               layout-align="center center">
+                        <div layout="column" layout-align="center center">
+                            <img ng-src="ico/{{i}}.png" width="32px" height="32px"></img>
+                            <h2 ng-style="{'color':'white'}">{{i}}</h2>
+                        </div>
+                    </md-button>
+                </md-list-item>
+            </md-list>
+        </md-sidenav>
+        <!-- CONTAINER ADD - UPDATE -->
+        <md-content class="my-padding" layout-fill layout-padding layout="column" layout-align="center center"
+                    id="content">
+            <!-- CONTAINER ** -->
+            <md-card layout-fill md-whiteframe="15" layout-wrap>
+                <md-card-content layout="column" layout-align="space-between">
+
+                    <!-- TOOL BAR - LIST -->
+                    <div ng-hide="hideList">
+                        <md-toolbar>
+                            <div class="md-toolbar-tools" layout="row" layout-align="start center">
+                                <div layout-fill layout="row" layout-align="start center">
+                                    <h2>
+                                        <span>List {{item =="Poem" ? "Poems" : item =="Song" ? "Songs" : "Stories"}}</span>
+                                    </h2>
+                                </div>
+                            </div>
+                        </md-toolbar>
+                        <!-- List -->
+                        <md-list ng-repeat="item in listData.hits.hits">
+                            <md-list-item class="md-2-line" ng-click="onClickItemList()">
+                                <div class="md-list-item-text" layout="column">
+                                    <h3><b>{{item._source.title}}</b></h3>
+                                    <h4>{{item._source.author}}</h4>
+                                </div>
+
+                                <md-card-actions layout="column">
+                                    <md-button ng-click="onClickDetail(item._id)" class="md-fab md-mini">
+                                        <md-icon class="material-icons">update</md-icon>
+                                    </md-button>
+                                </md-card-actions>
+                                <md-card-actions layout="column">
+                                    <md-button ng-click="onClickDelete(item._id)" class="md-fab md-mini">
+                                        <md-icon class="material-icons" style="color: greenyellow;">delete</md-icon>
+                                    </md-button>
+                                </md-card-actions>
+
+                            </md-list-item>
+                        </md-list>
+
+                        <md-card-actions layout="column">
+                            <md-button ng-click="showPageAdd()" class="md-fab">
+                                <md-icon class="material-icons">add</md-icon>
+                            </md-button>
+                        </md-card-actions>
+                    </div>
+
+                    <!-- Update -->
+                    <div ng-hide="hideDetail" layout="column" layout-fill>
+                        <md-toolbar>
+                            <div class="md-toolbar-tools">
+                                <h2><span>Infomation</span></h2>
+                            </div>
+                        </md-toolbar>
+
+                        <md-input-container class="md-block">
+                            <input mdInput placeholder="Title" ng-model="data.title" ng-minlength="2"
+                                   ng-maxlength="32" required>
+                        </md-input-container>
+
+                        <md-input-container class="md-block">
+                            <input mdInput placeholder="Author" ng-model="data.author" ng-minlength="6"
+                                   ng-maxlength="32" required>
+                        </md-input-container>
+
+                        <md-input-container class="md-block">
+                            <label>Category</label>
+                            <md-select ng-model="data.category">
+                                <md-option ng-repeat="ca in listCategory" value="{{ca.value}}">
+                                    {{ca.value}}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+
+                        <md-input-container class="md-block" layout-fill>
+                            <label>Content</label>
+                            <textarea ng-model="data.content" md-maxlength="1000" rows="10"
+                                      md-select-on-focus></textarea>
+                        </md-input-container>
+
+                        <md-button ng-click="updatePoem(data.id, data)" class="md-fab">
+                            <md-icon class="material-icons">update</md-icon>
+                        </md-button>
+                    </div>
+
+                    <!-- Add -->
+                    <div ng-hide="hideAdd" layout="column" layout-fill>
+                        <md-toolbar>
+                            <div class="md-toolbar-tools">
+                                <h2><span>Add New {{item}}</span></h2>
+                            </div>
+                        </md-toolbar>
+                        <form name="addForm">
+                            <md-input-container class="md-block">
+                                <label>Title</label>
+                                <input ng-model="data.title" ng-minlength="2"
+                                       ng-maxlength="32" md-select-on-focus required="required" name="title">
+                                <div ng-messages="addForm.title.$error" role="alert" style="color:maroon">
+                                    <div ng-message="required">You did not enter a field</div>
+                                    <div ng-message="minlength">The minimum length of Title is 2</div>
+                                    <div ng-message="maxlength">The maximum length of Author is 32</div>
+                                </div>
+                            </md-input-container>
+
+                            <md-input-container class="md-block">
+                                <label>Author</label>
+                                <input ng-model="data.author" ng-minlength="4"
+                                       ng-maxlength="32" md-select-on-focus required="required" name="author">
+                                <div ng-messages="addForm.author.$error" role="alert" style="color:maroon">
+                                    <div ng-message="required">You did not enter a field</div>
+                                    <div ng-message="minlength">The minimum length of Author is 4</div>
+                                    <div ng-message="maxlength">The maximum length of Author is 32</div>
+                                </div>
+
+                            </md-input-container>
+
+                            <md-input-container class="md-block">
+                                <label>Category</label>
+                                <md-select ng-model="data.category">
+                                    <md-option ng-repeat="ca in listCategory" value="{{ca.value}}">
+                                        {{ca.value}}
+                                    </md-option>
+                                </md-select>
+                            </md-input-container>
+
+                            <md-input-container class="md-block">
+                                <label>Content</label>
+                                <textarea ng-model="data.content" md-maxlength="3000" ng-minlength="5" rows="10"
+                                          md-select-on-focus required="required" name="content"></textarea>
+                                <div ng-messages="addForm.content.$error" role="alert" style="color:maroon">
+                                    <div ng-message="required">You did not enter a field</div>
+                                    <div ng-message="minlength">The minimum length of Author is 5</div>
+                                </div>
+                            </md-input-container>
+
+                            <md-button ng-click="submitAdd(data, listData.hits.hits)" class="md-fab">
+                                <md-icon class="material-icons">add</md-icon>
+                            </md-button>
+                        </form>
+                    </div>
+
+                    <!-- Search -->
+                    <div ng-hide="hideSearch" layout="column" layout-fill>
+                        <md-toolbar>
+                            <div class="md-toolbar-tools">
+                                <h2><span>Search</span></h2>
+                            </div>
+                        </md-toolbar>
+
+                        <md-input-container class="md-block">
+                            <input mdInput placeholder="Term" ng-model="term">
+                        </md-input-container>
+
+                        <md-input-container class="md-block">
+                            <label>Criteria</label>
+                            <md-select ng-model="criteria">
+                                <md-option ng-repeat="se in selection" value="{{se.value}}">
+                                    {{se.value}}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+
+                        <md-button ng-click="submitSearch()" class="md-fab">
+                            <md-icon class="material-icons">search</md-icon>
+                        </md-button>
+
+                        <!-- ng-hide="hidenTable" -->
+                        <table ng-hide="hidenTable">
+                            <thead>
+                            <tr>
+                                <td>Title</td>
+                                <td>Author</td>
+                                <td>Category</td>
+                                <td>Content</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="po in list">
+                                <td>{{po._source.title}}</td>
+                                <td>{{po._source.author}}</td>
+                                <td>{{po._source.category}}</td>
+                                <td>{{po._source.content}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+</div>
+</md-card-content>
+</md-card>
+</md-content>
+</md-content>
+</div>
+</body>
+</html>

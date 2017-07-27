@@ -1,0 +1,11 @@
+localhost:9200/list/poem/
+localhost:9200/list/song/
+localhost:9200/list/story/
+
+{
+ "id": 1,
+ "title": "Example",
+ "author": "Auhtor",
+ "category": "Poetry",
+ "content": "This is example."
+}
