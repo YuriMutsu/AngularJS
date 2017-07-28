@@ -1,0 +1,10 @@
+{
+	makh: "kh005",
+	tenkh: "Ho Anh Tuan",
+	diachi: "222 Ho Van Hue, Phuong 9",
+	id_khuvuc:  ObjectId("597aeb02e25b6708842d34a2"),
+	id_tp: ObjectId("597aeb51e25b6708842d34b6"),
+	id_dienke: "",
+	cmnd: "363768742",
+	phone: "0898133817"
+}

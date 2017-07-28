@@ -1,0 +1,38 @@
+<#import "../layout/defaultLayout.ftl.html" as layout>
+    <@layout.myLayout "Home page">
+    <body ng-app="myApp">
+    <div layout="column" layout-fill style="max-height: 100%" ng-controller="HomeCtrl">
+        <!--<md-progress-linear md-mode="determinate" style="background-color: #9E9E9E"></md-progress-linear>-->
+        <div layout-fill id="index">
+            <div style="height: 890px" flex layout="row" layout-align="start start" class="md-block">
+                <!-- Container left -->
+                <div id="left" flex="15" layout="row" layout-fill>
+                    <md-sidenav
+                            class="md-sidenav-left"
+                            md-component-id="left"
+                            md-is-locked-open="$mdMedia('gt-md')"
+                            md-whiteframe="5">
+                        <md-list flex laout="row">
+                            <md-list-item ng-repeat="tp in thanhpho" layout="row">
+                                <div layout="row">
+                                    <h4>{{tp.tentp}}</h4>
+                                    <md-list>
+                                        <md-list-item ng-repeat="kv in khuvuc">
+                                            <h5>{{kv.tenkv}}</h5>
+                                        </md-list-item>
+                                    </md-list>
+                                </div>
+                            </md-list-item>
+                        </md-list>
+
+                    </md-sidenav>
+                </div>
+                <!-- Container right -->
+                <div id="right" flex="85" layout-padding class="my-padding">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </body>
+</@layout.myLayout>

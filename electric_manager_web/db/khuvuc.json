@@ -1,0 +1,24 @@
+{
+	tenkv: "Ninh Kieu",
+	id_thanhpho: ObjectId("597aeb51e25b6708842d34b5")
+}
+
+{
+	tenkv: "Binh Thuy",
+	id_thanhpho: ObjectId("597aeb51e25b6708842d34b5")
+}
+
+{
+	tenkv: "Co Do",
+	id_thanhpho: ObjectId("597aeb51e25b6708842d34b5")
+}
+
+{
+	tenkv: "Thoi Lai",
+	id_thanhpho: ObjectId("597aeb51e25b6708842d34b5")
+}
+
+{
+	tenkv: "Phu Nhuan",
+	id_thanhpho: ObjectId("597aeb51e25b6708842d34b6")
+}
