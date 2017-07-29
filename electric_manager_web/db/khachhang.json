@@ -1,10 +1,54 @@
 {
-	makh: "kh005",
-	tenkh: "Ho Anh Tuan",
-	diachi: "222 Ho Van Hue, Phuong 9",
-	id_khuvuc:  ObjectId("597aeb02e25b6708842d34a2"),
-	id_tp: ObjectId("597aeb51e25b6708842d34b6"),
-	id_dienke: "",
+	makh: "kh001",
+	tenkh: "Tran Minh Tai",
+	diachi: "120 Duong 3/2",
+	id_khuvuc:  "597b45c740cb242b24f166e9",
+	madk: "dk001",
 	cmnd: "363768742",
-	phone: "0898133817"
+	phone: "0898133817",
+	gioitinh: "nam"
+}
+
+{
+	makh: "kh002",
+	tenkh: "Ho Anh Tuan",
+	diachi: "222 Duong 30/4",
+	id_khuvuc:  "597b45c740cb242b24f166e9",
+	madk: "dk002",
+	cmnd: "363768742",
+	phone: "0898133817",
+	gioitinh: "nam"
+}
+
+{
+	makh: "kh003",
+	tenkh: "Nguyen Ngoc Hoa",
+	diachi: "124 De Tham",
+	id_khuvuc:  "597b45c740cb242b24f166e9",
+	madk: "dk003",
+	cmnd: "363768742",
+	phone: "0898133817",
+	gioitinh: "nam"
+}
+
+{
+	makh: "kh004",
+	tenkh: "Nguyen Hoa Qui",
+	diachi: "Hem 9, Nguyen Van Cu noi dai",
+	id_khuvuc:  "597b45c740cb242b24f166e9",
+	madk: "dk004",
+	cmnd: "363768742",
+	phone: "0898133817",
+	gioitinh: "nam"
+}
+
+{
+	makh: "kh005",
+	tenkh: "Le Thi Ngoc Duyen",
+	diachi: "124 Bach Dang",
+	id_khuvuc:  "597b45c740cb242b24f166e9",
+	madk: "dk005",
+	cmnd: "363768742",
+	phone: "0898133817",
+	gioitinh: "nu"
 }

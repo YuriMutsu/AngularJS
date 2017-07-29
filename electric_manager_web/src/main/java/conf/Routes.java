@@ -7,6 +7,8 @@ import ninja.AssetsController;
 import ninja.Router;
 import ninja.application.ApplicationRoutes;
 import controllers.ApplicationController;
+import service.DienKeService;
+import service.KhachHangService;
 
 public class Routes implements ApplicationRoutes {
 
@@ -17,8 +19,15 @@ public class Routes implements ApplicationRoutes {
         router.GET().route("/login").with(LoginLogoutController::login);
         router.GET().route("/logout").with(LoginLogoutController::logout);
 
-        router.GET().route("/getThanhPho").with(ApplicationController::getThanhPho);
         router.GET().route("/getKhuVuc").with(ApplicationController::getKhuVuc);
+        router.GET().route("/getThanhPho").with(ApplicationController::getThanhPho);
+        router.GET().route("/getListKhachHang").with(KhachHangService::getKhachHangStatistic);
+
+        router.POST().route("/deleteKhachHang").with(KhachHangService::deleteKhachHang);
+
+        router.GET().route("/getDienKe").with(DienKeService::getDienKe);
+        router.POST().route("/updateChiSoDienKe").with(DienKeService::updateDienKe);
+        router.POST().route("/addDienKe").with(DienKeService::addDienKe);
         ///////////////////////////////////////////////////////////////////////
         // Assets (pictures / javascript)
         ///////////////////////////////////////////////////////////////////////    

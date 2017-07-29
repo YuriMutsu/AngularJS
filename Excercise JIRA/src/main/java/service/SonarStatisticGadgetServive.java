@@ -27,7 +27,7 @@ import static util.MyUtil.*;
 
 public class SonarStatisticGadgetServive {
 	public final static Logger logger = Logger.getLogger(SonarStatisticGadgetServive.class);
-    public static JSONObject getSonarStatistic(Session session, JSONObject data, String GadgetId) throws Exception {
+        public static JSONObject getSonarStatistic(Session session, JSONObject data, String GadgetId) throws Exception {
 
         JSONObject result = new JSONObject();
         MongoClient mongoClient = new MongoClient();

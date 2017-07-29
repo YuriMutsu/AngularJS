@@ -1,0 +1,52 @@
+<md-dialog flex="45">
+    <div style="margin: 10px">
+        <div>
+            <h3>Them Khach Hang</h3>
+        </div>
+        <form method="post" layout-fill flex layout="column" action="/addKhachHang">
+            <div>
+                <md-input-container class="md-block">
+                    <label>Ma Khach Khang</label>
+                    <input type="text" name="makh" ng-model="madk" required>
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                    <label>Ten Khach Hang</label>
+                    <input type="text" ng-model="tenkh" name="tenkh">
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                    <label>diachi</label>
+                    <input type="text" ng-model="diachi" name="diachi">
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                    <label>Khu Vuc</label>
+                    <input type="text" ng-model="khuvuc" name="khuvuc">
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                    <label>Ma Dien Ke</label>
+                    <input type="number" name="madk" ng-model="madk" required>
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                    <label>CMND</label>
+                    <input type="number" name="cmnd" ng-model="cmnd" required>
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                    <label>Dien Thoai</label>
+                    <input type="number" name="phone" ng-model="phone" required>
+                </md-input-container>
+
+                <md-radio-group class="md-block" layout-align="row" name="gioitinh" ng-model="gioitinh">
+                    <md-radio-button>Nam</md-radio-button>
+                    <md-radio-button>Nu</md-radio-button>
+                </md-radio-group>
+
+                <md-button type="submit">Add</md-button>
+            </div>
+        </form>
+    </div>
+</md-dialog>

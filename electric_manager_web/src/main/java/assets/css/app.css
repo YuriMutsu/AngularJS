@@ -22,7 +22,19 @@ div#left{
 }
 
 div#right{
-    background-color:cadetblue;
     height: 100%;
     width: 100%;
+}
+
+span{
+    padding-top: 5px;
+    line-height: 5px;
+}
+
+h3{
+    line-height: 5px;
+}
+
+md-content{
+    line-height: 10px;
 }
