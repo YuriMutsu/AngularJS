@@ -13,6 +13,7 @@
         $scope.hidenTable = true;
         $scope.hiden = false;
         $scope.hidenTableDienKe = true;
+        $rootScope.khuVucSelected = "kv01";
 
         $resource('/getKhuVuc',
             {},
@@ -46,6 +47,21 @@
             }
         );
 
+        $rootScope.showAddKhachHang = function (ev) {
+            $mdDialog.show({
+                controller: DialogController,
+                templateUrl: 'assets/html/addKhachHang.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose:true,
+                fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+            })
+                .then(function(data) {
+                }, function(err) {
+
+                });
+        }
+
         $scope.deleteKhachHang = function (kh) {
             $resource('/deleteKhachHang',
                 {id: kh.id}).save().$promise.then(
@@ -57,10 +73,8 @@
                 }
             );
         }
-
         $rootScope.showKhachHang = function () {
             $rootScope.listKhachHang = [];
-
             $resource('/getListKhachHang', {
                 makv: $rootScope.khuVucSelected
             }, {
@@ -74,6 +88,7 @@
 
                     if ($scope.listKhachHang.length == 0) {
                         $scope.hidenTable = true;
+                        $scope.hidenTableDienKe = true;
                     } else {
                         $scope.hidenTable = false;
                     }
@@ -84,17 +99,17 @@
             );
         }
 
+        $rootScope.showKhachHang();
+
         $scope.khuVucSelected = '';
         $scope.khuVucItemClick = function (khuvuc) {
             window.location = "/#/?khuvuc=" + khuvuc.tenkv;
             $rootScope.khuVucSelected = khuvuc.makv;
             $rootScope.tenKhuVuc = khuvuc.tenkv;
             $rootScope.showKhachHang();
-            $scope.hidenTableDienKe = true;
         }
 
-        // DIE KE
-
+        // DIEN KE
         $scope.thongTinhDienKe = function (kh) {
             $scope.listDienKe = [];
             $resource('/getDienKe', {
@@ -179,7 +194,6 @@
                 fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
             })
                 .then(function(data) {
-                    alert(kh.makh);
                 }, function(err) {
 
                 });

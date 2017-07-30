@@ -12,6 +12,7 @@ public class DienKe {
     private Integer chisocu;
     private Integer chisomoi;
     private double thanhtien;
+    private boolean thanhtoan;
 
     public DienKe() {
         this.madk = "";
@@ -21,6 +22,7 @@ public class DienKe {
         this.ngaydksd = "";
         this.chisocu = 0;
         this.chisomoi = 0;
+        this.thanhtoan = false;
     }
 
     public DienKe(String madk, String makh, String mathang, String manam, Integer chisocu) {
@@ -135,5 +137,13 @@ public class DienKe {
             sotien = (1484 * 50) + (1533*50) + (1786*100) + (2242*100) + (100*2503) +(tieuthu-400)*2587;
         }
         return sotien;
+    }
+
+    public boolean isDongtien() {
+        return thanhtoan;
+    }
+
+    public void setDongtien(boolean dongtien) {
+        this.thanhtoan = dongtien;
     }
 }

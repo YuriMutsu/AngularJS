@@ -28,7 +28,6 @@ public class DienKeService extends DatabaseUtility {
         iterable.forEach(new Block<Document>() {
             @Override
             public void apply(Document document) {
-                System.out.println(document.toString());
                 JSONObject json = new JSONObject();
                 json.put(ID, document.getObjectId(MONGO_ID).toHexString());
                 json.put(MA_DK, document.getString(MA_DK));
@@ -39,6 +38,7 @@ public class DienKeService extends DatabaseUtility {
                 json.put(CHI_SO_CU, document.getInteger(CHI_SO_CU));
                 json.put(CHI_SO_MOI, document.getInteger(CHI_SO_MOI));
                 json.put(THANH_TIEN, DienKe.tinhTien(document.getInteger(CHI_SO_MOI), document.getInteger(CHI_SO_CU)));
+                json.put(THANH_TOAN, document.getBoolean(THANH_TOAN));
                 array.put(json);
             }
         });
@@ -90,8 +90,8 @@ public class DienKeService extends DatabaseUtility {
                 .append(MA_NAM, dienKe.getManam())
                 .append(NGAY_DANG_KY, "")
                 .append(CHI_SO_CU, dienKe.getChisocu())
-                .append(CHI_SO_MOI, 0);
-
+                .append(CHI_SO_MOI, 0)
+                .append(THANH_TOAN, false);
         return document;
     }
 }

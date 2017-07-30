@@ -30,6 +30,18 @@ public class Constant {
     public static String MA_NAM= "manam";
     public static String CHI_SO_MOI= "chisomoi";
     public static String THANH_TIEN= "thanhtien";
+    public static String THANH_TOAN= "thanhtoan";
+
+
+    public static String CODE = "code";
+    public static String PASSWORD = "password";
+    public static String ADDRESS = "address";
+    public static String AVATAR = "avatar";
+    public static String ROLE = "role";
+    public static String IS_ADMIN = "isAdmin";
+    public static String BIRTH_DAY = "birthday";
+    public static String GENDER = "gender";
+    public static String NAME = "name";
 
     public static String MONGO_ID = "_id";
 }
