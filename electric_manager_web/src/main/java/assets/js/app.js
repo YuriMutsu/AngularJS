@@ -106,6 +106,11 @@
             window.location = "/#/?khuvuc=" + khuvuc.tenkv;
             $rootScope.khuVucSelected = khuvuc.makv;
             $rootScope.tenKhuVuc = khuvuc.tenkv;
+            $scope.hideKhuVuc = false;
+            $scope.hidenTable = true;
+            $scope.hiden = false;
+            $scope.hidenTableDienKe = true;
+
             $rootScope.showKhachHang();
         }
 

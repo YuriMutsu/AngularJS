@@ -1,29 +1,29 @@
 {
 	tenkv: "Ninh Kieu",
 	makv : "kv01",
-	id_thanhpho: "597b2f4f40cb242b24f166a7"
+	matp: "tp01"
 }
 
 {
 	tenkv: "Binh Thuy",
 	makv : "kv02",
-	id_thanhpho: "597b2f4f40cb242b24f166a7"
+	matp: "tp01"
 }
 
 {
 	tenkv: "Co Do",
 	makv : "kv03",
-	id_thanhpho: "597b2f4f40cb242b24f166a7"
+	matp: "tp01"
 }
 
 {
 	tenkv: "Thoi Lai",
 	makv : "kv04",
-	id_thanhpho: "597b2f4f40cb242b24f166a7"
+	matp: "tp01"
 }
 
 {
 	tenkv: "Phu Nhuan",
 	makv : "kv05",
-	id_thanhpho: "597b2f4f40cb242b24f166a8"
+	matp: "tp02"
 }

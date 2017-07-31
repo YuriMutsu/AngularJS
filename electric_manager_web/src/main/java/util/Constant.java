@@ -43,5 +43,15 @@ public class Constant {
     public static String GENDER = "gender";
     public static String NAME = "name";
 
+
+    //Database
     public static String MONGO_ID = "_id";
+    public static String DATABASE_NAME = "electric";
+    public static String TABLE_KHACH_HANG = "khachhang";
+    public static String TABLE_USERS = "users";
+    public static String TABLE_HOA_DON = "hoadon";
+    public static String TABLE_KHU_VUC = "khuvuc";
+    public static String TABLE_NAM = "nam";
+    public static String TABLE_THANG = "thang";
+    public static String TABLE_TINH_THANH_PHO = "tinh_thanhpho";
 }

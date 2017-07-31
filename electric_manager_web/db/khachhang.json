@@ -2,18 +2,20 @@
 	makh: "kh001",
 	tenkh: "Tran Minh Tai",
 	diachi: "120 Duong 3/2",
-	id_khuvuc:  "597b45c740cb242b24f166e9",
+	makv:  "kv01",
 	madk: "dk001",
 	cmnd: "363768742",
 	phone: "0898133817",
-	gioitinh: "nam"
+	gioitinh: "nam",
+	role: "customer",
+	password: "123456"
 }
 
 {
 	makh: "kh002",
 	tenkh: "Ho Anh Tuan",
 	diachi: "222 Duong 30/4",
-	id_khuvuc:  "597b45c740cb242b24f166e9",
+	makv:  "kv01",
 	madk: "dk002",
 	cmnd: "363768742",
 	phone: "0898133817",
@@ -24,31 +26,63 @@
 	makh: "kh003",
 	tenkh: "Nguyen Ngoc Hoa",
 	diachi: "124 De Tham",
-	id_khuvuc:  "597b45c740cb242b24f166e9",
+	makv:  "kv01",
 	madk: "dk003",
 	cmnd: "363768742",
 	phone: "0898133817",
-	gioitinh: "nam"
+	gioitinh: "nam",
+	role: "customer",
+	password: "123456"
 }
 
 {
 	makh: "kh004",
 	tenkh: "Nguyen Hoa Qui",
 	diachi: "Hem 9, Nguyen Van Cu noi dai",
-	id_khuvuc:  "597b45c740cb242b24f166e9",
+	makv:  "kv01",
 	madk: "dk004",
 	cmnd: "363768742",
 	phone: "0898133817",
-	gioitinh: "nam"
+	gioitinh: "nam",
+	role: "customer",
+	password: "123456"
 }
 
 {
 	makh: "kh005",
 	tenkh: "Le Thi Ngoc Duyen",
 	diachi: "124 Bach Dang",
-	id_khuvuc:  "597b45c740cb242b24f166e9",
+	makv:  "kv01",
 	madk: "dk005",
 	cmnd: "363768742",
 	phone: "0898133817",
-	gioitinh: "nu"
+	gioitinh: "nu",
+	role: "customer",
+	password: "123456"
+}
+
+{
+	makh: "kh006",
+	tenkh: "Ngo Thanh Hang",
+	diachi: "101 Vanh Dai",
+	makv:  "kv02",
+	madk: "dk005",
+	cmnd: "363768742",
+	phone: "0898133817",
+	gioitinh: "nu",
+	role: "customer",
+	password: "123456"
+}
+
+{
+	makh: "kh007",
+	tenkh: "Le Thi Ngoc Duyen",
+	diachi: "300 Ly Tu Trong",
+	makv:  "kv03",
+	madk: "dk005",
+	cmnd: "363768742",
+	phone: "0898133817",
+	gioitinh: "nu",
+	role: "customer",
+	password: "123456"
 }
