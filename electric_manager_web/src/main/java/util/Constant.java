@@ -20,10 +20,10 @@ public class Constant {
     public static String MA_THANH_PHO = "matp";
     public static String MA_KHU_VUC = "makv";
 
-    public static String MA_DK= "madk";
-    public static String ID_KH= "id_kh";
-    public static String ID_THANG= "id_thang";
-    public static String ID_NAM= "id_nam";
+    public static String MA_DK = "madk";
+    public static String ID_KH = "id_kh";
+    public static String ID_THANG = "id_thang";
+    public static String ID_NAM = "id_nam";
     public static String NGAY_DANG_KY= "ngaydksd";
     public static String CHI_SO_CU= "chisocu";
     public static String MA_THANG= "mathang";
@@ -31,7 +31,11 @@ public class Constant {
     public static String CHI_SO_MOI= "chisomoi";
     public static String THANH_TIEN= "thanhtien";
     public static String THANH_TOAN= "thanhtoan";
-
+    public static String TIEU_THU= "tieuthu";
+    public static String TU_NGAY= "tungay";
+    public static String DEN_NGAY= "denngay";
+    public static String VAT= "vat";
+    public static String MA_THUE= "mathue";
 
     public static String CODE = "code";
     public static String PASSWORD = "password";
@@ -44,10 +48,14 @@ public class Constant {
     public static String NAME = "name";
 
 
+    //Hoa Don
+    public static String MA_HD = "mahd";
+
     //Database
     public static String MONGO_ID = "_id";
     public static String DATABASE_NAME = "electric";
     public static String TABLE_KHACH_HANG = "khachhang";
+    public static String TABLE_DIEN_KE = "dienke";
     public static String TABLE_USERS = "users";
     public static String TABLE_HOA_DON = "hoadon";
     public static String TABLE_KHU_VUC = "khuvuc";

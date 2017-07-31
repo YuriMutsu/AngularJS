@@ -106,6 +106,11 @@
             window.location = "/#/?khuvuc=" + khuvuc.tenkv;
             $rootScope.khuVucSelected = khuvuc.makv;
             $rootScope.tenKhuVuc = khuvuc.tenkv;
+            $scope.hideKhuVuc = false;
+            $scope.hidenTable = true;
+            $scope.hiden = false;
+            $scope.hidenTableDienKe = true;
+
             $rootScope.showKhachHang();
         }
 
@@ -211,6 +216,32 @@
             $scope.answer = function(answer) {
                 $mdDialog.hide(answer);
             };
+        }
+
+
+
+    //    Hoa Don
+        $scope.showInfoHoaDon = function(dk){
+            $resource('/getHoaDon',
+                {
+                    makh: dk.makh,
+                    madk : dk.madk,
+                    mathang : dk.mathang,
+                    manam: dk.manam
+                },
+                {
+                    query :{
+                        isArray: false,
+                        method: 'get'
+                    }
+                }
+                ).query().$promise.then(
+                    function (data) {
+                        $scope.hoadon = data;
+                    },
+                    function (err) {
+                        console.error(err);
+                    });
         }
     }]);
 })()

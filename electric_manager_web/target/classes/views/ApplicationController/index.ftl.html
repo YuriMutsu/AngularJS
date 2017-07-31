@@ -40,11 +40,6 @@
                                 <h4>Danh Sach Khach Hang</h4>
 
                                 <div layout="row" layout-align="end center" flex>
-                                    <md-button class="md-icon-button" ng-click="showAddKhachHang($events)">
-                                        <md-tooltip md-direction="bottom">Add Khach Hang</md-tooltip>
-                                        <md-icon aria-label="" class="material-icons">add</md-icon>
-                                    </md-button>
-
                                     <md-button class="md-icon-button">
                                         <md-tooltip md-direction="bottom">Update</md-tooltip>
                                         <md-icon aria-label="" class="material-icons">refresh</md-icon>
@@ -145,7 +140,7 @@
                                 </tr>
                                 </thead>
                                 <tbody ng-repeat="dk in listDienKe">
-                                <tr>
+                                <tr ng-click="showInfoHoaDon(dk)">
                                     <td>{{$index + 1}}</td>
                                     <td>{{dk.madk}}</td>
                                     <td>{{dk.makh}}</td>
@@ -187,8 +182,8 @@
 
                                 <div layout="row" layout-align="end center" flex>
                                     <md-button class="md-icon-button" ng-click="showAddDienKe($event)">
-                                        <md-tooltip md-direction="bottom">Add Dien Ke</md-tooltip>
-                                        <md-icon aria-label="" class="material-icons">add</md-icon>
+                                        <md-tooltip md-direction="bottom">In Hóa Đơn</md-tooltip>
+                                        <md-icon aria-label="" class="material-icons">print</md-icon>
                                     </md-button>
 
                                     <md-button class="md-icon-button">
@@ -208,6 +203,36 @@
                                 </div>
                             </div>
                             <table class="responstable" style="width: 100%" ng-hide="hidenTable">
+                                <thead>
+                                    <th>Mã Hóa Đơn</th>
+                                    <th>Mã Khách Hàng</th>
+                                    <th>Tên Khách Hàng</th>
+                                    <th>Địa Chỉ</th>
+                                    <th>Mã Điện Kế</th>
+                                    <th>Chỉ Số điện tiêu thụ</th>
+                                    <th>Từ Ngày</th>
+                                    <th>Đến Ngày</th>
+                                    <th>VAT</th>
+                                    <th>Mã Số Thuế</th>
+                                    <th>Thành Tiền</th>
+                                    <th>Thanh Toán</th>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{{hoadon.mahd}}</td>
+                                        <td>{{hoadon.makh}}</td>
+                                        <td>{{hoadon.tenkh}}</td>
+                                        <td>{{hoadon.diachi}}</td>
+                                        <td>{{hoadon.madk}}</td>
+                                        <td>{{hoadon.tieuthu}}</td>
+                                        <td>{{hoadon.tungay}}</td>
+                                        <td>{{hoadon.denngay}}</td>
+                                        <td>{{hoadon.vat}}%</td>
+                                        <td>{{hoadon.mathue}}</td>
+                                        <td>{{hoadon.thanhtien |  currency: 'VND ' : 0}}</td>
+                                        <td>{{hoadon.thanhtoan | currency: 'VND ' : 0}}</td>
+                                    </tr>
+                                </tbody>
                             </table>
                         </md-card>
                     </div>

@@ -118,7 +118,7 @@ public class DienKe {
     }
 
     public static double tinhTien(Integer chisomoi, Integer chisocu){
-        if (chisomoi < chisocu){
+        if (chisomoi < chisocu || chisocu == 0){
             return 0;
         }
         double sotien = 0;
