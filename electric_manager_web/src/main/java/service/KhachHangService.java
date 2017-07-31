@@ -36,7 +36,7 @@ public class KhachHangService extends DatabaseUtility {
     public Result getAllKhachHang(){
         JSONArray array = new JSONArray();
         MongoClient mongoClient = new MongoClient();
-        MongoCollection collection = db.getCollection("khachhang");
+        MongoCollection collection = db.getCollection(TABLE_KHACH_HANG);
         FindIterable<Document> iterable = collection.find();
         iterable.forEach(new Block<Document>() {
             @Override
@@ -53,12 +53,11 @@ public class KhachHangService extends DatabaseUtility {
     public Result getKhachHangStatistic(@Param("makv") String makv){
         JSONArray array = new JSONArray();
         MongoClient mongoClient = new MongoClient();
-        MongoCollection collection = db.getCollection("khachhang");
+        MongoCollection collection = db.getCollection(TABLE_KHACH_HANG);
         FindIterable<Document> iterable = collection.find(new Document("makv", makv));
         iterable.forEach(new Block<Document>() {
             @Override
             public void apply(Document document) {
-                System.out.println(document.toString());
                 JSONObject json = createJSON(document);
                 array.put(json);
             }
@@ -69,7 +68,7 @@ public class KhachHangService extends DatabaseUtility {
 
     public Result deleteKhachHang(@Param("id") String id){
         MongoClient mongoClient = new MongoClient();
-        MongoCollection collection = db.getCollection("khachhang");
+        MongoCollection collection = db.getCollection(TABLE_KHACH_HANG);
         collection.deleteOne(new Document(MONGO_ID, new ObjectId(id)));
         mongoClient.close();
         return Results.ok();
@@ -94,7 +93,7 @@ public class KhachHangService extends DatabaseUtility {
                 .append(GIOI_TINH, gioitinh);
 
         MongoClient mongoClient = new MongoClient();
-        MongoCollection collection = db.getCollection("khachhang");
+        MongoCollection collection = db.getCollection(TABLE_KHACH_HANG);
         collection.insertOne(document);
         return Results.redirect("/");
     }

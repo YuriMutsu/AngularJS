@@ -6,7 +6,8 @@
 	ngaydksd : "1/1/1990",
 	chisocu: 500,
 	chisomoi : 520,
-	thanhtoan : true
+	isthanhtoan : true,
+	thanhtien: 0
 }
 
 {
@@ -17,7 +18,8 @@
 	ngaydksd : "1/1/1990",
 	chisocu: 520,
 	chisomoi : 550,
-	thanhtoan : true
+	isthanhtoan : true,
+	thanhtien : 0
 }
 
 
@@ -29,7 +31,8 @@
 	ngaydksd : "1/1/1990",
 	chisocu: 550,
 	chisomoi : 580,
-	thanhtoan : false
+	isthanhtoan : false,
+	thanhtien: 0
 }
 
 
@@ -41,7 +44,7 @@
 	ngaydksd : "1/1/1990",
 	chisocu: 500,
 	chisomoi : 520,
-	thanhtoan : true
+	isisisthanhtoan : true
 }
 
 {
@@ -52,7 +55,7 @@
 	ngaydksd : "1/1/1990",
 	chisocu: 200,
 	chisomoi : 250,
-	thanhtoan : true
+	isthanhtoan : true
 }
 
 {
@@ -63,7 +66,7 @@
 	ngaydksd : "1/1/1990",
 	chisocu: 300,
 	chisomoi : 330,
-	thanhtoan : true
+	isthanhtoan : true
 }
 
 {
@@ -74,5 +77,5 @@
 	ngaydksd : "1/1/1990",
 	chisocu: 420,
 	chisomoi : 480,
-	thanhtoan : true
+	isthanhtoan : true
 }

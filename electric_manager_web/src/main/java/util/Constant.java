@@ -36,6 +36,7 @@ public class Constant {
     public static String DEN_NGAY= "denngay";
     public static String VAT= "vat";
     public static String MA_THUE= "mathue";
+    public static String IS_THANH_TOAN= "isthanhtoan";
 
     public static String CODE = "code";
     public static String PASSWORD = "password";

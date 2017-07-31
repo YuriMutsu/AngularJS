@@ -37,8 +37,7 @@ public class DienKeService extends DatabaseUtility {
                 json.put(NGAY_DANG_KY, document.getString(NGAY_DANG_KY));
                 json.put(CHI_SO_CU, document.getInteger(CHI_SO_CU));
                 json.put(CHI_SO_MOI, document.getInteger(CHI_SO_MOI));
-                json.put(THANH_TIEN, DienKe.tinhTien(document.getInteger(CHI_SO_MOI), document.getInteger(CHI_SO_CU)));
-                json.put(THANH_TOAN, document.getBoolean(THANH_TOAN));
+                json.put(IS_THANH_TOAN, document.getBoolean(IS_THANH_TOAN));
                 array.put(json);
             }
         });
@@ -46,20 +45,24 @@ public class DienKeService extends DatabaseUtility {
         return Results.text().render(array);
     }
 
-    public Result updateDienKe(@Param("id") String id, @Param("chisomoi") Integer chisomoi) {
+    public Result updateDienKe(@Param("id") String id,
+                               @Param("chisomoi") Integer chisomoi,
+                               @Param("isthanhtoan") boolean isthanhtoan) {
+
         MongoClient mongoClient = new MongoClient();
-        MongoCollection collection = db.getCollection("dienke");
+        MongoCollection collection = db.getCollection(TABLE_DIEN_KE);
         Document doc = new Document(MONGO_ID, new ObjectId(id));
         FindIterable<Document> iter = collection.find(doc);
         iter.forEach(new Block<Document>() {
             @Override
             public void apply(Document document) {
-                document.replace("chisomoi", chisomoi);
+                document.replace(CHI_SO_MOI, chisomoi);
+                document.replace(IS_THANH_TOAN, isthanhtoan);
                 collection.replaceOne(new Document(doc), document);
             }
         });
         mongoClient.close();
-        return Results.ok();
+        return Results.json().render(doc);
     }
 
     public Result addDienKe(@Param("madk")String madk,
@@ -79,6 +82,7 @@ public class DienKeService extends DatabaseUtility {
         Document document = createDocument(dienKe);
         collection.insertOne(document);
 
+        mongoClient.close();
         return Results.redirect("/");
     }
 
@@ -94,4 +98,6 @@ public class DienKeService extends DatabaseUtility {
                 .append(THANH_TOAN, false);
         return document;
     }
+
+
 }

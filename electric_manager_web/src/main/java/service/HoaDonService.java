@@ -1,7 +1,6 @@
 package service;
 
 import com.mongodb.MongoClient;
-import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import models.DienKe;
 import ninja.Result;
@@ -17,37 +16,73 @@ public class HoaDonService extends DatabaseUtility{
                             @Param("mathang") String mathang,
                             @Param("manam") String manam){
 
+        Document document = findHoaDon(madk, makh, mathang, manam);
+        Document hoadon = createHoaDon(document);
+        return Results.json().render(hoadon);
+    }
+
+    public Result example(@Param("makh") String makh,
+                            @Param("madk") String madk,
+                            @Param("mathang") String mathang,
+                            @Param("manam") String manam){
+
         MongoClient client = new MongoClient();
-        MongoCollection khachhang = db.getCollection(TABLE_KHACH_HANG);
-        Document docKhachHang = (Document) khachhang.find(new Document(MA_KH, makh)).first();
+        MongoCollection collection = db.getCollection(TABLE_HOA_DON);
+        Document doc = createDoccument(madk,makh,mathang,manam);
 
-        MongoCollection dienke = db.getCollection(TABLE_DIEN_KE);
-        Document docDienKe = (Document) dienke.find(new Document(MA_DK, madk)).first();
-
-        MongoCollection thang = db.getCollection(TABLE_THANG);
-        Document docThang = (Document) thang.find(new Document(MA_THANG, mathang)).first();
-
-        MongoCollection nam = db.getCollection(TABLE_NAM);
-        Document docNam = (Document) nam.find(new Document(MA_NAM, manam)).first();
-
-        int vat = 10;
-        double thanhtien = DienKe.tinhTien(docDienKe.getInteger(CHI_SO_MOI), docDienKe.getInteger(CHI_SO_CU));
-        double thanhtoan = thanhtien*vat/100 + thanhtien;
-        String mahd = docKhachHang.getString(MA_KH) +"/"+ docDienKe.getString(MA_DK)+"/"+docThang.getString(MA_THANG)+"/"+docNam.getString(MA_NAM);
-        Document hoadon = new Document()
-                .append(MA_HD, mahd)
-                .append(MA_KH, docKhachHang.getString(MA_KH))
-                .append(TEN_KH, docKhachHang.getString(TEN_KH))
-                .append(DIA_CHI, docKhachHang.getString(DIA_CHI))
-                .append(MA_DK, docDienKe.getString(MA_DK))
-                .append(TIEU_THU, docDienKe.getInteger(CHI_SO_MOI) - docDienKe.getInteger(CHI_SO_CU))
-                .append(TU_NGAY, docThang.getString(MA_THANG) + "/" + docNam.getString(MA_NAM))
-                .append(DEN_NGAY, docThang.getString(MA_THANG) + "/" + docNam.getString(MA_NAM))
-                .append(VAT, vat)
-                .append(MA_THUE, "XXXXXXXXXXXXXXXXXXXX")
-                .append(THANH_TIEN, thanhtien)
-                .append(THANH_TOAN, thanhtoan);
+        Document document = (Document) collection.find(doc).first();
+        Document hoadon = null;
+        if (document != null){
+            hoadon = createHoaDon(document);
+            collection.replaceOne(document, hoadon);
+        }else{
+            hoadon = createHoaDon(document);
+            collection.insertOne(hoadon);
+        }
         client.close();
         return Results.json().render(hoadon);
+    }
+
+    private Document findHoaDon(String madk, String makh, String mathang, String manam){
+        Document doc = createDoccument(madk,makh,mathang,manam);
+
+        MongoClient client = new MongoClient();
+        MongoCollection dienke = db.getCollection(TABLE_DIEN_KE);
+        Document document = (Document) dienke.find(doc).first();
+        client.close();
+        return document;
+    }
+
+    private Document createHoaDon(Document document){
+
+        String mahd = document.getString(MA_KH) +"/"+ document.getString(MA_DK)+"/"+document.getString(MA_THANG)+"/"+document.getString(MA_NAM);
+        int vat = 10;
+        double thanhtien = DienKe.tinhTien(document.getInteger(CHI_SO_MOI), document.getInteger(CHI_SO_CU));
+        double thanhtoan = thanhtien*vat/100 + thanhtien;
+        Document khachhang = db.getCollection(TABLE_KHACH_HANG).find(new Document(MA_KH, document.getString(MA_KH))).first();
+        Document hoadon = new Document()
+                .append(MA_HD, mahd)
+                .append(MA_KH, document.getString(MA_KH))
+                .append(TEN_KH, khachhang.getString(TEN_KH))
+                .append(DIA_CHI, khachhang.getString(DIA_CHI))
+                .append(MA_DK, document.getString(MA_DK))
+                .append(TIEU_THU, document.getInteger(CHI_SO_MOI) - document.getInteger(CHI_SO_CU))
+                .append(TU_NGAY, document.getString(MA_THANG) + "/" + document.getString(MA_NAM))
+                .append(DEN_NGAY, document.getString(MA_THANG) + "/" + document.getString(MA_NAM))
+                .append(VAT, vat)
+                .append(MA_THUE, "TKHSERU5474871117SF")
+                .append(THANH_TIEN, thanhtien)
+                .append(IS_THANH_TOAN, document.getBoolean(IS_THANH_TOAN))
+                .append(THANH_TOAN, thanhtoan);
+        return hoadon;
+    }
+
+    private Document createDoccument(String madk, String makh, String mathang, String manam){
+        Document doc = new Document()
+                .append(MA_DK, madk)
+                .append(MA_KH, makh)
+                .append(MA_THANG, mathang)
+                .append(MA_NAM, manam);
+        return doc;
     }
 }

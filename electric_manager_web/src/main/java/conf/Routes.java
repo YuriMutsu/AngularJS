@@ -37,6 +37,7 @@ public class Routes implements ApplicationRoutes {
         router.POST().route("/addDienKe").with(DienKeService::addDienKe);
 
         router.GET().route("/getHoaDon").with(HoaDonService::getHoaDon);
+
         ///////////////////////////////////////////////////////////////////////
         // Assets (pictures / javascript)
         ///////////////////////////////////////////////////////////////////////    
