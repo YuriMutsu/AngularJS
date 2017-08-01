@@ -25,11 +25,6 @@
                     <input type="text" name="chisocu" ng-model="hoadon.mathue" required readonly>
                 </md-input-container>
 
-                <md-input-container class="md-block">
-                    <label>VAT (%)</label>
-                    <input type="text" name="chisocu" ng-model="hoadon.vat" required readonly>
-                </md-input-container>
-
             </div>
 
             <md-input-container class="md-block">
@@ -37,12 +32,12 @@
                 <input type="text" ng-model="hoadon.diachi" name="manam" required readonly>
             </md-input-container>
 
-            <div layout="row">
-                <md-input-container class="md-block">
-                    <label>Mã Điện Kế</label>
-                    <input type="text" ng-model="hoadon.madk" name="manam" required readonly>
-                </md-input-container>
+            <md-input-container class="md-block">
+                <label>Mã Điện Kế</label>
+                <input type="text" ng-model="hoadon.madk" name="manam" required readonly>
+            </md-input-container>
 
+            <div layout="row">
                 <md-input-container class="md-block">
                     <label>Chỉ số tiêu thụ (kW/h)</label>
                     <input type="text" name="chisocu" ng-model="hoadon.tieuthu" required readonly>
@@ -60,6 +55,11 @@
             </div>
 
             <div>
+                <md-input-container class="md-block">
+                    <label>VAT (%)</label>
+                    <input type="text" name="chisocu" ng-model="hoadon.vat" required readonly>
+                </md-input-container>
+
                 <md-input-container class="md-block">
                     <label>Thành Tiền (VND)</label>
                     <input type="text" name="chisocu" ng-model="hoadon.thanhtien" required readonly>

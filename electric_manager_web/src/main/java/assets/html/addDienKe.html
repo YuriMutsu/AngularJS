@@ -1,4 +1,4 @@
-<md-dialog flex="45">
+<md-dialog flex="45" ng-controller="AddDienKeController">
     <div style="margin: 10px">
         <div>
             <h3>Add Dien Ke</h3>
@@ -6,27 +6,27 @@
         <form method="post" layout-fill flex layout="column" action="/addDienKe">
             <div>
                 <md-input-container class="md-block">
-                    <label>Ma Dien Ke</label>
-                    <input type="text" name="madk" ng-model="madk" required>
+                    <label>MÃ ĐIỆN KẾ</label>
+                    <input type="text" ng-model="kh.madk" name="madk"  required readonly>
                 </md-input-container>
 
                 <md-input-container class="md-block">
-                    <label>Ma Khach Hang</label>
-                    <input type="text" ng-model="makh" name="makh">
+                    <label>MÃ KHÁCH HÀNG</label>
+                    <input type="text" ng-model="kh.makh" name="makh" readonly>
                 </md-input-container>
 
                 <md-input-container class="md-block">
-                    <label>Thang</label>
+                    <label>THÁNG</label>
                     <input type="text" ng-model="mathang" name="mathang">
                 </md-input-container>
 
                 <md-input-container class="md-block">
-                    <label>Nam</label>
+                    <label>NĂM</label>
                     <input type="text" ng-model="manam" name="manam">
                 </md-input-container>
 
                 <md-input-container class="md-block">
-                    <label>Chi So Cu</label>
+                    <label>CHỈ SỐ CŨ</label>
                     <input type="number" name="chisocu" ng-model="chisocu" required>
                 </md-input-container>
 

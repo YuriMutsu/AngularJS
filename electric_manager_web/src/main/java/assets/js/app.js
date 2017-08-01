@@ -8,13 +8,12 @@
     });
 
     app.controller('HomeCtrl', ['$scope', '$rootScope', '$cookies', '$resource', '$mdDialog', '$mdToast', function ($scope, $rootScope, $cookies, $resource, $mdDialog, $mdToast) {
-        $rootScope.tenKhuVuc = "Home";
+        $rootScope.tenKhuVuc = "HOME";
         $scope.hideKhuVuc = false;
-        $scope.hidenTable = true;
-        $scope.hiden = false;
+        $scope.hidenTableKhachHang = true;
         $scope.hidenTableDienKe = true;
-        $rootScope.khuVucSelected = "kv01";
-
+        $scope.hidenTableHoaDon = true;
+        $rootScope.selectKhachHang = null;
         $resource('/getKhuVuc',
             {},
             {
@@ -73,7 +72,9 @@
                 }
             );
         }
+
         $rootScope.showKhachHang = function () {
+
             $rootScope.listKhachHang = [];
             $resource('/getListKhachHang', {
                 makv: $rootScope.khuVucSelected
@@ -107,20 +108,23 @@
             $rootScope.khuVucSelected = khuvuc.makv;
             $rootScope.tenKhuVuc = khuvuc.tenkv;
             $scope.hideKhuVuc = false;
-            $scope.hidenTable = true;
-            $scope.hiden = false;
+            $scope.hidenTableKhachHang = false;
             $scope.hidenTableDienKe = true;
-            $scope.hidenHoaDon = true;
+            $scope.hidenTableHoaDon = true;
             $rootScope.showKhachHang();
         }
 
         // DIEN KE
         $scope.clickThanhToan = function(dk){
-
+            dk.isthanhtoan = !dk.isthanhtoan;
+            $scope.updateChiSoDien(dk)
+            $scope.showInfoHoaDon(dk);
         }
 
-        $scope.thongTinhDienKe = function (kh) {
+        $scope.showInfoDienKe = function (kh) {
+            $rootScope.selectKhachHang = kh;
             $scope.hidenHoaDon = true;
+            $scope.hidenTableHoaDon = true;
             $scope.listDienKe = [];
             $resource('/getDienKe', {
                 makh: kh.makh
@@ -197,7 +201,7 @@
             isthanhtoan : false
         }
 
-        $scope.showAddDienKe = function (ev) {
+        $scope.showAddDienKe = function (ev, kh) {
             $mdDialog.show({
                 controller: DialogController,
                 templateUrl: 'assets/html/addDienKe.html',
@@ -212,25 +216,10 @@
                 });
         };
 
-        function DialogController($rootScope, $scope, $mdDialog) {
-            $scope.hide = function () {
-                $mdDialog.hide();
-            };
-
-            $scope.cancel = function () {
-                $mdDialog.cancel();
-            };
-
-            $scope.answer = function (answer) {
-                $mdDialog.hide(answer);
-            };
-        }
-
-
         //    Hoa Don
 
         $scope.showInfoHoaDon = function (dk) {
-            $scope.hidenHoaDon = false;
+            $scope.hidenTableHoaDon = false;
             $resource('/getHoaDon',
                 {
                     makh: dk.makh,
@@ -255,7 +244,7 @@
 
         $scope.showPrintHoaDon = function (ev, hd) {
             $mdDialog.show({
-                controller: PrintHoaDonCtrl,
+                controller: DialogController,
                 templateUrl: 'assets/html/printHoaDon.html',
                 parent: angular.element(document.body),
                 targetEvent: ev,
@@ -267,10 +256,8 @@
                 }, function (err) {
 
                 });
-
         }
-
-        function PrintHoaDonCtrl() {
+        function DialogController() {
         }
     }]);
 
@@ -278,6 +265,9 @@
         $scope.hoadon = $rootScope.hoadon;
     }]);
 
+    app.controller('AddDienKeController', ['$scope', '$rootScope',function ($scope, $rootScope) {
+        $scope.kh = $rootScope.selectKhachHang;
+    }]);
 })()
 
 

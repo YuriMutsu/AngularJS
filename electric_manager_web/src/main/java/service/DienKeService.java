@@ -88,16 +88,14 @@ public class DienKeService extends DatabaseUtility {
 
     private Document createDocument(DienKe dienKe){
         Document document = new Document()
-                .append(MA_DK, dienKe.getMadk())
-                .append(MA_KH, dienKe.getMakh())
+                .append(MA_DK, dienKe.getMadk().toUpperCase())
+                .append(MA_KH, dienKe.getMakh().toUpperCase())
                 .append(MA_THANG, dienKe.getMathang())
                 .append(MA_NAM, dienKe.getManam())
                 .append(NGAY_DANG_KY, "")
                 .append(CHI_SO_CU, dienKe.getChisocu())
                 .append(CHI_SO_MOI, 0)
-                .append(THANH_TOAN, false);
+                .append(IS_THANH_TOAN, false);
         return document;
     }
-
-
 }

@@ -97,4 +97,14 @@ public class UserService extends DatabaseUtility{
         });
         return Results.text().render(array);
     }
+
+    public static String createDiaChi(String diachi, String makv){
+        MongoCollection kvCollection = db.getCollection(TABLE_KHU_VUC);
+        Document khuvuc = (Document) kvCollection.find(new Document(MA_KHU_VUC, makv)).first();
+        MongoCollection tpCollection = db.getCollection(TABLE_TINH_THANH_PHO);
+
+        Document thanhpho = (Document) tpCollection.find(new Document(MA_THANH_PHO, khuvuc.getString(MA_THANH_PHO))).first();
+        String dc = diachi + ", " + khuvuc.getString(TEN_KHU_VUC) + ", " + thanhpho.getString(TEN_TINH_TP);
+        return dc;
+    }
 }

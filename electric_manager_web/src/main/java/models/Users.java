@@ -1,6 +1,12 @@
 package models;
 
+import com.mongodb.client.MongoCollection;
+import org.bson.Document;
+
 import java.sql.Blob;
+
+import static util.Constant.*;
+import static util.Constant.TEN_TINH_TP;
 
 /**
  * Created by tranm on 30-Jul-17.
@@ -133,4 +139,5 @@ public class Users {
     public void setAvatar(Blob avatar) {
         this.avatar = avatar;
     }
+
 }
