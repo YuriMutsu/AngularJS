@@ -1,0 +1,74 @@
+<#import "../layout/defaultLayout.ftl.html" as layout>
+    <@layout.myLayout "Home page">
+
+    <div ng-controller="HomeCtrl" style="margin: 10px">
+        <div>
+            <md-progress-linear md-mode="indeterminate" ng-show="linearEnabled"></md-progress-linear>
+            <div>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Binary name</label>
+                    <input id="binaryName" ng-model="binaryName"/>
+                </md-input-container>
+            </div>
+            <div>
+                <div style="text-align: center">
+                    <md-button class="md-raised md-primary" ng-click="search()">Search</md-button>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div>
+                <ul>
+                    <li>
+                        <a style="cursor: pointer;" ng-click="toggleRoot()">
+                            <span class="glyphicon glyphicon-minus iconRelease" style="color: green"></span>
+                            <b>Releases</b>
+                        </a>
+                        <ul>
+                            <li>
+                                <a style="cursor: pointer" ng-click="toggleParent()">
+                                    <span class="glyphicon glyphicon-minus iconGroupId"
+                                          style="color: green; font-weight: bold"></span>
+                                    <b>resultDependency.groupId</b>
+                                </a>
+                                <ul>
+                                    <li>
+                                        <a style="cursor: pointer" ng-click="toggleParent()">
+                                        <span class="glyphicon glyphicon-minus iconGroupId"
+                                              style="color: green; font-weight: bold"></span>
+                                            <b>resultDependency.artifactId</b>
+                                        </a>
+                                        <ul>
+                                            <li>
+                                                <a style="cursor: pointer" ng-click="toggleParent()">
+                                                    <span class="glyphicon glyphicon-minus iconGroupId"
+                                                    style="color: green; font-weight: bold"></span>
+                                                    <b>dependency.type</b><br>
+                                                    <i class="groupIdDetailFirstLevel">GroupId: {{dependency.groupId}}</i><br>
+                                                    <i class="artifactIdDetailFirstLevel">ArtifactId: {{dependency.artifactId}}</i><br>
+                                                    <i class="versionDetailFirstLevel">Version: {{dependency.version}}</i>
+                                                </a>
+                                                <ul>
+                                                    <li>
+                                                        <a style="cursor: pointer; width: 400px;">
+                                                            <p><b>dependency.type</b></p>
+                                                            <i class="groupIdDetailNextLevel">GroupId: {{dependency.groupId}}</i><br>
+                                                            <i class="versionDetailNextLevel">Version: {{dependency.version}}</i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+
+
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</@layout.myLayout>
