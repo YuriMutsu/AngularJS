@@ -1,7 +1,5 @@
 package util;
 
-import org.ocpsoft.prettytime.units.Minute;
-
 public class Constant {
     public static String PROXY_IP = "192.168.92.113";
     public static String PROXY_PORT = "9999";
@@ -52,4 +50,22 @@ public class Constant {
 
     public static String OPEN_DENPENDENCIES = "<"+"dependencies"+">";
     public static String CLOSE_DENPENDENCIES = "</"+"dependencies"+">";
+
+    public static String OPEN_CORE = "<"+CORE+">";
+    public static String CLOSE_CORE = "</"+CORE+">";
+
+    public static String OPEN_APC = "<"+APC+">";
+    public static String CLOSE_APC = "</"+APC+">";
+
+    public static String OPEN_GSIP = "<"+GSIP+">";
+    public static String CLOSE_GSIP = "</"+GSIP+">";
+
+    public static String OPEN_IDM = "<"+IDM+">";
+    public static String CLOSE_IDM = "</"+IDM+">";
+
+    public static String OPEN_SPFE = "<"+SPFE+">";
+    public static String CLOSE_SPFE = "</"+SPFE+">";
+
+    public static String TAB = "\t";
+    public static String COM_ALCATEL = "com.alcatel";
 }

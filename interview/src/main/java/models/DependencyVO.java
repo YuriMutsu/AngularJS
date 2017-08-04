@@ -61,20 +61,20 @@ public class DependencyVO {
         this.m_listDependency = m_listDependency;
     }
 
-    private void setM_type(String m_groupId){
-        if (m_groupId.contains(TYPE_CORE)){
+    public void setM_type(String m_groupId) {
+        if (m_groupId.contains(TYPE_CORE)) {
             this.m_type = CORE;
-        }else if (m_groupId.contains(TYPE_APC)){
+        } else if (m_groupId.contains(TYPE_APC)) {
             this.m_type = APC;
-        }else if (m_groupId.contains(TYPE_GSIP)){
+        } else if (m_groupId.contains(TYPE_GSIP)) {
             this.m_type = GSIP;
-        }else if (m_groupId.contains(TYPE_IDM)){
+        } else if (m_groupId.contains(TYPE_IDM)) {
             this.m_type = IDM;
-        }else if (m_groupId.contains(TYPE_OIF)){
+        } else if (m_groupId.contains(TYPE_OIF)) {
             this.m_type = OIF;
-        }else if (m_groupId.contains(TYPE_SPFE)){
+        } else if (m_groupId.contains(TYPE_SPFE)) {
             this.m_type = SPFE;
-        }else{
+        } else {
             this.m_type = "";
         }
     }
@@ -83,43 +83,82 @@ public class DependencyVO {
         return m_type;
     }
 
-    public String toString(){
+    public String toString() {
         StringBuffer buffer = new StringBuffer();
-        DependencyVO dependencyVO;
-        if (this.m_listDependency != null){
-            for (int i=0;i<this.m_listDependency.size(); i++){
-                dependencyVO = this.m_listDependency.get(i);
-                if (dependencyVO.getM_listDependency() == null){
-                    buffer.append(writeXML(dependencyVO));
-                }else{
-                    buffer.append(writeXML(dependencyVO));
-                    for (int j=0;j<dependencyVO.getM_listDependency().size(); j++){
-                        buffer.append(writeXML(dependencyVO.getM_listDependency().get(j)));
-                    }
-                }
+        if (this.m_listDependency != null) {
+            if (this.m_type.equals(CORE)) {
+                write(buffer, OPEN_CORE, CLOSE_CORE);
+            } else if (this.m_type.equals(APC)) {
+                write(buffer, OPEN_APC, CLOSE_APC);
+            } else if (this.m_type.equals(GSIP)) {
+                write(buffer, OPEN_GSIP, CLOSE_GSIP);
+            } else if (this.m_type.equals(IDM)) {
+                write(buffer, OPEN_IDM, CLOSE_IDM);
+            } else if (this.m_type.equals(SPFE)) {
+                write(buffer, OPEN_SPFE, CLOSE_SPFE);
+            } else {
+                write(buffer, "<Combo>", "</Combo>");
             }
+        } else {
+            writeDependency(buffer, this);
         }
         return buffer.toString();
     }
 
-    private String writeXML(DependencyVO dependencyVO){
-        StringBuffer buffer = new StringBuffer();
-        buffer.append(OPEN_DENPENDENCY + LINE_DOWN);
+    private void write(StringBuffer buffer, String open, String close) {
+        buffer.append(TAB + open + LINE_DOWN);
+        buffer.append(TAB + TAB + OPEN_DENPENDENCIES + LINE_DOWN);
 
-        buffer.append(OPEN_GROUPID);
-        buffer.append(dependencyVO.m_groupId);
-        buffer.append(CLOSE_GROUPID + LINE_DOWN);
+        for (int i = 0; i < this.m_listDependency.size(); i++) {
+            DependencyVO vo = this.m_listDependency.get(i);
+            if (vo.m_type.equals(CORE)) {
+                writeDepen(buffer, vo, OPEN_CORE, CLOSE_CORE);
+            } else if (vo.m_type.equals(APC)) {
+                writeDepen(buffer, vo, OPEN_APC, CLOSE_APC);
+            } else if (vo.m_type.equals(GSIP)) {
+                writeDepen(buffer, vo, OPEN_GSIP, CLOSE_GSIP);
+            } else if (vo.m_type.equals(IDM)) {
+                writeDepen(buffer, vo, OPEN_IDM, CLOSE_IDM);
+            } else if (vo.m_type.equals(SPFE)) {
+                writeDepen(buffer, vo, OPEN_SPFE, CLOSE_SPFE);
+            }
+        }
 
-        buffer.append(OPEN_ARTIFACTID);
-        buffer.append(dependencyVO.m_artifactId);
-        buffer.append(CLOSE_ARTIFACTID + LINE_DOWN);
+        buffer.append(TAB + TAB + CLOSE_DENPENDENCIES + LINE_DOWN);
+        buffer.append(TAB + close + LINE_DOWN);
+    }
 
-        buffer.append(OPEN_VERSION);
-        buffer.append(dependencyVO.m_version);
-        buffer.append(CLOSE_VERSION + LINE_DOWN);
+    private void writeDepen(StringBuffer buffer, DependencyVO vo, String open, String close) {
+        buffer.append(TAB + TAB + TAB + open + LINE_DOWN);
 
-        buffer.append(CLOSE_DENPENDENCY + LINE_DOWN);
+        if (vo.getM_listDependency() != null) {
+            for (int j = 0; j < vo.getM_listDependency().size(); j++) {
+                DependencyVO de = vo.getM_listDependency().get(j);
+                writeDependency(buffer, de);
+            }
+        } else {
+            writeDependency(buffer, vo);
+        }
+        buffer.append(TAB + TAB + TAB + close + LINE_DOWN);
+    }
 
-        return buffer.toString();
+    private void writeDependency(StringBuffer buffer, DependencyVO dependencyVO) {
+        if (dependencyVO.getM_groupId().contains(COM_ALCATEL)) {
+            buffer.append(TAB + TAB + TAB + TAB + OPEN_DENPENDENCY + LINE_DOWN);
+            
+            buffer.append(TAB + TAB + TAB + TAB + TAB + OPEN_GROUPID);
+            buffer.append(dependencyVO.m_groupId);
+            buffer.append(CLOSE_GROUPID + LINE_DOWN);
+
+            buffer.append(TAB + TAB + TAB + TAB + TAB + OPEN_ARTIFACTID);
+            buffer.append(dependencyVO.m_artifactId);
+            buffer.append(CLOSE_ARTIFACTID + LINE_DOWN);
+
+            buffer.append(TAB + TAB + TAB + TAB + TAB + OPEN_VERSION);
+            buffer.append(dependencyVO.m_version);
+            buffer.append(CLOSE_VERSION + LINE_DOWN);
+
+            buffer.append(TAB + TAB + TAB + TAB + CLOSE_DENPENDENCY + LINE_DOWN);
+        }
     }
 }

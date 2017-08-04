@@ -82,19 +82,7 @@ public class ApplicationController {
             return Results.json().render(e.toString());
         }
     }
-
-
-    private DependencyVO getDepenLV2(String data) {
-        DependencyVO dependencyVO = m_searchDependencyHandler.getDependencySecondLevelInfo(data);
-
-        if (dependencyVO != null) {
-            return dependencyVO;
-        }
-
-        return null;
-    }
-
-
+    
     public Result exportFileXml(@Param("groupId") String groupId,
                                 @Param("artifactId") String artifactId,
                                 @Param("version") String version) {
@@ -127,12 +115,12 @@ public class ApplicationController {
 
                 DependencyVO de = m_searchDependencyHandler.getDependencySecondLevelInfo(object.toString());
                 vo.setM_listDependency(de.getM_listDependency());
+
+                System.out.println(vo.getM_type() + " ==== " +vo.getM_listDependency().size());
             }
         }
 
         StringBuffer buffer = new StringBuffer();
-
-        buffer.append(OPEN_PROJECT + LINE_DOWN);
 
         buffer.append(OPEN_GROUPID);
         buffer.append(dependencyVO.getM_groupId());
@@ -146,11 +134,7 @@ public class ApplicationController {
         buffer.append(dependencyVO.getM_version());
         buffer.append(CLOSE_VERSION + LINE_DOWN);
 
-        buffer.append(OPEN_DENPENDENCIES + LINE_DOWN);
         buffer.append(dependencyVO.toString());
-        buffer.append(CLOSE_DENPENDENCIES + LINE_DOWN);
-
-        buffer.append(CLOSE_PROJECT + LINE_DOWN);
 
         JSONObject json = new JSONObject();
 

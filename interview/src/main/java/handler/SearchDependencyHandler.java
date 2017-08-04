@@ -23,6 +23,7 @@ public class SearchDependencyHandler {
 
         ArtifactCoverterImpl artifactConvert = new ArtifactCoverterImpl();
         String groupId = artifactConvert.getGroupIdFromPomFile(groupIdContent);
+        logger.info("GroupId : " + groupId);
         String contentFirstPomFile = dependencySearcher.getPomContent(groupId, artifactId, version);
         DependencyVO dependencyVO = artifactConvert.getDependencyVO(contentFirstPomFile);
 
