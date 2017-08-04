@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.mockito:mockito-all:org.mockito">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.m2/repository/org/mockito/mockito-all/org.mockito/mockito-all-org.mockito.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.m2/repository/org/mockito/mockito-all/org.mockito/mockito-all-org.mockito-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.m2/repository/org/mockito/mockito-all/org.mockito/mockito-all-org.mockito-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

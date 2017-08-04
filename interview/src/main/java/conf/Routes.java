@@ -15,6 +15,12 @@ public class Routes implements ApplicationRoutes {
         
         router.GET().route("/").with(ApplicationController::index);
 
+
+        router.GET().route("/getDependency").with(ApplicationController::searchDenpendency);
+        router.POST().route("/getDependency/getDependencySecondLevelInfo").with(ApplicationController::getDependencySecondLevelInfo);
+
+        router.GET().route("/exportXml").with(ApplicationController::exportFileXml);
+
         ///////////////////////////////////////////////////////////////////////
         // Assets (pictures / javascript)
         ///////////////////////////////////////////////////////////////////////    

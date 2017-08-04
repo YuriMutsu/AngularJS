@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.alcatel.axs.apc.app.plugins.fwk:axs-apc-app-plugins-documentationschema:com.alcatel.axs.apc.app.plugins.fwk">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.m2/repository/com/alcatel/axs/apc/app/plugins/fwk/axs-apc-app-plugins-documentationschema/com.alcatel.axs.apc.app.plugins.fwk/axs-apc-app-plugins-documentationschema-com.alcatel.axs.apc.app.plugins.fwk.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.m2/repository/com/alcatel/axs/apc/app/plugins/fwk/axs-apc-app-plugins-documentationschema/com.alcatel.axs.apc.app.plugins.fwk/axs-apc-app-plugins-documentationschema-com.alcatel.axs.apc.app.plugins.fwk-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.m2/repository/com/alcatel/axs/apc/app/plugins/fwk/axs-apc-app-plugins-documentationschema/com.alcatel.axs.apc.app.plugins.fwk/axs-apc-app-plugins-documentationschema-com.alcatel.axs.apc.app.plugins.fwk-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

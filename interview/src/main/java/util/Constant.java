@@ -1,5 +1,7 @@
 package util;
 
+import org.ocpsoft.prettytime.units.Minute;
+
 public class Constant {
     public static String PROXY_IP = "192.168.92.113";
     public static String PROXY_PORT = "9999";
@@ -14,21 +16,40 @@ public class Constant {
     public static String DEPENDENCY_ELEMENT_TAG = "dependency";
     public static String ARTIFACT_ELEMENT_TAG = "artifact";
 
-    public static String CORE = "com.alcatel.axs.basic.app";
-    public static String BASIC_FWK = "com.alcatel.axs.basic.fwk";
-    public static String APC_APP = "com.alcatel.axs.apc.app.fwk";
-    public static String APC_PLUGIN_FWK = "com.alcatel.axs.apc.app.plugins.fwk";
-    public static String GSIP_APP = "com.alcatel.axs.gsip.app.fwk";
-    public static String GSIP_PLUGIN_FWK = "com.alcatel.axs.gsip.app.plugins.fwk";
-    public static String IDM_PLUGIN_FWK = "com.alcatel.axs.idm.app.plugins.fwk";
-    public static String IDM_APP = "com.alcatel.axs.idm.app.fwk";
-    public static String OIF_APP = "com.alcatel.axs.oif.app";
-    public static String SPFE_APP = "com.alcatel.axs.spfe.app";
-    public static String SPFE_PLUGIN_FWK = "com.alcatel.axs.spfe.app.plugins.fwk";
+    public static String TYPE_CORE = "com.alcatel.axs.basic";
+    public static String TYPE_APC = "com.alcatel.axs.apc";
+    public static String TYPE_GSIP = "com.alcatel.axs.gsip";
+    public static String TYPE_IDM = "com.alcatel.axs.idm";
+    public static String TYPE_OIF = "com.alcatel.axs.oif";
+    public static String TYPE_SPFE = "com.alcatel.axs.spfe";
 
-    public static String CORE_PLUG = "Core Plug";
-    public static String IDM_PLUG = "IDM Plug";
-    public static String APC_PLUG = "APC Plug";
-    public static String GSIP_PLUG = "GSIP Plug";
-    public static String SPFE_PLUG = "SPFE Plug";
+    public static String CORE = "CORE";
+    public static String APC = "APC";
+    public static String GSIP = "GSIP";
+    public static String IDM = "IDM";
+    public static String OIF = "OIF";
+    public static String SPFE = "SPFE";
+
+    private static Integer SECOND = 1000;
+    private static Integer MINUTE = 60 * 1000;
+    public static Integer TIME_OUT = 30 * SECOND;
+
+    public static String LINE_DOWN = "\r\n";
+    public static String OPEN_DENPENDENCY = "<"+DEPENDENCY_ELEMENT_TAG+">";
+    public static String CLOSE_DENPENDENCY = "</"+DEPENDENCY_ELEMENT_TAG+">";
+
+    public static String OPEN_ARTIFACTID = "<"+ARTIFACT_ID+">";
+    public static String CLOSE_ARTIFACTID = "</"+ARTIFACT_ID+">";
+
+    public static String OPEN_GROUPID = "<"+GROUP_ID+">";
+    public static String CLOSE_GROUPID = "</"+GROUP_ID+">";
+
+    public static String OPEN_VERSION = "<"+VERSION+">";
+    public static String CLOSE_VERSION = "</"+VERSION+">";
+
+    public static String OPEN_PROJECT = "<"+PROJECT_ELEMENT_TAG+">";
+    public static String CLOSE_PROJECT = "</"+PROJECT_ELEMENT_TAG+">";
+
+    public static String OPEN_DENPENDENCIES = "<"+"dependencies"+">";
+    public static String CLOSE_DENPENDENCIES = "</"+"dependencies"+">";
 }

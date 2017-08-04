@@ -8,6 +8,7 @@ import java.net.InetSocketAddress;
 import java.net.Proxy;
 import static util.Constant.PROXY_IP;
 import static util.Constant.PROXY_PORT;
+import static util.Constant.TIME_OUT;
 
 public class ConnectionUtil {
     private static ConnectionUtil instance;
@@ -42,9 +43,9 @@ public class ConnectionUtil {
         Connection connection = null;
         String data = "";
         if (proxy!= null){
-            connection = Jsoup.connect(url).ignoreHttpErrors(true).ignoreContentType(true).maxBodySize(0).method(Connection.Method.GET).timeout(0).proxy(proxy);
+            connection = Jsoup.connect(url).ignoreHttpErrors(true).ignoreContentType(true).maxBodySize(0).method(Connection.Method.GET).timeout(TIME_OUT).proxy(proxy);
         }else{
-            connection = Jsoup.connect(url).ignoreHttpErrors(true).ignoreContentType(true).maxBodySize(0).method(Connection.Method.GET).timeout(0);
+            connection = Jsoup.connect(url).ignoreHttpErrors(true).ignoreContentType(true).maxBodySize(0).method(Connection.Method.GET).timeout(TIME_OUT);
         }
 
         try {

@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.alcatel.axs.basic.app:axs-nemgr-internal-api:com.alcatel.axs.basic.app">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.m2/repository/com/alcatel/axs/basic/app/axs-nemgr-internal-api/com.alcatel.axs.basic.app/axs-nemgr-internal-api-com.alcatel.axs.basic.app.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.m2/repository/com/alcatel/axs/basic/app/axs-nemgr-internal-api/com.alcatel.axs.basic.app/axs-nemgr-internal-api-com.alcatel.axs.basic.app-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.m2/repository/com/alcatel/axs/basic/app/axs-nemgr-internal-api/com.alcatel.axs.basic.app/axs-nemgr-internal-api-com.alcatel.axs.basic.app-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: ant:ant-contrib:ant">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.m2/repository/ant/ant-contrib/ant/ant-contrib-ant.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.m2/repository/ant/ant-contrib/ant/ant-contrib-ant-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.m2/repository/ant/ant-contrib/ant/ant-contrib-ant-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

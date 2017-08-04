@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: ${project.parent.groupId}:${spfe.plugin.artifactId}:${project.parent.groupId}">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.m2/repository/${project/parent/groupId}/${spfe.plugin.artifactId}/${project.parent.groupId}/${spfe.plugin.artifactId}-${project.parent.groupId}.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.m2/repository/${project/parent/groupId}/${spfe.plugin.artifactId}/${project.parent.groupId}/${spfe.plugin.artifactId}-${project.parent.groupId}-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.m2/repository/${project/parent/groupId}/${spfe.plugin.artifactId}/${project.parent.groupId}/${spfe.plugin.artifactId}-${project.parent.groupId}-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

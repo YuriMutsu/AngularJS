@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: ant:ant-optional:ant">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.m2/repository/ant/ant-optional/ant/ant-optional-ant.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.m2/repository/ant/ant-optional/ant/ant-optional-ant-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.m2/repository/ant/ant-optional/ant/ant-optional-ant-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

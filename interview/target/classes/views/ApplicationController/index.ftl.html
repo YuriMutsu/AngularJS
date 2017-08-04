@@ -1,0 +1,112 @@
+<#import "../layout/defaultLayout.ftl.html" as layout>
+    <@layout.myLayout "Home page">
+
+    <div ng-controller="HomeCtrl" style="margin: 10px">
+        <div layout-fill layout="row" layout-align="center center" ng-init="waiting = true" ng-hide="waiting">
+            <md-progress-linear md-mode="indeterminate"></md-progress-linear>
+        </div>
+
+        <div>
+            <md-progress-linear md-mode="indeterminate" ng-show="linearEnabled"></md-progress-linear>
+            <form>
+                <div>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Binary name</label>
+                        <input id="binaryName" ng-model="binaryName" required/>
+                    </md-input-container>
+                </div>
+                <div>
+                    <div style="text-align: center">
+                        <md-button type="submit" class="md-raised md-primary" ng-click="search()">Search</md-button>
+                    </div>
+
+                </div>
+            </form>
+
+        </div>
+
+        <div layout-fill flex layout-align="center center">
+            <div class="tree">
+                <ul>
+                    <li>
+                        <a style="cursor: pointer;" ng-click="toggleRelease()">
+                            <span class="glyphicon glyphicon-minus iconRelease" style="color: green"></span>
+                            <b>Releases</b>
+                        </a>
+                        <ul ng-init="hideRoot = true" ng-hide="hideRoot">
+                            <li>
+                                <a style="cursor: pointer" ng-click="toggleParent()">
+                                    <span class="glyphicon glyphicon-minus iconGroupId"
+                                          style="color: green; font-weight: bold"></span>
+                                    <b>{{resultDependency.m_groupId}}</b>
+                                </a>
+                                <ul ng-init="hideParent = true" ng-hide="hideParent">
+                                    <li>
+                                        <a style="cursor: pointer" ng-click="toggleChild()">
+                                        <span class="glyphicon glyphicon-minus iconGroupId"
+                                              style="color: green; font-weight: bold"></span>
+                                            <b>{{resultDependency.m_artifactId}}</b>
+                                        </a>
+                                        <!-- DEPENDENCY LEVEL 1 -->
+                                        <ul ng-if="resultDependency.m_listDependency != null"
+                                            ng-hide="hideChild">
+                                            <li ng-repeat="dependencyChild in resultDependency.m_listDependency | orderBy : 'm_type'">
+                                                <a style="cursor: pointer"
+                                                   ng-click="getInfoDependency(($index+1), dependencyChild.m_type, dependencyChild.m_groupId, dependencyChild.m_artifactId, dependencyChild.m_version)">
+                                                    <span class="glyphicon glyphicon-minus iconGroupId"
+                                                          style="color: green; font-weight: bold"></span>
+                                                    <b>{{dependencyChild.m_type}}</b><br>
+                                                    <i class="groupIdDetailFirstLevel">GroupId:
+                                                        {{dependencyChild.m_groupId}}</i><br>
+                                                    <i class="artifactIdDetailFirstLevel">ArtifactId:
+                                                        {{dependencyChild.m_artifactId}}</i><br>
+                                                    <i class="versionDetailFirstLevel">Version:
+                                                        {{resultDependency.m_version}}</i>
+                                                </a>
+                                                <!-- DEPENDENCY LEVEL 2 -->
+                                                <ul ng-if="indexSelect == ($index + 1) && hideChild_lv2 == true" ng-init="hideChild_lv2 = false" ng-hide="hideChild_lv2">
+                                                    <li ng-repeat="dependency in dependencies">
+                                                        <a style="cursor: pointer; width: 400px;"
+                                                           ng-if="dependency.type != '' ">
+                                                            <b>{{dependency.type}}</b><br>
+                                                            <i class="groupIdDetailNextLevel">GroupId:
+                                                                {{dependency.groupId}}</i><br>
+                                                            <i class="versionDetailNextLevel">Version:
+                                                                {{dependency.version}}</i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <ul ng-hide="hide">
+                            <li>
+                                <span>Not found</span>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div layout-fill flex layout-align="center center">
+            <div style="padding-left: 35px">
+                <md-button class="md-button md-primary md-raised" ng-click="export(resultDependency)">EXPORT XML</md-button>
+            </div>
+
+            <div>
+                <div>
+                    <h2> pom.xml</h2>
+                </div>
+
+                <div ng-repeat="str in xml">
+                    {{str}}
+                </div>
+            </div>
+
+        </div>
+    </div>
+</@layout.myLayout>

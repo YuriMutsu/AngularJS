@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: commons-collections:commons-collections:commons-collections">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.m2/repository/commons-collections/commons-collections/commons-collections/commons-collections-commons-collections.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.m2/repository/commons-collections/commons-collections/commons-collections/commons-collections-commons-collections-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.m2/repository/commons-collections/commons-collections/commons-collections/commons-collections-commons-collections-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

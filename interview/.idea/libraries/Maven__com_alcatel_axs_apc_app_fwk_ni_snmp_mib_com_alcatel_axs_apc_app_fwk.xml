@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.alcatel.axs.apc.app.fwk:ni-snmp-mib:com.alcatel.axs.apc.app.fwk">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.m2/repository/com/alcatel/axs/apc/app/fwk/ni-snmp-mib/com.alcatel.axs.apc.app.fwk/ni-snmp-mib-com.alcatel.axs.apc.app.fwk.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.m2/repository/com/alcatel/axs/apc/app/fwk/ni-snmp-mib/com.alcatel.axs.apc.app.fwk/ni-snmp-mib-com.alcatel.axs.apc.app.fwk-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.m2/repository/com/alcatel/axs/apc/app/fwk/ni-snmp-mib/com.alcatel.axs.apc.app.fwk/ni-snmp-mib-com.alcatel.axs.apc.app.fwk-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

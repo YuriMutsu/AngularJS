@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: jboss:antlr:jboss">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.m2/repository/jboss/antlr/jboss/antlr-jboss.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.m2/repository/jboss/antlr/jboss/antlr-jboss-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.m2/repository/jboss/antlr/jboss/antlr-jboss-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -17,11 +17,11 @@ public class ArtifactCoverterImpl implements ArtifactCoverter {
         DependencyVO dependencyVO = new DependencyVO();
         Document document = XmlUtil.convertStringToDocument(xmlStr);
 
-        if (document!=null){
+        if (document != null) {
             NodeList projectNodeList = document.getElementsByTagName(Constant.PROJECT_ELEMENT_TAG);
             Node projectNode = projectNodeList.item(0);
 
-            if(projectNode.getNodeType() == Node.ELEMENT_NODE){
+            if (projectNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element projectElement = (Element) projectNode;
                 dependencyVO.setM_artifactId(projectElement.getElementsByTagName(Constant.ARTIFACT_ID).item(1).getTextContent());
                 dependencyVO.setM_groupId(projectElement.getElementsByTagName(Constant.GROUP_ID).item(1).getTextContent());
@@ -30,10 +30,10 @@ public class ArtifactCoverterImpl implements ArtifactCoverter {
 
             NodeList dependencyNodeList = document.getElementsByTagName(Constant.DEPENDENCY_ELEMENT_TAG);
             List<DependencyVO> dependencyVOList = new ArrayList<>();
-            for (int i=0;i<dependencyNodeList.getLength();i++){
+            for (int i = 0; i < dependencyNodeList.getLength(); i++) {
                 DependencyVO dependency = new DependencyVO();
                 Node node = dependencyNodeList.item(i);
-                if (node.getNodeType() == Node.ELEMENT_NODE){
+                if (node.getNodeType() == Node.ELEMENT_NODE) {
                     Element element = (Element) node;
                     dependency.setM_artifactId(element.getElementsByTagName(Constant.ARTIFACT_ID).item(0).getTextContent());
                     dependency.setM_groupId(element.getElementsByTagName(Constant.GROUP_ID).item(0).getTextContent());

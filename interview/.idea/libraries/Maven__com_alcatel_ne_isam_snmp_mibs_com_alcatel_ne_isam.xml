@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.alcatel.ne.isam:snmp-mibs:com.alcatel.ne.isam">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.m2/repository/com/alcatel/ne/isam/snmp-mibs/com.alcatel.ne.isam/snmp-mibs-com.alcatel.ne.isam.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.m2/repository/com/alcatel/ne/isam/snmp-mibs/com.alcatel.ne.isam/snmp-mibs-com.alcatel.ne.isam-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.m2/repository/com/alcatel/ne/isam/snmp-mibs/com.alcatel.ne.isam/snmp-mibs-com.alcatel.ne.isam-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
