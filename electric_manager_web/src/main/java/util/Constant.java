@@ -47,6 +47,7 @@ public class Constant {
     public static String BIRTH_DAY = "birthday";
     public static String GENDER = "gender";
     public static String NAME = "name";
+    public static String HOA_DON = "HD";
 
 
     //Hoa Don

@@ -56,37 +56,36 @@
                                     </md-button>
                                 </div>
                             </div>
-                            <table class="responstable" style="width: 100%" ng-hide="hidenTable">
+                            <table class="responstable" style="width: 100%" ng-hide="hidenTableKhachHang">
                                 <thead>
                                 <tr>
                                     <th>Index</th>
-                                    <th>Ma Khach Hang</th>
-                                    <th>Ten Khang Hang</th>
-                                    <th>Dia chi</th>
-                                    <th>Khu Vuc</th>
+                                    <th>MÃ KHÁCH HÀNG</th>
+                                    <th>TÊN KHÁCH HÀNG</th>
+                                    <th>ĐỊA CHỈ</th>
+                                    <th>KHU VỰC</th>
                                     <th>CMND</th>
-                                    <th>Gioi Tinh</th>
-                                    <th>Phone</th>
+                                    <th>GIỚI TÍNH</th>
+                                    <th>ĐIỆN THOẠI</th>
                                     <th></th>
                                 </tr>
                                 </thead>
                                 <tbody ng-repeat="kh in listKhachHang">
-                                <tr ng-click="thongTinhDienKe(kh)">
+                                <tr ng-click="showInfoDienKe(kh)">
                                     <td>{{$index + 1}}</td>
                                     <td>{{kh.makh}}</td>
-                                    <td>{{kh.tenkh}}</td>
-                                    <td>{{kh.diachi}}</td>
+                                    <td style="text-align: left">{{kh.tenkh}}</td>
+                                    <td style="text-align: left">{{kh.diachi}}</td>
                                     <td>{{tenKhuVuc}}</td>
                                     <td>{{kh.cmnd}}</td>
                                     <td>{{kh.gioitinh}}</td>
                                     <td>{{kh.phone}}</td>
-                                    <td layout="" row>
+                                    <td layout="row" layout-align="center center">
                                         <md-button class="md-icon-button" ng-click="editKhachHang(kh)">
                                             <md-tooltip md-direction="bottom">Edit</md-tooltip>
                                             <md-icon aria-label="" class="material-icons">edit</md-icon>
                                         </md-button>
-                                        <md-button class="md-icon-button" ng-if="currentDashboard.owner == name"
-                                                   ng-click="deleteKhachHang(kh)">
+                                        <md-button class="md-icon-button" ng-click="deleteKhachHang(kh)">
                                             <md-tooltip md-direction="bottom">Delete</md-tooltip>
                                             <md-icon aria-label="" class="material-icons">delete</md-icon>
                                         </md-button>
@@ -98,14 +97,15 @@
                     </div>
 
                     <!-- CHI TIET DIEN KE-->
-                    <div ng-init="hidenTableDienKe = true">
+                    <div>
                         <md-card class="gadget" md-whiteframe="8">
                             <div layout="row" layout-align="start center">
                                 <div layout="row" layout-align="start center" flex>
                                     <h4>Thong Ke Dien Ke</h4>
 
                                     <div layout="row" layout-align="end center" flex>
-                                        <md-button class="md-icon-button" ng-click="showAddDienKe($event)">
+                                        <md-button class="md-icon-button" ng-click="showAddDienKe($event, kh)"
+                                        ng-if="selectKhachHang != null">
                                             <md-tooltip md-direction="bottom">Add Dien Ke</md-tooltip>
                                             <md-icon aria-label="" class="material-icons">add</md-icon>
                                         </md-button>
@@ -131,18 +131,18 @@
                                 <thead>
                                 <tr>
                                     <th>Index</th>
-                                    <th>Mã điện kế</th>
-                                    <th>Mã Khách hàng</th>
-                                    <th>Tháng</th>
-                                    <th>Năm</th>
-                                    <th>Chỉ số cũ</th>
-                                    <th>Chỉ số mới</th>
-                                    <th>Thanh Toán</th>
+                                    <th>MÃ ĐIỆN KẾ</th>
+                                    <th>MÃ KHÁCH HÀNG</th>
+                                    <th>THÁNG</th>
+                                    <th>NĂM</th>
+                                    <th>CHỈ SỐ CŨ</th>
+                                    <th>CHỈ SỐ MỚI</th>
+                                    <th>THANH TOÁN</th>
                                     <th></th>
                                 </tr>
                                 </thead>
                                 <tbody ng-repeat="dk in listDienKe">
-                                <tr ng-click="showInfoHoaDon(dk)">
+                                <tr ng-click="showInfoHoaDon(dk)" style="height: 5px">
                                     <td>{{$index + 1}}</td>
                                     <td>{{dk.madk}}</td>
                                     <td>{{dk.makh}}</td>
@@ -150,15 +150,12 @@
                                     <td>{{dk.manam}}</td>
                                     <td>{{dk.chisocu}}</td>
                                     <td>
-                                        <md-input-container>
-                                            <input type="number" ng-model=dk.chisomoi style="width: 100px" flex>
-                                        </md-input-container>
+                                        <input type="number" ng-model=dk.chisomoi style="width: 100px" flex>
                                     </td>
-                                    <td>
-                                        <md-checkbox ng-model="dk.isthanhtoan" ng-click="clickThanhToan(dk)">
-                                        </md-checkbox>
+                                    <td style="padding-top: 10px">
+                                        <md-checkbox ng-model="dk.isthanhtoan" ng-click="clickThanhToan(dk)"></md-checkbox>
                                     </td>
-                                    <td layout="row" layout-align="center center">
+                                    <td layout="row">
                                         <md-button class="md-icon-button" ng-click="updateChiSoDien(dk)">
                                             <md-tooltip md-direction="bottom">Update</md-tooltip>
                                             <md-icon aria-label="" class="material-icons">refresh</md-icon>
@@ -175,7 +172,7 @@
                     </div>
 
                     <!-- CHI TIET HOA DON-->
-                    <div ng-init="hidenHoaDon = true">
+                    <div>
                         <md-card class="gadget" md-whiteframe="8">
                             <div layout="row" layout-align="start center">
                                 <h4>Chi Tiet Hoa Don</h4>
@@ -202,27 +199,27 @@
                                     </md-button>
                                 </div>
                             </div>
-                            <table class="responstable" style="width: 100%" ng-hide="hidenHoaDon">
+                            <table class="responstable" style="width: 100%" ng-hide="hidenTableHoaDon">
                                 <thead>
-                                <th>Mã Hóa Đơn</th>
-                                <th>Mã Khách Hàng</th>
-                                <th>Tên Khách Hàng</th>
-                                <th>Địa Chỉ</th>
-                                <th>Mã Điện Kế</th>
-                                <th>Chỉ Số điện tiêu thụ</th>
-                                <th>Từ Ngày</th>
-                                <th>Đến Ngày</th>
+                                <th>MÃ HÓA ĐƠN</th>
+                                <th>MÃ KHÁCH HÀNG</th>
+                                <th>TÊN KHÁCH HÀNG</th>
+                                <th>ĐỊA CHỈ</th>
+                                <th>MÃ ĐIỆN KẾ</th>
+                                <th>CHỈ SỐ ĐIỆN TIÊU THỤ</th>
+                                <th>TỪ NGÀY</th>
+                                <th>ĐẾN NGÀY</th>
                                 <th>VAT</th>
-                                <th>Mã Số Thuế</th>
-                                <th>Thành Tiền</th>
-                                <th>Thanh Toán</th>
+                                <th>MÃ SỐ THUẾ</th>
+                                <th>THÀNH TIÊN</th>
+                                <th>PHẢI THANH TOÁN (ĐÃ TÍNH VAT)</th>
                                 </thead>
                                 <tbody>
                                 <tr ng-style="hoadon.isthanhtoan == false && {color: 'red'}">
                                     <td>{{hoadon.mahd}}</td>
                                     <td>{{hoadon.makh}}</td>
-                                    <td>{{hoadon.tenkh}}</td>
-                                    <td>{{hoadon.diachi}}</td>
+                                    <td style="text-align: left">{{hoadon.tenkh}}</td>
+                                    <td style="text-align: left">{{hoadon.diachi}}</td>
                                     <td>{{hoadon.madk}}</td>
                                     <td>{{hoadon.tieuthu}}</td>
                                     <td>{{hoadon.tungay}}</td>

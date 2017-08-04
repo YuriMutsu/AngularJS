@@ -97,11 +97,12 @@ md-content {
 
 .responstable tr:nth-child(odd) {
     background: #f8f8f8;
+    height: 10px;
 }
 
 .responstable tr:nth-child(even) {
-
     background: #dcdcdc;
+    height: 20px;
 }
 
 .responstable th {
@@ -110,12 +111,15 @@ md-content {
     text-align: center;
     padding: 2px;
     border-right: white groove 1px;
+    font-size: small;
 
 }
 
 .responstable td {
     text-align: center;
-    padding: 2px;
+    padding: 5px;
+    font-size: small;
+    height: 25px;
 }
 
 .label.ng-binding {
