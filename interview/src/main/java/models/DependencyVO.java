@@ -145,7 +145,7 @@ public class DependencyVO {
     private void writeDependency(StringBuffer buffer, DependencyVO dependencyVO) {
         if (dependencyVO.getM_groupId().contains(COM_ALCATEL)) {
             buffer.append(TAB + TAB + TAB + TAB + OPEN_DENPENDENCY + LINE_DOWN);
-            
+
             buffer.append(TAB + TAB + TAB + TAB + TAB + OPEN_GROUPID);
             buffer.append(dependencyVO.m_groupId);
             buffer.append(CLOSE_GROUPID + LINE_DOWN);
