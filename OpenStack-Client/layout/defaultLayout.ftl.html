@@ -1,0 +1,55 @@
+<#macro myLayout title="Layout example">
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>${title}</title>
+      <title>Home</title>
+
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+      <script type="text/javascript" src="assets/js/angular.min.js"></script>
+      <script type="text/javascript" src="assets/js/angular-material.min.js"></script>
+      <script type="text/javascript" src="assets/js/angular-aria.min.js"></script>
+      <script type="text/javascript" src="assets/js/angular-animate.min.js"></script>
+      <script type="text/javascript" src="assets/js/angular-route.min.js"></script>
+      <script type="text/javascript" src="assets/js/angular-resource.min.js"></script>
+      <script type="text/javascript" src="assets/js/angular-messages.min.js"></script>
+      <script type="text/javascript" src="assets/js/angular-cookies.min.js"></script>
+      <script type="text/javascript" src="assets/js/app.js"></script>
+
+      <!-- CSS -->
+      <link rel="stylesheet" type="text/css" href="assets/css/angular-material.css">
+      <link rel="stylesheet" type="text/css" href="assets/css/app.css">
+      <link rel="stylesheet" type="text/css" href="assets/css/custom.css">
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+<body>
+
+    <div ng-app="myApp">
+        
+        <#include "header.ftl.html"/>
+        
+        <#if (flash.error)??>
+            <div class="alert alert-danger">
+                ${flash.error}
+            </div>
+        </#if>
+        
+        <#if (flash.success)??>
+            <div class="alert alert-success">
+                ${flash.success}
+            </div>
+        </#if>
+
+        <#nested/>
+
+        <#include "footer.ftl.html"/>
+        
+    </div> <!-- /container -->
+</body>
+</html>
+</#macro>

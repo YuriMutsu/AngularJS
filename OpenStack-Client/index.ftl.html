@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>${title}</title>
+    <title>Home</title>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <script type="text/javascript" src="assets/js/angular.min.js"></script>
+    <script type="text/javascript" src="assets/js/angular-material.min.js"></script>
+    <script type="text/javascript" src="assets/js/angular-aria.min.js"></script>
+    <script type="text/javascript" src="assets/js/angular-animate.min.js"></script>
+    <script type="text/javascript" src="assets/js/angular-route.min.js"></script>
+    <script type="text/javascript" src="assets/js/angular-resource.min.js"></script>
+    <script type="text/javascript" src="assets/js/angular-messages.min.js"></script>
+    <script type="text/javascript" src="assets/js/angular-cookies.min.js"></script>
+    <script type="text/javascript" src="assets/js/app.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="assets/css/angular-material.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/app.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/custom.css">
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+<div ng-app="myApp" layout="column" ng-controller="HomeCtrl">
+
+    <!-- HEADER -->
+    <div style="height: 60px; background: cornflowerblue" layout-align="start center" layout-fill layout="row"
+         ng-controller="HomeCtrl">
+        <div>
+            <h4>Interview</h4>
+        </div>
+
+        <div flex layout="row" layout-align="end center">
+            <div flex layout="row" layout-align="end center">
+                <md-button class="md-mini" ng-click="showNewOpenstackURL($events)">
+                    <md-icon aria-label="Menu" class="material-icons">add</md-icon>
+                    <md-tooltip md-direction="end">New Openstack URL</md-tooltip>
+                </md-button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTAINER -->
+    <md-content layout="row" flex layout-fill>
+        <!-- LEFT -->
+        <div layout="row" flex layout-fill>
+            <div style="background-color: rgba(106,122,246,0.4);padding-left: 5px;height: 1000px" flex="10" flex>
+                <md-list layout-fill layout="column" layout-align="center stretch">
+                    <!-- List item-->
+                    <md-list-item flex=33 ng-repeat="i in menuItems" style="font-size: small">
+                        <md-button layout-fill ng-click="onMenuItemClicked(i)"
+                                   layout-align="center center">
+                            <div layout="column" layout-align="center center">
+                                <img ng-src="assets/ico/{{i}}.png" width="32px" height="32px">
+                                <h2 ng-style="{'color':'black'}">{{i}}</h2>
+                            </div>
+                        </md-button>
+                    </md-list-item>
+                </md-list>
+            </div>
+
+
+        </div>
+    </md-content>
+
+</div> <!-- /container -->
+</body>
+</html>

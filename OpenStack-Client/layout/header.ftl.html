@@ -1,0 +1,32 @@
+<div style="height: 60px; background: cornflowerblue" layout-align="start center" layout-fill layout="row"
+     ng-controller="HomeCtrl">
+    <div>
+        <h4>Interview</h4>
+    </div>
+
+    <div flex layout="row" layout-align="end center">
+        <div flex layout="row" layout-align="end center">
+            <form action="http://localhost:8080/URL/" method="post">
+                <md-input-container>
+                    <label>Openstack URL</label>
+                    <md-select ng-model="URL" name="URL" style="min-width: 60px;"
+                               md-selected-text="getSelectedOpenstackURL()">
+                        <md-optgroup>
+                            <md-option ng-repeat="op in openstackURLs" ng-value=op>{{op}}</md-option>
+                        </md-optgroup>
+                    </md-select>
+                </md-input-container>
+
+                <md-button class="md-mini" type="submit">
+                    <md-icon aria-label="Menu" class="material-icons">search</md-icon>
+                    <md-tooltip md-direction="end">Search Dashboard</md-tooltip>
+                </md-button>
+            </form>
+
+            <md-button class="md-mini" ng-click="showNewOpenstackURL($events)">
+                <md-icon aria-label="Menu" class="material-icons">add</md-icon>
+                <md-tooltip md-direction="end">New Openstack URL</md-tooltip>
+            </md-button>
+        </div>
+    </div>
+</div>

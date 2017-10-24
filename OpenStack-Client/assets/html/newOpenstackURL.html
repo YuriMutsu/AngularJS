@@ -1,0 +1,13 @@
+<div layout-padding layout="column" flex layout-align="start center" ng-controller="HomeCtrl">
+    <form action="http://localhost:8080/newURL/" method="post" name="form">
+        <md-input-container flex>
+            <label>New Openstack URL</label>
+            <input type="text" ng-model="newURL" name="newURL">
+        </md-input-container>
+
+        <md-button type="submit" layout-align="end center" class="md-raised md-fab md-primary md-mini">
+            <md-icon class="material-icons">add</md-icon>
+            <md-tooltip md-direction="end">New Openstack URL</md-tooltip>
+        </md-button>
+    </form>
+</div>
