@@ -87,6 +87,7 @@ public class KhachHangService extends DatabaseUtility {
                                @Param("makv") String makv,
                                @Param("madk") String madk,
                                @Param("cmnd") String cmnd,
+                               @Param("ngaysinh") String ngaysinh,
                                @Param("phone") String phone,
                                @Param("gioitinh") String gioitinh){
         Document document = new Document()
@@ -96,6 +97,7 @@ public class KhachHangService extends DatabaseUtility {
                 .append(MA_KHU_VUC, makv.toUpperCase())
                 .append(MA_DK, madk)
                 .append(CMND, cmnd)
+                .append(BIRTH_DAY, ngaysinh)
                 .append(PHONE, phone)
                 .append(GIOI_TINH, gioitinh);
 
