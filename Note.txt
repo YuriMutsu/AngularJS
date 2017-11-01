@@ -1,0 +1,41 @@
+****************************************************************** Spring boot ******************************************************************
+ 
+* muốn sử dụng angular-meterial:
+
+	- thêm : pring.thymeleaf.mode=LEGACYHTML5 vào application.properties
+	- thêm : 
+		<dependency>
+			<groupId>net.sourceforge.nekohtml</groupId>
+			<artifactId>nekohtml</artifactId>
+			<version>1.9.22</version>
+		</dependency>
+		
+	vào file pom.xml
+	
+* muốn chèn header vào cần thiết lập ở Controller
+HomeController.java
+
+...
+public class HomeController {
+	
+	...
+	
+	@RequestMapping(value = "/header")
+	public String header() {
+		return "header";
+	}
+}
+
+index.html
+
+...
+
+<div ng-include="'header'"></div>
+
+...
+
+
+
+**************************************************************************************************************************************************
+	
+	
