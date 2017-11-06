@@ -73,10 +73,10 @@ public class KhachHangService extends DatabaseUtility {
         return Results.text().render(array);
     }
 
-    public Result deleteKhachHang(@Param("id") String id){
+    public Result deleteKhachHang(@Param("makh") String makh){
         MongoClient mongoClient = new MongoClient();
         MongoCollection collection = db.getCollection(TABLE_KHACH_HANG);
-        collection.deleteOne(new Document(MONGO_ID, new ObjectId(id)));
+        collection.deleteOne(new Document(MONGO_ID, new ObjectId(makh)));
         mongoClient.close();
         return Results.ok();
     }
@@ -99,8 +99,8 @@ public class KhachHangService extends DatabaseUtility {
                 .append(CMND, cmnd)
                 .append(BIRTH_DAY, ngaysinh)
                 .append(PHONE, phone)
-                .append(GIOI_TINH, gioitinh);
-
+                .append(GIOI_TINH, gioitinh)
+                .append(ROLE, "customer");
         MongoClient mongoClient = new MongoClient();
         MongoCollection collection = db.getCollection(TABLE_KHACH_HANG);
         collection.insertOne(document);
@@ -121,6 +121,6 @@ public class KhachHangService extends DatabaseUtility {
             }
         });
         mongoClient.close();
-        return Results.text().render("OK");
+        return Results.ok();
     }
 }

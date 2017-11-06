@@ -9,6 +9,7 @@ conf\Routes.class
 service\DienKeService$1.class
 service\KhachHangService$1.class
 controllers\LoginLogoutController.class
+service\UserService$3.class
 service\KhachHangService.class
 conf\Filters.class
 service\KhachHangService$2.class
@@ -18,5 +19,6 @@ models\Users.class
 service\DienKeService.class
 service\UserService$2.class
 service\DatabaseUtility.class
+service\KhachHangService$3.class
 controllers\ApplicationController$1.class
 conf\Module.class

@@ -61,8 +61,8 @@ public class UserService extends DatabaseUtility {
                 .append(CMND, cmnd)
                 .append(PHONE, phone)
                 .append(GENDER, gender)
-                .append(AVATAR, avatar)
                 .append(ROLE, "employee")
+                .append(AVATAR, avatar)
                 .append(IS_ADMIN, false);
 
         MongoClient client = new MongoClient();
@@ -72,9 +72,9 @@ public class UserService extends DatabaseUtility {
         return Results.redirect("/");
     }
 
-    public Result deleteUser(@Param("id") String id) {
+    public Result deleteUser(@Param("code") String code) {
         MongoCollection collection = db.getCollection(TABLE_USERS);
-        collection.deleteOne(new Document(MONGO_ID, new ObjectId(id)));
+        collection.deleteOne(new Document(MONGO_ID, new ObjectId(code)));
         return Results.ok();
     }
 
@@ -117,7 +117,7 @@ public class UserService extends DatabaseUtility {
             }
         });
         mongoClient.close();
-        return Results.text().render("OK");
+        return Results.ok();
     }
 
     public static String createDiaChi(String diachi, String makv) {
