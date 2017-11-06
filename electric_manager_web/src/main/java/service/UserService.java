@@ -8,6 +8,7 @@ import ninja.Result;
 import ninja.Results;
 import ninja.params.Param;
 import org.bson.Document;
+import org.bson.types.ObjectId;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -16,10 +17,10 @@ import static util.Constant.*;
 /**
  * Created by tranm on 29-Jul-17.
  */
-public class UserService extends DatabaseUtility{
-    public Result getUser(@Param("code") String code){
+public class UserService extends DatabaseUtility {
+    public Result getUser(@Param("code") String code) {
         MongoClient client = new MongoClient();
-        MongoCollection collection = db.getCollection("users");
+        MongoCollection collection = db.getCollection(TABLE_USERS);
         FindIterable<Document> iter = collection.find(new Document(CODE, code));
         JSONObject json = new JSONObject();
         iter.forEach(new Block<Document>() {
@@ -50,7 +51,7 @@ public class UserService extends DatabaseUtility{
                           @Param("cmnd") String cmnd,
                           @Param("phone") String phone,
                           @Param("gender") String gender,
-                          @Param("avatar") String avatar){
+                          @Param("avatar") String avatar) {
         Document document = new Document()
                 .append(CODE, code)
                 .append(PASSWORD, password)
@@ -65,15 +66,20 @@ public class UserService extends DatabaseUtility{
                 .append(IS_ADMIN, false);
 
         MongoClient client = new MongoClient();
-        MongoCollection collection = db.getCollection("users");
+        MongoCollection collection = db.getCollection(TABLE_USERS);
         collection.insertOne(document);
         client.close();
         return Results.redirect("/");
     }
 
-    public Result getAllUsers(){
-        MongoClient client = new MongoClient();
-        MongoCollection collection = db.getCollection("users");
+    public Result deleteUser(@Param("id") String id) {
+        MongoCollection collection = db.getCollection(TABLE_USERS);
+        collection.deleteOne(new Document(MONGO_ID, new ObjectId(id)));
+        return Results.ok();
+    }
+
+    public Result getAllUsers() {
+        MongoCollection collection = db.getCollection(TABLE_USERS);
         JSONArray array = new JSONArray();
         FindIterable<Document> iter = collection.find();
         iter.forEach(new Block<Document>() {
@@ -98,7 +104,23 @@ public class UserService extends DatabaseUtility{
         return Results.text().render(array);
     }
 
-    public static String createDiaChi(String diachi, String makv){
+    public Result newPassword(@Param("code") String code,
+                              @Param("newpass") String newpass){
+        MongoClient mongoClient = new MongoClient();
+        MongoCollection collection = db.getCollection(TABLE_USERS);
+        Document doc = new Document(MONGO_ID, new ObjectId(code));
+        FindIterable<Document> iter = collection.find(doc);
+        iter.forEach(new Block<Document>() {
+            @Override
+            public void apply(Document document) {
+                document.replace(PASSWORD, newpass);
+            }
+        });
+        mongoClient.close();
+        return Results.text().render("OK");
+    }
+
+    public static String createDiaChi(String diachi, String makv) {
         MongoCollection kvCollection = db.getCollection(TABLE_KHU_VUC);
         Document khuvuc = (Document) kvCollection.find(new Document(MA_KHU_VUC, makv)).first();
         MongoCollection tpCollection = db.getCollection(TABLE_TINH_THANH_PHO);

@@ -107,4 +107,20 @@ public class KhachHangService extends DatabaseUtility {
         mongoClient.close();
         return Results.redirect("/");
     }
+
+    public Result newPassword(@Param("makh") String makh,
+                              @Param("newpass") String newpass){
+        MongoClient mongoClient = new MongoClient();
+        MongoCollection collection = db.getCollection(TABLE_KHACH_HANG);
+        Document doc = new Document(MONGO_ID, new ObjectId(makh));
+        FindIterable<Document> iter = collection.find(doc);
+        iter.forEach(new Block<Document>() {
+            @Override
+            public void apply(Document document) {
+                document.replace(PASSWORD, newpass);
+            }
+        });
+        mongoClient.close();
+        return Results.text().render("OK");
+    }
 }

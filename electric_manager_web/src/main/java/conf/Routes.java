@@ -31,6 +31,11 @@ public class Routes implements ApplicationRoutes {
 
         router.GET().route("/getAllUsers").with(UserService::getAllUsers);
         router.GET().route("/getUser").with(UserService::getUser);
+        router.GET().route("/addUser").with(UserService::addUser);
+        router.POST().route("/deleteUser").with(UserService::deleteUser);
+
+        router.POST().route("/newPasswordUser").with(UserService::newPassword);
+        router.POST().route("/newPasswordKhachHang").with(KhachHangService::newPassword);
 
         router.GET().route("/getDienKe").with(DienKeService::getDienKe);
         router.POST().route("/updateChiSoDienKe").with(DienKeService::updateDienKe);
