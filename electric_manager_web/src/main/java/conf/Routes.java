@@ -7,10 +7,7 @@ import ninja.AssetsController;
 import ninja.Router;
 import ninja.application.ApplicationRoutes;
 import controllers.ApplicationController;
-import service.DienKeService;
-import service.HoaDonService;
-import service.KhachHangService;
-import service.UserService;
+import service.*;
 
 public class Routes implements ApplicationRoutes {
 
@@ -42,6 +39,8 @@ public class Routes implements ApplicationRoutes {
         router.POST().route("/addDienKe").with(DienKeService::addDienKe);
 
         router.GET().route("/getHoaDon").with(HoaDonService::getHoaDon);
+        router.GET().route("/getNam").with(ThangNamService::getNam);
+        router.GET().route("/getThang").with(ThangNamService::getThang);
 
         ///////////////////////////////////////////////////////////////////////
         // Assets (pictures / javascript)

@@ -31,6 +31,7 @@ public class KhachHangService extends DatabaseUtility {
         json.put(GIOI_TINH, document.getString(GIOI_TINH));
         json.put(ROLE, document.getString(ROLE));
         json.put(PASSWORD, document.getString(PASSWORD));
+        json.put(NGAY_SINH, document.getString(NGAY_SINH));
         return json;
     }
     public Result getAllKhachHang(){

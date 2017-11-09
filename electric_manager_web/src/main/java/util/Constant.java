@@ -13,6 +13,7 @@ public class Constant {
     public static String CMND = "cmnd";
     public static String PHONE = "phone";
     public static String GIOI_TINH = "gioitinh";
+    public static String NGAY_SINH = "ngaysinh";
 
     public static String TEN_TINH_TP = "tentp";
     public static String TEN_KHU_VUC = "tenkv";

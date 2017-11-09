@@ -44,17 +44,15 @@ public class UserService extends DatabaseUtility {
     }
 
     public Result addUser(@Param("code") String code,
-                          @Param("password") String password,
                           @Param("name") String name,
                           @Param("birthday") String birthday,
                           @Param("address") String address,
                           @Param("cmnd") String cmnd,
                           @Param("phone") String phone,
-                          @Param("gender") String gender,
-                          @Param("avatar") String avatar) {
+                          @Param("gender") String gender) {
         Document document = new Document()
                 .append(CODE, code)
-                .append(PASSWORD, password)
+                .append(PASSWORD, "123456")
                 .append(NAME, name)
                 .append(BIRTH_DAY, birthday)
                 .append(ADDRESS, address)
@@ -62,7 +60,7 @@ public class UserService extends DatabaseUtility {
                 .append(PHONE, phone)
                 .append(GENDER, gender)
                 .append(ROLE, "employee")
-                .append(AVATAR, avatar)
+                .append(AVATAR, "")
                 .append(IS_ADMIN, false);
 
         MongoClient client = new MongoClient();
