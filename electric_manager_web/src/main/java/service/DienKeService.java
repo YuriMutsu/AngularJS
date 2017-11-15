@@ -21,7 +21,6 @@ import static util.Constant.GIOI_TINH;
  */
 public class DienKeService extends DatabaseUtility {
     public Result getDienKe(@Param("makh") String makh) {
-        MongoClient mongoClient = new MongoClient();
         JSONArray array = new JSONArray();
         MongoCollection collection = db.getCollection("dienke");
         FindIterable<Document> iterable = collection.find(new Document("makh", makh));
@@ -41,7 +40,6 @@ public class DienKeService extends DatabaseUtility {
                 array.put(json);
             }
         });
-        mongoClient.close();
         return Results.text().render(array);
     }
 
@@ -49,7 +47,6 @@ public class DienKeService extends DatabaseUtility {
                                @Param("chisomoi") Integer chisomoi,
                                @Param("isthanhtoan") boolean isthanhtoan) {
 
-        MongoClient mongoClient = new MongoClient();
         MongoCollection collection = db.getCollection(TABLE_DIEN_KE);
         Document doc = new Document(MONGO_ID, new ObjectId(id));
         FindIterable<Document> iter = collection.find(doc);
@@ -61,7 +58,6 @@ public class DienKeService extends DatabaseUtility {
                 collection.replaceOne(new Document(doc), document);
             }
         });
-        mongoClient.close();
         return Results.json().render(doc);
     }
 
@@ -77,12 +73,10 @@ public class DienKeService extends DatabaseUtility {
         dienKe.setManam(manam);
         dienKe.setChisocu(chisocu);
 
-        MongoClient mongoClient = new MongoClient();
         MongoCollection collection = db.getCollection("dienke");
         Document document = createDocument(dienKe);
         collection.insertOne(document);
 
-        mongoClient.close();
         return Results.redirect("/");
     }
 

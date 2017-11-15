@@ -23,7 +23,6 @@ import static util.Constant.*;
 public class ThangNamService extends DatabaseUtility{
     public Result getNam(){
         JSONArray array = new JSONArray();
-        MongoClient mongoClient = new MongoClient();
         MongoCollection collection = db.getCollection(TABLE_NAM);
         FindIterable<Document> iterable = collection.find();
         iterable.forEach(new Block<Document>() {
@@ -34,13 +33,11 @@ public class ThangNamService extends DatabaseUtility{
                 array.put(json);
             }
         });
-        mongoClient.close();
         return Results.text().render(array);
     }
 
     public Result getThang(){
         JSONArray array = new JSONArray();
-        MongoClient mongoClient = new MongoClient();
         MongoCollection collection = db.getCollection(TABLE_THANG);
         FindIterable<Document> iterable = collection.find();
         iterable.forEach(new Block<Document>() {
@@ -51,7 +48,6 @@ public class ThangNamService extends DatabaseUtility{
                 array.put(json);
             }
         });
-        mongoClient.close();
         return Results.text().render(array);
     }
 }

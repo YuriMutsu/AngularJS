@@ -95,7 +95,6 @@ public class UserService extends DatabaseUtility {
                 json.put(ROLE, document.get(ROLE));
                 json.put(IS_ADMIN, document.get(IS_ADMIN));
                 json.put(CMND, document.get(CMND));
-
                 array.put(json);
             }
         });
@@ -106,7 +105,7 @@ public class UserService extends DatabaseUtility {
                               @Param("newpass") String newpass){
         MongoClient mongoClient = new MongoClient();
         MongoCollection collection = db.getCollection(TABLE_USERS);
-        Document doc = new Document(MONGO_ID, new ObjectId(code));
+        Document doc = new Document(CODE, code);
         FindIterable<Document> iter = collection.find(doc);
         iter.forEach(new Block<Document>() {
             @Override

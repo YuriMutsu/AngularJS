@@ -36,7 +36,6 @@ public class KhachHangService extends DatabaseUtility {
     }
     public Result getAllKhachHang(){
         JSONArray array = new JSONArray();
-        MongoClient mongoClient = new MongoClient();
         MongoCollection collection = db.getCollection(TABLE_KHACH_HANG);
         FindIterable<Document> iterable = collection.find();
         iterable.forEach(new Block<Document>() {
@@ -48,7 +47,6 @@ public class KhachHangService extends DatabaseUtility {
                 array.put(json);
             }
         });
-        mongoClient.close();
         return Results.text().render(array);
     }
 
@@ -56,7 +54,6 @@ public class KhachHangService extends DatabaseUtility {
 
     public Result getKhachHangStatistic(@Param("makv") String makv){
         JSONArray array = new JSONArray();
-        MongoClient mongoClient = new MongoClient();
         MongoCollection collection = db.getCollection(TABLE_KHACH_HANG);
 
         FindIterable<Document> iterable = collection.find(new Document("makv", makv));
@@ -70,15 +67,13 @@ public class KhachHangService extends DatabaseUtility {
                 array.put(json);
             }
         });
-        mongoClient.close();
         return Results.text().render(array);
     }
 
     public Result deleteKhachHang(@Param("makh") String makh){
-        MongoClient mongoClient = new MongoClient();
         MongoCollection collection = db.getCollection(TABLE_KHACH_HANG);
-        collection.deleteOne(new Document(MONGO_ID, new ObjectId(makh)));
-        mongoClient.close();
+        Document document = new Document(MA_KH, makh);
+        collection.findOneAndDelete(document);
         return Results.ok();
     }
 
@@ -102,16 +97,13 @@ public class KhachHangService extends DatabaseUtility {
                 .append(PHONE, phone)
                 .append(GIOI_TINH, gioitinh)
                 .append(ROLE, "customer");
-        MongoClient mongoClient = new MongoClient();
         MongoCollection collection = db.getCollection(TABLE_KHACH_HANG);
         collection.insertOne(document);
-        mongoClient.close();
         return Results.redirect("/");
     }
 
     public Result newPassword(@Param("makh") String makh,
                               @Param("newpass") String newpass){
-        MongoClient mongoClient = new MongoClient();
         MongoCollection collection = db.getCollection(TABLE_KHACH_HANG);
         Document doc = new Document(MONGO_ID, new ObjectId(makh));
         FindIterable<Document> iter = collection.find(doc);
@@ -121,7 +113,6 @@ public class KhachHangService extends DatabaseUtility {
                 document.replace(PASSWORD, newpass);
             }
         });
-        mongoClient.close();
         return Results.ok();
     }
 }
