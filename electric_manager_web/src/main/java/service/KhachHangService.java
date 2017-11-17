@@ -73,7 +73,7 @@ public class KhachHangService extends DatabaseUtility {
     public Result deleteKhachHang(@Param("makh") String makh){
         MongoCollection collection = db.getCollection(TABLE_KHACH_HANG);
         Document document = new Document(MA_KH, makh);
-        collection.findOneAndDelete(document);
+        collection.deleteOne(document);
         return Results.ok();
     }
 

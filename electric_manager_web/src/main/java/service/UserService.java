@@ -72,7 +72,8 @@ public class UserService extends DatabaseUtility {
 
     public Result deleteUser(@Param("code") String code) {
         MongoCollection collection = db.getCollection(TABLE_USERS);
-        collection.deleteOne(new Document(MONGO_ID, new ObjectId(code)));
+        Document document = new Document(CODE, code);
+        collection.deleteOne(document);
         return Results.ok();
     }
 
@@ -103,7 +104,6 @@ public class UserService extends DatabaseUtility {
 
     public Result newPassword(@Param("code") String code,
                               @Param("newpass") String newpass){
-        MongoClient mongoClient = new MongoClient();
         MongoCollection collection = db.getCollection(TABLE_USERS);
         Document doc = new Document(CODE, code);
         FindIterable<Document> iter = collection.find(doc);
@@ -113,7 +113,6 @@ public class UserService extends DatabaseUtility {
                 document.replace(PASSWORD, newpass);
             }
         });
-        mongoClient.close();
         return Results.ok();
     }
 
