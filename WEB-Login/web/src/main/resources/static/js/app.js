@@ -1,54 +1,24 @@
 (function(){
 
-	var app = angular.module("myApp", []);
+	var app = angular.module("myApp", ['ngResource']);
 
-	app.controller('myController', ['$scope', function($scope){
+	app.controller('LoginCtrl', ['$scope', '$resource', function($scope, $resource){
+		$scope.user = {username : "", password : ""};
 
-		$scope.poem = {id:'', title: '', author: '', category: '', content:''};
-		$scope.view = 'poem.html';
-		$scope.clickPoem = function(){
-			$scope.view = 'poem.html';
-		};
-
-
-		$scope.clickSearch = function(){
-			$scope.view = 'search.html';
-		};
-
-		$scope.clickClear = function(){
-			$scope.view = '';
-		};
-
-		$scope.clickSave = function(){
-		};
-
-		$scope.listPoem = [
-			{ id:1, title: "Song", author: "Xuan Quynh", category: "Poetry", content: "Song bat dau tu gio, gio bat dau tu dau ....." },
-			{ id:2, title: "Viet Bac", author: "To Huu", category: "Poetry", content: "Ta ve minh co nho ta ....." },
-			{ id:3, title: "Tu Ay", author: "To Huu", category: "Poetry", content: "Tu ay trong toi bung nang ha ....." }
-		];
-
-
-		$scope.clickDetail = function(id){
-			for (var i = 0; i<$scope.listPoem.length; i++){
-				if ($scope.listPoem[i].id == id){
-					$scope.poem = angular.copy($scope.listPoem[i]);
-					break;
-				}
-			}
-		};
-
-		$scope.clickDelete = function(id){
-			for (var i = 0; i<$scope.listPoem.length; i++){
-				if ($scope.listPoem[i].id == id){
-					//remove Element
-					 $scope.listPoem.splice(i,1);
-					 break;
-				}
-			}
-		};
-
+        $resource('/users',
+            {},
+            {
+                query: {
+                    method: 'get',
+                    isArray: true
+                }
+            }).query().$promise.then(
+            function (data) {
+				console.info(JSON.stringify(data));
+            },
+            function (err) {
+                console.info(err);
+            }
+        );
 	}]);
-
-
 })()

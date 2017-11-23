@@ -12,37 +12,37 @@ import com.example.demo.reponsitory.UserRepository;
 public class UserSerivecImp implements UserService {
 
 	@Autowired
-	private UserRepository webRepository;
+	private UserRepository userRepository;
 
 	@Override
 	public void save(User user) {
-		webRepository.save(user);
+		userRepository.save(user);
 	}
 
 	@Override
 	public void delete(int id) {
-		webRepository.delete(id);
+		userRepository.delete(id);
 	}
 
 	@Override
 	public Iterable<User> findAll() {
-		return webRepository.findAll();
+		return userRepository.findAll();
 	}
 
 	@Override
 	public User findById(int id) {
-		return webRepository.findOne(id);
+		return userRepository.findOne(id);
 	}
 
 	@Override
 	public int count() {
-		List<User> User = (List<User>) webRepository.findAll();
+		List<User> User = (List<User>) userRepository.findAll();
 		return User.size();
 	}
 
 	@Override
 	public boolean isExist(int id) {
-		return webRepository.exists(id);
+		return userRepository.exists(id);
 	}
 
 	@Override

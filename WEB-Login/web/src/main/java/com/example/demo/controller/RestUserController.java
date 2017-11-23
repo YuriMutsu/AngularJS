@@ -29,7 +29,7 @@ public class RestUserController {
 	UserService userService;
 	
 	@GetMapping("/users")
-	public List<User> abc(){
+	public List<User> getAllUser(){
 		List<User> users = (List<User>) userService.findAll();
 		return users;
 	}
