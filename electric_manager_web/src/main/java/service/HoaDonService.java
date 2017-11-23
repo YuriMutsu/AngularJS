@@ -16,7 +16,6 @@ public class HoaDonService extends DatabaseUtility {
                             @Param("mathang") String mathang,
                             @Param("manam") String manam) {
 
-        MongoClient client = new MongoClient();
 
         Document dienke = find(TABLE_DIEN_KE, madk, makh, mathang, manam);
 
@@ -33,17 +32,14 @@ public class HoaDonService extends DatabaseUtility {
 
         hoadon = createHoaDon(dienke);
 
-        client.close();
         return Results.json().render(hoadon);
     }
 
     private Document find(String tableName, String madk, String makh, String mathang, String manam) {
         Document doc = createDoccument(madk, makh, mathang, manam);
 
-        MongoClient client = new MongoClient();
         MongoCollection dienke = db.getCollection(tableName);
         Document document = (Document) dienke.find(doc).first();
-        client.close();
         return document;
     }
 

@@ -37,8 +37,6 @@ import static util.Constant.*;
 
 @Singleton
 public class ApplicationController extends DatabaseUtility {
-    Logger logger = Logger.getLogger(ApplicationController.class);
-
     public Result index() {
 
         return Results.html();
@@ -47,7 +45,6 @@ public class ApplicationController extends DatabaseUtility {
 
 
     public Result getKhuVuc() {
-        MongoClient mongoClient = new MongoClient();
         MongoCollection<Document> collection = db.getCollection("khuvuc");
         FindIterable<Document> iterable = collection.find();
         final MongoCollection<Document> thanhpho = db.getCollection("tinh_thanhpho");
@@ -67,12 +64,10 @@ public class ApplicationController extends DatabaseUtility {
                 array.put(json);
             }
         });
-        mongoClient.close();
         return Results.text().render(array);
     }
 
     public Result getThanhPho() {
-        MongoClient mongoClient = new MongoClient();
         MongoCollection<Document> collection = db.getCollection("tinh_thanhpho");
         FindIterable<Document> iterable = collection.find();
         JSONArray array = new JSONArray();
@@ -85,7 +80,6 @@ public class ApplicationController extends DatabaseUtility {
                 array.put(json);
             }
         });
-        mongoClient.close();
         return Results.text().render(array);
     }
 }

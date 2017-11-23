@@ -12,7 +12,7 @@ public class HoaDon {
     private Integer VAT;
     private String mathue;
     private double thanhtien;
-    private double phaitra;
+    private double thanhtoan;
 
     public HoaDon() {
         this.mahd = "";
@@ -26,10 +26,10 @@ public class HoaDon {
         this.VAT = 0;
         this.mathue = "";
         this.thanhtien = 0;
-        this.phaitra = 0;
+        this.thanhtoan = 0;
     }
 
-    public HoaDon(String mahd, String makh, String tenkh, String diachi, String madk, Integer tieuthu, String tungay, String denngay, Integer VAT, String mathua, double thanhtien, double phaitra) {
+    public HoaDon(String mahd, String makh, String tenkh, String diachi, String madk, Integer tieuthu, String tungay, String denngay, Integer VAT, String mathua, double thanhtien, double thanhtoan) {
         this.mahd = mahd;
         this.makh = makh;
         this.tenkh = tenkh;
@@ -41,7 +41,7 @@ public class HoaDon {
         this.VAT = VAT;
         this.mathue = mathua;
         this.thanhtien = thanhtien;
-        this.phaitra = phaitra;
+        this.thanhtoan = thanhtoan;
     }
 
     public String getMahd() {
@@ -132,11 +132,11 @@ public class HoaDon {
         this.thanhtien = thanhtien;
     }
 
-    public double getPhaitra() {
-        return phaitra;
+    public double getThanhToan() {
+        return thanhtoan;
     }
 
-    public void setPhaitra(double phaitra) {
-        this.phaitra = phaitra;
+    public void setThanhToan(double thanhtoan) {
+        this.thanhtoan = thanhtoan;
     }
 }
