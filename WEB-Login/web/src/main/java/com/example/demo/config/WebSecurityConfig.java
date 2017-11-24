@@ -24,26 +24,38 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        // xét đặt dịch vụ để tìm kiếm User trong Database.
+        // Và sét đặt PasswordEncoder.
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+            .csrf().disable()
             .authorizeRequests()
                 .antMatchers("/register").permitAll()
                 .antMatchers("/").hasRole("MEMBER")
                 .antMatchers("/admin").hasRole("ADMIN")
+                .antMatchers("/addUser").hasRole("ADMIN")
                 .and()
             .formLogin()
-                .loginPage("/login")
-                .usernameParameter("email")
+//                .loginPage("/login")
+                .loginPage("/")
+                .usernameParameter("username")
                 .passwordParameter("password")
                 .defaultSuccessUrl("/")
+                .permitAll()
                 .failureUrl("/login?error")
                 .and()
-            .exceptionHandling()
-                .accessDeniedPage("/403");
+                .exceptionHandling()
+                .accessDeniedPage("/403")
+                .and()
+            .logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/")
+                .and()
+            .rememberMe()
+                .key("remember-account");
     }
-
 }

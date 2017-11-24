@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.example.demo.entity.User;
 import com.example.demo.reponsitory.UserRepository;
 
@@ -59,8 +58,8 @@ public class UserSerivecImp implements UserService {
 	@Override
 	public User findByUsername(String username) {
 		List<User> listUser = (List<User>) findAll();
-		for (User user : listUser){
-			if (user.getUsername().equals(username)){
+		for (User user : listUser) {
+			if (user.getUsername().equals(username)) {
 				return user;
 			}
 		}

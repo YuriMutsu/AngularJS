@@ -11,11 +11,10 @@ import org.springframework.context.ApplicationContextAware;
 public class WebApplication implements ApplicationContextAware{
 
 	private static ApplicationContext applicationContext;
-	
-	public static void main(String[] args) {
+
+	public static void main(String[] args){
 		SpringApplication.run(WebApplication.class, args);
 	}
-
 	public static ApplicationContext getApplicatinContext() {
 		return applicationContext;
 	}

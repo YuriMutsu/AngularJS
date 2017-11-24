@@ -2,7 +2,10 @@ package com.example.demo.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Cookie;
 
+import org.apache.log4j.Logger;
+import org.springframework.http.HttpRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -11,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class AppController {
-	
-	@RequestMapping("/")
-	String home(){
+
+	private Logger m_logger = Logger.getLogger(AppController.class);
+
+	@RequestMapping({"/", "/home", "/admin", "member"})
+	String welcomPage(HttpServletResponse response){
 		return "index";
 	}
 	
@@ -44,5 +49,15 @@ public class AppController {
 	        new SecurityContextLogoutHandler().logout(request, response, auth);
 	    }
 	    return "redirect:/";
+	}
+
+	@RequestMapping("/addUser")
+	public String addUser(){
+		return "addUser";
+	}
+
+	@RequestMapping("/head")
+	public String head(){
+		return "head";
 	}
 }

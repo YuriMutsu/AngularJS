@@ -2,28 +2,28 @@ package com.example.demo.config;
 
 import java.util.HashSet;
 
+import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
-//import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.example.demo.entity.Role;
 import com.example.demo.entity.User;
 import com.example.demo.reponsitory.RoleRepository;
-import com.example.demo.reponsitory.UserRepository;
 
 @Component
 public class DataSeedingListener implements ApplicationListener<ContextRefreshedEvent> {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @Autowired
     private RoleRepository roleRepository;
 
-//    @Autowired 
-//    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent arg0) {
@@ -37,10 +37,10 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
         }
 
         // Admin account
-        if (userRepository.findByEmail("admin@gmail.com") == null) {
+        if (userService.findByUsername("admin") == null) {
             User admin = new User();
             admin.setUsername("admin");
-            admin.setPassword("123456");
+            admin.setPassword(passwordEncoder.encode("123456"));
             admin.setEmail("admin@gmail.com");
             admin.setBirthday("04/09/1995");
             admin.setAddress("TP. HCM");
@@ -51,24 +51,24 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
             roles.add(roleRepository.findByName("ROLE_ADMIN"));
             roles.add(roleRepository.findByName("ROLE_MEMBER"));
             admin.setRoles(roles);
-            userRepository.save(admin);
+            userService.save(admin);
         }
 
         // Member account
-        if (userRepository.findByEmail("member@gmail.com") == null) {
-            User user = new User();
-            user.setUsername("member");
-            user.setPassword("123456");
-            user.setEmail("member@gmail.com");
-            user.setBirthday("04/09/1995");
-            user.setAddress("TP. HCM");
-            user.setPhone("0898133817");
-            user.setName("Member");
-            user.setGender("Male");
+        if (userService.findByUsername("member") == null) {
+            User member = new User();
+            member.setUsername("member");
+            member.setPassword(passwordEncoder.encode("123456"));
+            member.setEmail("member@gmail.com");
+            member.setBirthday("04/09/1995");
+            member.setAddress("TP. HCM");
+            member.setPhone("0898133817");
+            member.setName("Member");
+            member.setGender("Male");
             HashSet<Role> roles = new HashSet<>();
             roles.add(roleRepository.findByName("ROLE_MEMBER"));
-            user.setRoles(roles);
-            userRepository.save(user);
+            member.setRoles(roles);
+            userService.save(member);
         }
     }
 

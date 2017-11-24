@@ -1,5 +1,8 @@
 package com.example.demo.service;
 
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
 import com.example.demo.entity.User;
 
 public interface UserService {
@@ -15,7 +18,7 @@ public interface UserService {
 	public User findById(int id);
 	
 	public User findByUsername(String username);
-
+	
 	public int count();
 	
 	boolean isExist(int id);
