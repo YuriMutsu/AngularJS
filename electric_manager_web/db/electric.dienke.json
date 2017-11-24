@@ -29,9 +29,110 @@
 	ngaydksd : "1/1/1990",
 	chisocu: 550,
 	chisomoi : 580,
-	isthanhtoan : false
+	isthanhtoan : true
 }
 
+{
+	madk : "DK001",
+	makh : "KH001",
+	mathang: "4",
+	manam: "2015",
+	ngaydksd : "1/1/1990",
+	chisocu: 580,
+	chisomoi : 630,
+	isthanhtoan : true
+}
+
+{
+	madk : "DK001",
+	makh : "KH001",
+	mathang: "5",
+	manam: "2015",
+	ngaydksd : "1/1/1990",
+	chisocu: 630,
+	chisomoi : 660,
+	isthanhtoan : true
+}
+
+
+{
+	madk : "DK001",
+	makh : "KH001",
+	mathang: "6",
+	manam: "2015",
+	ngaydksd : "1/1/1990",
+	chisocu: 660,
+	chisomoi : 720,
+	isthanhtoan : true
+}
+
+{
+	madk : "DK001",
+	makh : "KH001",
+	mathang: "7",
+	manam: "2015",
+	ngaydksd : "1/1/1990",
+	chisocu: 720,
+	chisomoi : 800,
+	isthanhtoan : true
+}
+
+{
+	madk : "DK001",
+	makh : "KH001",
+	mathang: "8",
+	manam: "2015",
+	ngaydksd : "1/1/1990",
+	chisocu: 800,
+	chisomoi : 830,
+	isthanhtoan : true
+}
+
+
+{
+	madk : "DK001",
+	makh : "KH001",
+	mathang: "9",
+	manam: "2015",
+	ngaydksd : "1/1/1990",
+	chisocu: 830,
+	chisomoi : 880,
+	isthanhtoan : true
+}
+
+{
+	madk : "DK001",
+	makh : "KH001",
+	mathang: "10",
+	manam: "2015",
+	ngaydksd : "1/1/1990",
+	chisocu: 880,
+	chisomoi : 910,
+	isthanhtoan : true
+}
+
+{
+	madk : "DK001",
+	makh : "KH001",
+	mathang: "11",
+	manam: "2015",
+	ngaydksd : "1/1/1990",
+	chisocu: 910,
+	chisomoi : 1000,
+	isthanhtoan : true
+}
+
+
+{
+	madk : "DK001",
+	makh : "KH001",
+	mathang: "12",
+	manam: "2015",
+	ngaydksd : "1/1/1990",
+	chisocu: 1000,
+	chisomoi : 1050,
+	isthanhtoan : true
+}
 
 {
 	madk : "DK002",

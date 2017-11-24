@@ -6,8 +6,11 @@ util\Constant.class
 controllers\ApplicationController.class
 models\HoaDon.class
 conf\Routes.class
+service\ThangNamService.class
+models\KhuVuc.class
 service\DienKeService$1.class
 service\KhachHangService$1.class
+models\Thang.class
 controllers\LoginLogoutController.class
 service\UserService$3.class
 service\KhachHangService.class
@@ -18,7 +21,10 @@ controllers\ApplicationController$2.class
 models\Users.class
 service\DienKeService.class
 service\UserService$2.class
+service\ThangNamService$1.class
+service\ThangNamService$2.class
 service\DatabaseUtility.class
 service\KhachHangService$3.class
+models\Nam.class
 controllers\ApplicationController$1.class
 conf\Module.class
