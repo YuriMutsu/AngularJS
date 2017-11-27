@@ -1,0 +1,121 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>HOME PAGE</title>
+
+    <div th:replace="fragments/header :: header-css"/>
+
+</head>
+<body>
+<div class="container">
+    <!-- Header -->
+    <div th:replace="fragments/header :: header"/>
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+        <!-- Container -->
+        <div class="container">
+            <div class="row">
+                <div class="content col-md-9 col-sm-9 col-xs-12">
+                    <div class="slider"><img src="images/slider.jpg"/></div>
+                    <div class="box-index">
+                        <h2>Tin tức</h2>
+                        <div class="row">
+                            <div class="item col-md-3 col-sm-3 col-xs-6">
+                                <span><a href="#" class="thumbnail"><img src="images/item1.jpg"/></a></span>
+                                <h3><a href="#">Tiêu đề bài viết</a></h3>
+                            </div>
+                            <div class="item col-md-3 col-sm-3 col-xs-6">
+                                <span><a href="#" class="thumbnail"><img src="images/item2.jpg"/></a></span>
+                                <h3><a href="#">Tiêu đề bài viết</a></h3>
+                            </div>
+                            <div class="item col-md-3 col-sm-3 col-xs-6">
+                                <span><a href="#" class="thumbnail"><img src="images/item1.jpg"/></a></span>
+                                <h3><a href="#">Tiêu đề bài viết</a></h3>
+                            </div>
+                            <div class="item col-md-3 col-sm-3 col-xs-6">
+                                <span><a href="#" class="thumbnail"><img src="images/item2.jpg"/></a></span>
+                                <h3><a href="#">Tiêu đề bài viết</a></h3>
+                            </div>
+                            <div class="item col-md-3 col-sm-3 col-xs-6">
+                                <span><a href="#" class="thumbnail"><img src="images/item1.jpg"/></a></span>
+                                <h3><a href="#">Tiêu đề bài viết</a></h3>
+                            </div>
+                            <div class="item col-md-3 col-sm-3 col-xs-6">
+                                <span><a href="#" class="thumbnail"><img src="images/item2.jpg"/></a></span>
+                                <h3><a href="#">Tiêu đề bài viết</a></h3>
+                            </div>
+                            <div class="item col-md-3 col-sm-3 col-xs-6">
+                                <span><a href="#" class="thumbnail"><img src="images/item1.jpg"/></a></span>
+                                <h3><a href="#">Tiêu đề bài viết</a></h3>
+                            </div>
+                            <div class="item col-md-3 col-sm-3 col-xs-6">
+                                <span><a href="#" class="thumbnail"><img src="images/item2.jpg"/></a></span>
+                                <h3><a href="#">Tiêu đề bài viết</a></h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-index">
+                        <h2>Marketing Online</h2>
+                        <div class="row">
+                            <div class="item col-md-3 col-sm-3 col-xs-6">
+                                <span><a href="#" class="thumbnail"><img src="images/item1.jpg"/></a></span>
+                                <h3><a href="#">Tiêu đề bài viết</a></h3>
+                            </div>
+                            <div class="item col-md-3 col-sm-3 col-xs-6">
+                                <span><a href="#" class="thumbnail"><img src="images/item2.jpg"/></a></span>
+                                <h3><a href="#">Tiêu đề bài viết</a></h3>
+                            </div>
+                            <div class="item col-md-3 col-sm-3 col-xs-6">
+                                <span><a href="#" class="thumbnail"><img src="images/item1.jpg"/></a></span>
+                                <h3><a href="#">Tiêu đề bài viết</a></h3>
+                            </div>
+                            <div class="item col-md-3 col-sm-3 col-xs-6">
+                                <span><a href="#" class="thumbnail"><img src="images/item2.jpg"/></a></span>
+                                <h3><a href="#">Tiêu đề bài viết</a></h3>
+                            </div>
+                            <div class="item col-md-3 col-sm-3 col-xs-6">
+                                <span><a href="#" class="thumbnail"><img src="images/item1.jpg"/></a></span>
+                                <h3><a href="#">Tiêu đề bài viết</a></h3>
+                            </div>
+                            <div class="item col-md-3 col-sm-3 col-xs-6">
+                                <span><a href="#" class="thumbnail"><img src="images/item2.jpg"/></a></span>
+                                <h3><a href="#">Tiêu đề bài viết</a></h3>
+                            </div>
+                            <div class="item col-md-3 col-sm-3 col-xs-6">
+                                <span><a href="#" class="thumbnail"><img src="images/item1.jpg"/></a></span>
+                                <h3><a href="#">Tiêu đề bài viết</a></h3>
+                            </div>
+                            <div class="item col-md-3 col-sm-3 col-xs-6">
+                                <span><a href="#" class="thumbnail"><img src="images/item2.jpg"/></a></span>
+                                <h3><a href="#">Tiêu đề bài viết</a></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="sidebar col-md-3 col-sm-3 col-xs-12">
+                    <div class="sidebar-item">
+                        <h4 class="widget-title">Tiêu đề sidebar</h4>
+                        <div class="textwidget">
+                            <img src="images/sidebar1.jpg"/>
+                        </div>
+                    </div>
+                    <div class="sidebar-item">
+                        <h4 class="widget-title">Tiêu đề sidebar</h4>
+                        <div class="textwidget">
+                            <img src="images/sidebar2.jpg"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div th:replace="fragments/footer :: footer"/>
+</div>
+
+</body>
+</html>
