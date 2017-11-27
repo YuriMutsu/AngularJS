@@ -61,12 +61,3 @@ body {
 .login-screen-bg {
     background-color: #EFEFEF;
 }
-
-@font-face {
-    font-family: font_strong;
-    src: url(‘fonts/glyphicons-halflings-regular.ttf’) format(‘truetype’),
-    url(‘fonts/Captureit.eot#iefix’) format(’embedded-opentype’),
-    url(‘fonts/glyphicons-halflings-regular.woff’) format(‘woff’);
-    font-weight: normal;
-    font-style: normal;
-}

@@ -26,7 +26,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         // xét đặt dịch vụ để tìm kiếm User trong Database.
         // Và sét đặt PasswordEncoder.
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+//        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+    	auth.userDetailsService(userDetailsService);
     }
 
     @Override
@@ -35,13 +36,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
             .csrf().disable()
             .authorizeRequests()
                 .antMatchers("/register").permitAll()
-                .antMatchers("/").hasRole("MEMBER")
+                .antMatchers("/").permitAll()
                 .antMatchers("/admin").hasRole("ADMIN")
                 .antMatchers("/addUser").hasRole("ADMIN")
                 .and()
             .formLogin()
-//                .loginPage("/login")
-                .loginPage("/")
+                .loginPage("/login")
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .defaultSuccessUrl("/")

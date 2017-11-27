@@ -1,58 +1,55 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link rel="import" href="head.html">
-    <title>LOGIN</title>
+<meta charset="UTF-8" />
+
+<title>Login</title>
+<div th:replace="fragments/header :: header-css" />
 </head>
-<body ng-app="myApp">
-<div class="container" ng-controller="LoginCtrl">
-    <div class="row vertical-center-row">
-        <div class="col-md-4 col-center-block login-widget">
-            <h1 class="text-center">
-                <i class="fa fa-dot-circle-o"></i>
-                LOGIN
-            </h1>
-            <div>
-                <form action="/login" method="post">
-                    <div class="form-group">
-                        <div class="input-group">
-                            <div class="input-group-addon">
-                                <i class="fa fa-user fa-fw"></i>
-                            </div>
-                            <input class="form-control" name="username" placeholder="username" type="text"
-                                   ng-model="user.username">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="input-group">
-                            <div class="input-group-addon">
-                                <i class="fa fa-key fa-fw"></i>
-                            </div>
-                            <input class="form-control" name="password" placeholder="******" type="password" ng-model="user.password">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="checkbox">
-                            <label for="c1">
-                                <input id="c1" name="_spring_security_remember_me" type="checkbox">
-                                Nhớ thông tin
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
-                        <hr>
-                        <p class="text-center">
-                            Bạn có tài khoản không?
-                            <strong>
-                                <a href="/register" class="blue-text">Đăng ký ngay!</a>
-                            </strong>
-                        </p>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+<body>
+
+
+	<jsp:include page="_header.jsp" />
+	<jsp:include page="_menu.jsp" />
+
+
+
+	<div class="page-title">Login (For Employee, Manager)</div>
+
+	<div class="login-container">
+		<h3>Enter username and password</h3>
+		<br/>
+		<!-- /login?error=true -->
+		<c:if test="${param.error == 'true'}">
+			<div style="color: red; margin: 10px 0px;">
+
+				Login Failed!!!<br/> Reason :
+				${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
+
+			</div>
+		</c:if>
+		<form method="POST" action="/login">
+			<table>
+				<tr>
+					<td>User Name *</td>
+					<td><input name="username" /></td>
+				</tr>
+				<tr>
+					<td>Password *</td>
+					<td><input type="password" name="password" /></td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+					<td><input type="submit" value="Login" /> <input type="reset"
+						value="Reset" /></td>
+				</tr>
+			</table>
+		</form>
+		<span class="error-message">${error }</span>
+	</div>
+
+
+	<jsp:include page="_footer.jsp" />
+
 </body>
 </html>

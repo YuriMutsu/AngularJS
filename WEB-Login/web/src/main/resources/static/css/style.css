@@ -1,85 +1,263 @@
-/*
-Theme Name: XuanThucBlog Theme
-Theme URI: http://xuanthuc.com
-Description: Chia se thu thuat Wordpress
-Version: 2.0
-Author: Xuan Thuc
-Author URI: http://thuc.me
-*/
 header .logo h1 {
-    font-size: 25px;
+	font-size: 25px;
 }
 
 header .search {
-    padding: 15px;
+	padding: 15px;
 }
 
 #wrapper .content .slider img {
-    width: 100%;
-    height: auto;
+	width: 100%;
+	height: auto;
 }
 
 #wrapper .content .box-index h2 {
-    text-transform: uppercase;
-    font-size: 23px;
-    color: #444;
-    border-bottom: 3px solid #EEE;
-    position: relative;
-    margin-bottom: 20px;
-    padding: 5px 0;
+	text-transform: uppercase;
+	font-size: 23px;
+	color: #444;
+	border-bottom: 3px solid #EEE;
+	position: relative;
+	margin-bottom: 20px;
+	padding: 5px 0;
 }
 
 #wrapper .content .box-index h2::before {
-    content: "";
-    width: 70px;
-    background: #2673BB none repeat scroll 0% 0%;
-    height: 3px;
-    position: absolute;
-    bottom: -2px;
-    left: 0px;
+	content: "";
+	width: 70px;
+	background: #2673BB none repeat scroll 0% 0%;
+	height: 3px;
+	position: absolute;
+	bottom: -2px;
+	left: 0px;
 }
 
 #wrapper .content .box-index .item {
-    margin-bottom: 20px;
+	margin-bottom: 20px;
 }
 
 #wrapper .content .box-index .item h3 {
-    font-size: 16px;
+	font-size: 16px;
 }
 
 #wrapper .sidebar .sidebar-item {
-    margin-bottom: 30px;
+	margin-bottom: 30px;
 }
 
 #wrapper .sidebar .sidebar-item h4.widget-title {
-    text-transform: uppercase;
-    font-size: 20px;
-    color: #444;
-    border-bottom: 3px solid #EEE;
-    position: relative;
-    margin: 0;
-    margin-bottom: 20px;
-    padding: 5px 0;
+	text-transform: uppercase;
+	font-size: 20px;
+	color: #444;
+	border-bottom: 3px solid #EEE;
+	position: relative;
+	margin: 0;
+	margin-bottom: 20px;
+	padding: 5px 0;
 }
 
 #wrapper .sidebar .sidebar-item h4.widget-title::before {
-    content: "";
-    display: block;
-    width: 70px;
-    background: #2673BB none repeat scroll 0% 0%;
-    height: 3px;
-    position: absolute;
-    bottom: -2px;
-    left: 0px;
+	content: "";
+	display: block;
+	width: 70px;
+	background: #2673BB none repeat scroll 0% 0%;
+	height: 3px;
+	position: absolute;
+	bottom: -2px;
+	left: 0px;
 }
 
 #wrapper .sidebar .sidebar-item .textwidget img {
-    width: 100%;
-    height: auto;
+	width: 100%;
+	height: auto;
+}
+
+h1.archive-title {
+	text-transform: uppercase;
+	font-size: 25px;
+}
+
+.item-archive {
+	border: 1px solid #dcdcdc;
+	box-shadow: 2px 2px 2px #dcdcdc;
+	padding: 5px;
+	margin-bottom: 15px;
+}
+
+.item-archive .thumb img {
+	width: 100%;
+	height: auto;
+}
+
+.item-archive .detail a.readmore {
+	color: #fff;
+	padding: 5px;
+	border-radius: 5px;
+	background: #09D5F3;
+}
+
+h1.single-title {
+	text-transform: uppercase;
+	font-size: 25px;
+}
+
+.single-content {
+	text-align: justify;
+	border: 1px solid #dcdcdc;
+	box-shadow: 2px 2px 2px #dcdcdc;
+	padding: 10px;
 }
 
 footer {
-    background: #2E2E2E;
-    color: #fff;
-    padding: 20px;
+	background: #2E2E2E;
+	color: #fff;
+	padding: 20px;
+	margin-top: 20px;
+}
+
+html {
+	background: white;
+}
+
+h3 {
+	margin: 0px;
+	padding: 0px;
+}
+
+body {
+	max-width: 860px;
+	min-width: 360px;
+	margin: 0px auto;
+	background: #F8F8F8;
+	padding: 0px 5px;
+	text-align: center;
+}
+
+.page-title {
+	font-size: 120%;
+	text-align: left;
+	margin: 10px 0px;
+}
+
+.header-container {
+	text-align: left;
+	border-bottom: 1px solid #ccc;
+	position: relative;
+	background: #5f5f5f;
+	color: white;
+}
+
+.header-container .header-bar {
+	position: absolute;
+	right: 10px;
+	bottom: 20px;
+}
+
+.header-container .header-bar  a {
+	color: white;
+	font-size: bold;
+}
+
+.footer-container {
+	text-align: center;
+	margin-top: 10px;
+	padding: 5px 0px 0px 0px;
+	border-top: 1px solid #ccc;
+}
+
+.menu-container {
+	text-align: right;
+	margin: 10px 5px;
+}
+
+.menu-container a {
+	margin: 5px 5px 5px 10px;
+	color: #004d99;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.site-name {
+	font-size: 200%;
+	margin: 10px 10px 10px 0px;
+	padding: 5px;
+}
+
+.container {
+	margin: 5px 0px;
+}
+
+.demo-container, .login-container, .account-container {
+	padding: 5px;
+	border: 1px solid #ccc;
+	text-align: left;
+	margin: 20px 0px;
+}
+
+.customer-info-container {
+	text-align: left;
+	border: 1px solid #ccc;
+	padding: 0px 5px;
+}
+
+.product-preview-container {
+	border: 1px solid #ccc;
+	padding: 5px;
+	width: 250px;
+	margin: 10px;
+	display: inline-block;
+	text-align: left;
+}
+
+.product-preview-container input {
+	width: 50px;
+}
+
+.product-image {
+	width: 120px;
+	height: 80px;
+}
+
+ul {
+	list-style-type: none;
+	padding-left: 5px;
+	margin: 5px;
+}
+
+.navi-item {
+	margin: 5px 5px 5px 20px;
+}
+
+.button-update-sc {
+	color: red;
+	margin: 5px 5px 5px 20px;
+}
+
+.button-send-sc {
+	color: red;
+	margin: 5px 5px 5px 20px;
+}
+
+.error-message {
+	font-size: 90%;
+	color: red;
+	font-style: italic;
+}
+
+.price {
+	color: blue;
+	font-weight: bold;
+}
+
+.subtotal {
+	color: red;
+	font-weight: bold;
+}
+
+.total {
+	color: red;
+	font-weight: bold;
+	font-size: 120%;
+}
+
+table td {
+	padding: 5px;
 }

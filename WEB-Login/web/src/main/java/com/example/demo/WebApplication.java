@@ -7,7 +7,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
 @SpringBootApplication
-
 public class WebApplication implements ApplicationContextAware{
 
 	private static ApplicationContext applicationContext;
@@ -23,6 +22,4 @@ public class WebApplication implements ApplicationContextAware{
 	public void setApplicationContext(ApplicationContext context) throws BeansException {
 		applicationContext = context;		
 	}
-	
-	
 }
