@@ -4,7 +4,7 @@
 <title>Account Info</title>
 <div th:replace="fragments/header :: header-css" />
 </head>
-<body>
+<body ng-app="myApp">
 	<!-- Header -->
 	<div th:replace="fragments/header :: header" />
 
@@ -14,13 +14,13 @@
 	<div class="page-title">Account Info</div>
 
 	<div class="account-container">
-
-
 		<ul>
-			<li>User Name: ${userPrincipal.name}</li>
+<!--			<li>User Name: <span sec:authentication="name">Bob</span> -->
+			<li>User Name: <span sec:authentication="name"></span>
+			</li>
 			<li>Role:
 				<ul>
-					<li th:each="userDetails.authorities : ${auth}">${auth.authority}</li>
+					<li><span sec:authentication="principal.authorities">[ROLE_USER,ROLE_ADMIN]</span></li>
 				</ul>
 			</li>
 		</ul>

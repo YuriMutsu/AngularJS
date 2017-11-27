@@ -37,18 +37,16 @@
 </div>
 </head>
 
-<body>
-	<div class="header-container" th:fragment="header">
-
+<body ng-app="myApp">
+	<div class="header-container" th:fragment="header"
+		ng-controller="HeaderCtrl">
 		<div class="site-name">Online Shop</div>
-
 		<div class="header-bar">
-			<th:if test="@{userPrincipal.name != null}">
-        Hello
-        <a href="/accountInfo">@{userPrincipal.name} </a>
-           <a href="/logout">Logout</a>
+			<th:if test="@{authentication.name != null}">
+        		Hello <a href="/accountInfo"><span sec:authentication="name" ng-model="username" /></a>
+				<a href="/logout">Logout</a>
 			</th:if>
-			<th:if test="@{userPrincipal.name == null}">
+			<th:if test="@{authentication.name == null}">
 				<a href="/login">Login</a>
 			</th:if>
 		</div>
