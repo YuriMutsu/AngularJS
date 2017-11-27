@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Propagation;
@@ -33,38 +34,21 @@ import com.example.demo.validator.CustomerInfoValidator;
 @Controller
 public class MainController {
 
+	private Logger logger = Logger.getLogger(MainController.class);
+	
 	@Autowired
-	private OrderService orderDAO;
+	private OrderService orderService;
 
 	@Autowired
-	private ProductService productDAO;
+	private ProductService productService;
 
-	@Autowired
-	private CustomerInfoValidator customerInfoValidator;
-
-	@InitBinder
-	public void myInitBinder(WebDataBinder dataBinder) {
-		Object target = dataBinder.getTarget();
-		if (target == null) {
-			return;
-		}
-		System.out.println("Target=" + target);
-
-		// Trường hợp update SL trên giỏ hàng.
-		// (@ModelAttribute("cartForm") @Validated CartInfo cartForm)
-		if (target.getClass() == CartInfo.class) {
-
-		}
-
-		// Trường hợp save thông tin khách hàng.
-		// (@ModelAttribute("customerForm") @Validated CustomerInfo
-		// customerForm)
-		else if (target.getClass() == CustomerInfo.class) {
-			dataBinder.setValidator(customerInfoValidator);
-		}
-
+	// GET: Show Login Page
+	// GET: Hiển thị trang login
+	@RequestMapping(value = { "/login" }, method = RequestMethod.GET)
+	public String login(Model model) {
+		return "login";
 	}
-
+	
 	@RequestMapping("/403")
 	public String accessDenied() {
 		return "/403";
@@ -83,8 +67,7 @@ public class MainController {
 		final int maxResult = 5;
 		final int maxNavigationPage = 10;
 
-		PaginationResult<ProductInfo> result = productDAO.queryProducts(page, //
-				maxResult, maxNavigationPage, likeName);
+		PaginationResult<ProductInfo> result = productService.queryProducts(page, maxResult, maxNavigationPage, likeName);
 
 		model.addAttribute("paginationProducts", result);
 		return "productList";
@@ -96,7 +79,7 @@ public class MainController {
 
 		Product product = null;
 		if (code != null && code.length() > 0) {
-			product = productDAO.findProduct(code);
+			product = productService.findProduct(code);
 		}
 		if (product != null) {
 
@@ -117,7 +100,7 @@ public class MainController {
 			@RequestParam(value = "code", defaultValue = "") String code) {
 		Product product = null;
 		if (code != null && code.length() > 0) {
-			product = productDAO.findProduct(code);
+			product = productService.findProduct(code);
 		}
 		if (product != null) {
 
@@ -242,7 +225,7 @@ public class MainController {
 			return "redirect:/shoppingCartCustomer";
 		}
 		try {
-			orderDAO.saveOrder(cartInfo);
+			orderService.saveOrder(cartInfo);
 		} catch (Exception e) {
 
 			// Cần thiết: Propagation.NEVER?
@@ -276,7 +259,7 @@ public class MainController {
 			@RequestParam("code") String code) throws IOException {
 		Product product = null;
 		if (code != null) {
-			product = this.productDAO.findProduct(code);
+			product = this.productService.findProduct(code);
 		}
 		if (product != null && product.getImage() != null) {
 			response.setContentType("image/jpeg, image/jpg, image/png, image/gif");

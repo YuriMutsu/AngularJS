@@ -7,55 +7,54 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.example.demo.service.AuthenticationService;
+
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
-    private UserDetailsService userDetailsService;
+	private AuthenticationService userDetailsService;
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        // xét đặt dịch vụ để tìm kiếm User trong Database.
-        // Và sét đặt PasswordEncoder.
-//        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-    	auth.userDetailsService(userDetailsService);
-    }
+	@Autowired
+	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+		// xét đặt dịch vụ để tìm kiếm User trong Database.
+		// Và sét đặt PasswordEncoder.
+		// auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+	}
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-            .csrf().disable()
-            .authorizeRequests()
-                .antMatchers("/register").permitAll()
-                .antMatchers("/").permitAll()
-                .antMatchers("/admin").hasRole("ADMIN")
-                .antMatchers("/addUser").hasRole("ADMIN")
-                .and()
-            .formLogin()
-                .loginPage("/login")
-                .usernameParameter("username")
-                .passwordParameter("password")
-                .defaultSuccessUrl("/")
-                .permitAll()
-                .failureUrl("/login?error")
-                .and()
-                .exceptionHandling()
-                .accessDeniedPage("/403")
-                .and()
-            .logout()
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/")
-                .and()
-            .rememberMe()
-                .key("remember-account");
-    }
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.csrf().disable();
+
+		// Các yêu cầu phải login với vai trò MEMBER hoặc ADMIN.
+		// Nếu chưa login, nó sẽ redirect tới trang /login.
+		http.authorizeRequests().antMatchers("/orderList", "/order", "/accountInfo").permitAll().antMatchers("/product")
+				.hasRole("ADMIN");// Trang chỉ dành cho ADMIN
+
+		// Khi người dùng đã login, với vai trò XX.
+		// Nhưng truy cập vào trang yêu cầu vai trò YY,
+		// Ngoại lệ AccessDeniedException sẽ ném ra.
+		http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
+
+		// Cấu hình cho Login Form.
+		http.authorizeRequests().and().formLogin()//
+
+				// Submit URL của trang login
+				.loginProcessingUrl("/j_spring_security_check") // Submit URL
+				.loginPage("/login").defaultSuccessUrl("/accountInfo").failureUrl("/login?error=true")
+				.usernameParameter("userName").passwordParameter("password")
+
+				// Cấu hình cho Logout Page.
+				// (Sau khi logout, chuyển tới trang home)
+				.and().logout().logoutUrl("/logout").logoutSuccessUrl("/");
+	}
 }

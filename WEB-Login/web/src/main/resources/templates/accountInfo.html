@@ -1,23 +1,15 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://www.springframework.org/security/tags"
-	prefix="security"%>
-
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-
 <title>Account Info</title>
-
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/styles.css">
-
+<div th:replace="fragments/header :: header-css" />
 </head>
 <body>
+	<!-- Header -->
+	<div th:replace="fragments/header :: header" />
 
-
-	<jsp:include page="_header.jsp" />
-	<jsp:include page="_menu.jsp" />
+	<!-- Menu -->
+	<div th:replace="fragments/menu :: menu" />
 
 	<div class="page-title">Account Info</div>
 
@@ -36,8 +28,8 @@
 		</ul>
 	</div>
 
-
-	<jsp:include page="_footer.jsp" />
+	<!-- Footer -->
+	<div th:replace="fragments/footer :: footer" />
 
 </body>
 </html>

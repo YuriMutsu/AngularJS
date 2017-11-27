@@ -1,18 +1,18 @@
 <html lang="vn" xmlns:th="http://www.thymeleaf.org">
 <div class="menu-container" th:fragment="menu">
 
-	<a href="${pageContext.request.contextPath}/">Home</a> | <a
-		href="${pageContext.request.contextPath}/productList"> Product
-		List </a> | <a href="${pageContext.request.contextPath}/shoppingCart">
+	<a href="/">Home</a> | <a
+		href="/productList"> Product
+		List </a> | <a href="/shoppingCart">
 		My Cart </a> |
 	<security:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_EMPLOYEE')">
-		<a href="${pageContext.request.contextPath}/orderList"> Order List
+		<a href="/orderList"> Order List
 		</a>
      |
    </security:authorize>
 
 	<security:authorize access="hasRole('ROLE_ADMIN')">
-		<a href="${pageContext.request.contextPath}/product"> Create
+		<a href="/product"> Create
 			Product </a>
          |
    </security:authorize>

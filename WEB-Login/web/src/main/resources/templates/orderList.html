@@ -1,15 +1,9 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
 <title>Product List</title>
 
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/styles.css">
-
+<div th:replace="fragments/header :: header-css" />
 </head>
 <body>
 

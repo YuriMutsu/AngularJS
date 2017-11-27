@@ -11,22 +11,19 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.model.OrderDetailInfo;
 import com.example.demo.model.OrderInfo;
 import com.example.demo.model.PaginationResult;
 import com.example.demo.model.ProductInfo;
+import com.example.demo.service.AuthenticationService;
 import com.example.demo.service.OrderService;
 import com.example.demo.service.ProductService;
-import com.example.demo.validator.ProductInfoValidator;
 
 @Controller
 public class AdminController {
@@ -36,38 +33,14 @@ public class AdminController {
 
 	@Autowired
 	private ProductService productDAO;
-
+	
 	@Autowired
-	private ProductInfoValidator productInfoValidator;
-
-	@InitBinder
-	public void myInitBinder(WebDataBinder dataBinder) {
-		Object target = dataBinder.getTarget();
-		if (target == null) {
-			return;
-		}
-		System.out.println("Target=" + target);
-
-		if (target.getClass() == ProductInfo.class) {
-			dataBinder.setValidator(productInfoValidator);
-			// For upload Image.
-			// Sử dụng cho upload Image.
-			dataBinder.registerCustomEditor(byte[].class, new ByteArrayMultipartFileEditor());
-		}
-	}
-
-	// GET: Show Login Page
-	// GET: Hiển thị trang login
-	@RequestMapping(value = { "/login" }, method = RequestMethod.GET)
-	public String login(Model model) {
-
-		return "login";
-	}
+	private AuthenticationService authenticationService;
 
 	@RequestMapping(value = { "/accountInfo" }, method = RequestMethod.GET)
 	public String accountInfo(Model model) {
-
-		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+		UserDetails userDetails = authenticationService.loadUserByUsername(username);
 		System.out.println(userDetails.getPassword());
 		System.out.println(userDetails.getUsername());
 		System.out.println(userDetails.isEnabled());

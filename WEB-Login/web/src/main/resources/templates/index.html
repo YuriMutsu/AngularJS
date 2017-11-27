@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
 <div th:replace="fragments/header :: header-css" />
 </head>
 <body>
 	<!-- Header -->
-    <div th:replace="fragments/header :: header"/>
-    
-	<!-- Header -->
-    <div th:replace="fragments/menu :: menu"/>
+	<div th:replace="fragments/header :: header" />
+
+	<!-- Menu -->
+	<div th:replace="fragments/menu :: menu" />
 
 	<div class="page-title">Shopping Cart Demo</div>
 
@@ -24,8 +23,8 @@
 	</div>
 
 
-	<!-- Header -->
-    <div th:replace="fragments/footer :: footer"/>
+	<!-- Footer -->
+	<div th:replace="fragments/footer :: footer" />
 
 </body>
 </html>

@@ -1,22 +1,15 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-
 <title>Shopping Cart</title>
-
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/styles.css">
-
+<div th:replace="fragments/header :: header-css" />
 </head>
 <body>
-	<jsp:include page="_header.jsp" />
+	<!-- Header -->
+	<div th:replace="fragments/header :: header" />
 
-	<jsp:include page="_menu.jsp" />
+	<!-- Menu -->
+	<div th:replace="fragments/menu :: menu" />
 
 	<fmt:setLocale value="en_US" scope="session" />
 
@@ -75,7 +68,9 @@
 	</c:if>
 
 
-	<jsp:include page="_footer.jsp" />
+	<!-- Footer -->
+	<div th:replace="fragments/footer :: footer" />
+
 
 </body>
 </html>

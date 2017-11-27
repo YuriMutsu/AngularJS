@@ -11,11 +11,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.entity.Account;
 
 
 @Service
+@Transactional
 public class AuthenticationService implements UserDetailsService{
 
 	@Autowired
@@ -25,7 +27,7 @@ public class AuthenticationService implements UserDetailsService{
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Account account = accountService.findAccount(username);
 		
-		System.out.println("Account= " + account);
+		System.out.println("Account = " + account);
 		 
         if (account == null) {
             throw new UsernameNotFoundException("User " //
