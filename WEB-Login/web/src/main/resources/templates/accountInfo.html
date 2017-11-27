@@ -17,12 +17,10 @@
 
 
 		<ul>
-			<li>User Name: ${pageContext.request.userPrincipal.name}</li>
+			<li>User Name: ${userPrincipal.name}</li>
 			<li>Role:
 				<ul>
-					<c:forEach items="${userDetails.authorities}" var="auth">
-						<li>${auth.authority }</li>
-					</c:forEach>
+					<li th:each="userDetails.authorities : ${auth}">${auth.authority}</li>
 				</ul>
 			</li>
 		</ul>

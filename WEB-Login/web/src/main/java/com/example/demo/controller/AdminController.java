@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Propagation;
@@ -37,10 +38,12 @@ public class AdminController {
 	@Autowired
 	private AuthenticationService authenticationService;
 
-	@RequestMapping(value = { "/accountInfo" }, method = RequestMethod.GET)
+	@RequestMapping(value = {"/accountInfo"}, method = RequestMethod.GET)
 	public String accountInfo(Model model) {
-		String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
-		UserDetails userDetails = authenticationService.loadUserByUsername(username);
+		if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().getClass().equals(String.class)){
+			return "redirect:/403";
+		}
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		System.out.println(userDetails.getPassword());
 		System.out.println(userDetails.getUsername());
 		System.out.println(userDetails.isEnabled());

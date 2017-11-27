@@ -28,7 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		// xét đặt dịch vụ để tìm kiếm User trong Database.
 		// Và sét đặt PasswordEncoder.
 		// auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+		auth.userDetailsService(userDetailsService);
 	}
 
 	@Override
@@ -46,15 +46,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
 
 		// Cấu hình cho Login Form.
-		http.authorizeRequests().and().formLogin()//
-
+		http.authorizeRequests().and()
+			.formLogin()//
 				// Submit URL của trang login
-				.loginProcessingUrl("/j_spring_security_check") // Submit URL
-				.loginPage("/login").defaultSuccessUrl("/accountInfo").failureUrl("/login?error=true")
-				.usernameParameter("userName").passwordParameter("password")
+				.loginPage("/login")
+				.defaultSuccessUrl("/accountInfo")
+				.failureUrl("/login?error=true")
+				.usernameParameter("username")
+				.passwordParameter("password")
 
 				// Cấu hình cho Logout Page.
 				// (Sau khi logout, chuyển tới trang home)
-				.and().logout().logoutUrl("/logout").logoutSuccessUrl("/");
+				.and()
+			.logout()
+				.logoutUrl("/logout")
+				.logoutSuccessUrl("/");
 	}
 }

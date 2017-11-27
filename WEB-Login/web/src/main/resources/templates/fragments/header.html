@@ -43,13 +43,12 @@
 		<div class="site-name">Online Shop</div>
 
 		<div class="header-bar">
-			<th:if test="@{pageContext.request.userPrincipal.name != null}">
+			<th:if test="@{userPrincipal.name != null}">
         Hello
-        <a href="/accountInfo">
-					${pageContext.request.userPrincipal.name} </a>
+        <a href="/accountInfo">@{userPrincipal.name} </a>
            <a href="/logout">Logout</a>
 			</th:if>
-			<th:if test="@{pageContext.request.userPrincipal.name == null}">
+			<th:if test="@{userPrincipal.name == null}">
 				<a href="/login">Login</a>
 			</th:if>
 		</div>

@@ -7,28 +7,18 @@
 <div th:replace="fragments/header :: header-css" />
 </head>
 <body>
+	<!-- Header -->
+	<div th:replace="fragments/header :: header" />
 
-
-	<jsp:include page="_header.jsp" />
-	<jsp:include page="_menu.jsp" />
-
-
-
+	<!-- Menu -->
+	<div th:replace="fragments/menu :: menu" />
+	
 	<div class="page-title">Login (For Employee, Manager)</div>
 
 	<div class="login-container">
 		<h3>Enter username and password</h3>
-		<br/>
-		<!-- /login?error=true -->
-		<c:if test="${param.error == 'true'}">
-			<div style="color: red; margin: 10px 0px;">
-
-				Login Failed!!!<br/> Reason :
-				${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
-
-			</div>
-		</c:if>
-		<form method="post" action="/login">
+		<br />
+		<form action="/login" method="post">
 			<table>
 				<tr>
 					<td>User Name *</td>
@@ -45,11 +35,9 @@
 				</tr>
 			</table>
 		</form>
-		<span class="error-message">${error }</span>
 	</div>
 
-
-	<jsp:include page="_footer.jsp" />
-
+	<!-- Footer -->
+	<div th:replace="fragments/footer :: footer" />
 </body>
 </html>
