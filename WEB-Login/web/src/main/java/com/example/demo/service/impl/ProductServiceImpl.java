@@ -1,5 +1,6 @@
 package com.example.demo.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -78,6 +79,21 @@ public class ProductServiceImpl implements ProductService {
 		if (isNew) {
 			productRepository.save(product);
 		}
+	}
+
+	@Override
+	public List<Product> findProductAll() {
+		return (List<Product>) productRepository.findAll();
+	}
+
+	@Override
+	public List<ProductInfo> findProductInfoAll() {
+		List<Product> listProduct = findProductAll();
+		List<ProductInfo> listProductInfo = new ArrayList<>();
+		for (Product product : listProduct){
+			listProductInfo.add(new ProductInfo(product));
+		}
+		return listProductInfo;
 	}
 
 }

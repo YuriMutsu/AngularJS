@@ -39,13 +39,6 @@ public class MainController {
 	@Autowired
 	private ProductService productService;
 
-	// GET: Show Login Page
-	// GET: Hiển thị trang login
-	@RequestMapping(value = { "/login" }, method = RequestMethod.GET)
-	public String login() {
-		return "login";
-	}
-	
 	@RequestMapping("/403")
 	public String error403() {
 		return "/error/403";
@@ -56,6 +49,11 @@ public class MainController {
 		return "index";
 	}
 
+	@RequestMapping("/pagination")
+	public String pagination() {
+		return "pagination";
+	}
+	
 	// Danh sách sản phẩm.
 	@RequestMapping({ "/productList" })
 	public String listProductHandler(Model model, //

@@ -1,74 +1,4 @@
-header .logo h1 {
-	font-size: 25px;
-}
-
-header .search {
-	padding: 15px;
-}
-
-#wrapper .content .slider img {
-	width: 100%;
-	height: auto;
-}
-
-#wrapper .content .box-index h2 {
-	text-transform: uppercase;
-	font-size: 23px;
-	color: #444;
-	border-bottom: 3px solid #EEE;
-	position: relative;
-	margin-bottom: 20px;
-	padding: 5px 0;
-}
-
-#wrapper .content .box-index h2::before {
-	content: "";
-	width: 70px;
-	background: #2673BB none repeat scroll 0% 0%;
-	height: 3px;
-	position: absolute;
-	bottom: -2px;
-	left: 0px;
-}
-
-#wrapper .content .box-index .item {
-	margin-bottom: 20px;
-}
-
-#wrapper .content .box-index .item h3 {
-	font-size: 16px;
-}
-
-#wrapper .sidebar .sidebar-item {
-	margin-bottom: 30px;
-}
-
-#wrapper .sidebar .sidebar-item h4.widget-title {
-	text-transform: uppercase;
-	font-size: 20px;
-	color: #444;
-	border-bottom: 3px solid #EEE;
-	position: relative;
-	margin: 0;
-	margin-bottom: 20px;
-	padding: 5px 0;
-}
-
-#wrapper .sidebar .sidebar-item h4.widget-title::before {
-	content: "";
-	display: block;
-	width: 70px;
-	background: #2673BB none repeat scroll 0% 0%;
-	height: 3px;
-	position: absolute;
-	bottom: -2px;
-	left: 0px;
-}
-
-#wrapper .sidebar .sidebar-item .textwidget img {
-	width: 100%;
-	height: auto;
-}
+@CHARSET "ISO-8859-1";
 
 h1.archive-title {
 	text-transform: uppercase;
@@ -94,6 +24,11 @@ h1.archive-title {
 	background: #09D5F3;
 }
 
+h1.single-title {
+	text-transform: uppercase;
+	font-size: 25px;
+}
+
 .single-content {
 	text-align: justify;
 	border: 1px solid #dcdcdc;
@@ -115,6 +50,15 @@ html {
 h3 {
 	margin: 0px;
 	padding: 0px;
+}
+
+body {
+	max-width: 860px;
+	min-width: 360px;
+	margin: 0px auto;
+	background: #F8F8F8;
+	padding: 0px 5px;
+	text-align: center;
 }
 
 .page-title {
@@ -246,8 +190,4 @@ ul {
 
 table td {
 	padding: 5px;
-}
-
-.button-register{
-	text-align: center;
 }

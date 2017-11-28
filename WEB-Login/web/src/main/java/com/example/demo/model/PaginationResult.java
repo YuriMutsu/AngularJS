@@ -6,6 +6,10 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.ScrollMode;
 import org.hibernate.ScrollableResults;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.example.demo.entity.Product;
+import com.example.demo.service.ProductService;
 
 public class PaginationResult<E> {
 
@@ -19,6 +23,10 @@ public class PaginationResult<E> {
 
 	private List<Integer> navigationPages;
 
+	
+	@Autowired
+	private ProductService productService;
+	
 	// @page: 1, 2, ..
 	public PaginationResult(Query query, int page, int maxResult, int maxNavigationPage) {
 		final int pageIndex = page - 1 < 0 ? 0 : page - 1;
@@ -28,10 +36,13 @@ public class PaginationResult<E> {
 
 		ScrollableResults resultScroll = query.scroll(ScrollMode.SCROLL_INSENSITIVE);
 
+		List<Product> listProduct = productService.findProductAll();
+		
 		List results = new ArrayList();
 
 		boolean hasResult = resultScroll.first();
 
+		
 		if (hasResult) {
 			// Cuộn tới vị trí:
 			hasResult = resultScroll.scroll(fromRecordIndex);

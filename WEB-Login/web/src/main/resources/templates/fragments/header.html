@@ -38,20 +38,18 @@
 </head>
 
 <body ng-app="myApp">
-	<div class="header-container" th:fragment="header"
-		ng-controller="HeaderCtrl">
-		<div class="site-name">Online Shop</div>
-		<div class="header-bar">
-			<th:if test="@{authentication.name != null}">
-        		Hello <a href="/accountInfo"><span sec:authentication="name" ng-model="username" /></a>
-				<a href="/logout">Logout</a>
-			</th:if>
-			<th:if test="@{authentication.name == null}">
-				<a href="/login">Login</a>
-			</th:if>
-		</div>
+<div th:fragment="header">
+	<div class="container" ng-controller="HeaderCtrl">
+		<div class="row">
+            <div class="logo col-md-6 col-sm-6 col-xs-12"><h1><a href="#">TMTAI SHOP</a></h1></div>
+            <div class="search col-md-6 col-sm-6 col-xs-12 text-right">
+                <br/>
+                <input type="text" placeholder="Nhập từ khóa tìm kiếm" id="q" name="q" value=""/>
+                <button type="submit">Tìm kiếm</button>
+            </div>
+            <div class="clearfix"></div>
+        </div>
 	</div>
+</div>
 </body>
-
-
 </html>

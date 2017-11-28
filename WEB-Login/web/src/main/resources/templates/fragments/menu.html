@@ -1,21 +1,48 @@
 <html lang="vn" xmlns:th="http://www.thymeleaf.org">
-<div class="menu-container" th:fragment="menu">
+<div th:fragment="menu">	
+	<div class="container">
+		<div class="header-menu">
+		<!-- Menu do Bootstrap cung cấp có hỗ trợ menu trên di động -->
+            <nav class="navbar navbar-default">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                            data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">Trang chủ</a>
+                </div>
 
-	<a href="/">Home</a> | <a
-		href="/productList"> Product
-		List </a> | <a href="/shoppingCart">
-		My Cart </a> |
-	<security:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_EMPLOYEE')">
-		<a href="/orderList"> Order List
-		</a>
-     |
-   </security:authorize>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li><a href="#">Giới thiệu</a></li>
+                        <li><a href="#">Tin tức</a></li>
+                        <li><a href="#">Thương hiệu</a></li>
+                        <li><a href="#">Liên hệ</a></li>
+                    </ul>
 
-	<security:authorize access="hasRole('ROLE_ADMIN')">
-		<a href="/product"> Create
-			Product </a>
-         |
-   </security:authorize>
-
+                    <ul class="nav navbar-nav navbar-right">
+                    	<li><a href="/productList">Danh sách sản phẩm</a></li>
+                    	<li><a href="#" sec:authorize="hasRole('ROLE_ADMIN')">Thêm sản phẩm</a></li>
+                    	<li><a href="#" sec:authorize="hasRole('ROLE_MEMBER')">Giỏ hàng (2)</a></li>
+                        <li><a href="/register" sec:authorize="!isAuthenticated()">Đăng ký</a></li>
+                        <li><a href="/login" sec:authorize="!isAuthenticated()">Đăng nhập</a></li>
+                        <li class="dropdown" sec:authorize="isAuthenticated()">
+                            <a data-toggle="dropdown" href=""><span sec:authentication="name" /><span class="caret"/></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/accountInfo">Thông tin</a></li>
+                                <li><a href="/changePassword">Đổi mật khẩu</a></li>
+                                <div class="divider"></div>
+                                <li><a href="/logout">Thoát</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <!-- End Menu Bootstrap -->
+		</div>
+	</div>
 </div>
 </html>

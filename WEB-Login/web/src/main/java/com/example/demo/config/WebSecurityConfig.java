@@ -50,7 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.formLogin()//
 				// Submit URL của trang login
 				.loginPage("/login")
-				.defaultSuccessUrl("/accountInfo")
+				.defaultSuccessUrl("/")
 				.failureUrl("/login?error=true")
 				.usernameParameter("username")
 				.passwordParameter("password")
