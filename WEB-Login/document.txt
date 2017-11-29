@@ -1,0 +1,59 @@
+* Thymeleaf:
+
+- Sử dụng attribute của session:
+
+Class java:
+	public void getNewsImage(HttpServletRequest request, ...) throws IOException{
+		
+		...
+		
+		request.getSession().setAttribute("attributeName", Object);
+		
+		...
+	}
+
+Html:
+	<h2 th:text="${session.attributeName.getId()}" th:if="${session.attributeName != null}"></h2>
+	
+	
+- Sử dụng attribute của model : 
+	
+Class java:
+	public String getAttribute(Model model, ...){
+		
+		...
+		
+		model.addAttribute("attributeName", object);
+		
+		...
+	}
+	
+Html:
+	<h2 th:text="${attributeName.id}"></h2>
+	
+Khi này: attributeName chính là object.
+Ví dụ: 
+	Object{
+		private name;
+		private address;
+		
+		public String getName(){
+			...
+		}
+		
+		...
+	}
+	
+	Thì khi đó attributeName cũng có cấu trúc dạng:
+	attributeName{
+		private name;
+		private address;
+		
+		public String getName(){
+			...
+		}
+		
+		...
+	}
+	
+	khi đó ta có thể sử dụng attributeName.name hoặc attributeName.getName() ===> lấy giá trị của name.

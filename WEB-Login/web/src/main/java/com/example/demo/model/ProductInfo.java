@@ -2,7 +2,7 @@ package com.example.demo.model;
 
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import com.example.demo.entity.Product;
+import com.example.demo.entity.Products;
 
 public class ProductInfo {
 	private String code;
@@ -17,7 +17,7 @@ public class ProductInfo {
 	public ProductInfo() {
 	}
 
-	public ProductInfo(Product product) {
+	public ProductInfo(Products product) {
 		this.code = product.getCode();
 		this.name = product.getName();
 		this.price = product.getPrice();

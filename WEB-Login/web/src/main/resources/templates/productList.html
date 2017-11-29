@@ -18,14 +18,14 @@
 				<div class="item col-md-3 col-sm-3 col-xs-6" ng-repeat="product in listProduct">
 					<ul>
 						<li>
-							<img alt="" src="/productImage?code=S005"/>
+							<img alt="" ng-src ="/productImage?code={{product.code}}"/>
 						</li>
 						<li>Mã sản phẩm: {{product.code}}</li>
 						<li>Sản phẩm: {{product.name}}</li>
 						<li>Giá: {{product.price}}</li>
 						<li>
 							<button class="btn btn-info">Thêm vào giỏ hàng</button>
-							<button class="btn btn-success">Chi tiết</button>
+							<a class="btn btn-success" ng-href="/productInfo?code={{product.code}}">Chi tiết</a>
 						</li>
 					</ul>
 				</div>

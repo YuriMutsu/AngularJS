@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.entity.Product;
+import com.example.demo.entity.Products;
 import com.example.demo.service.ProductService;
 
 @RestController
@@ -21,11 +21,11 @@ public class RestProductController {
 	@Autowired
 	private ProductService productService;
 	
-	@RequestMapping("/products")
-	public ResponseEntity<List<Product>> getAllProduct(){
-		List<Product> listProduct = productService.findProductAll();
+	@RequestMapping("products")
+	public ResponseEntity<List<Products>> getAllProduct(){
+		List<Products> listProduct = productService.findProductAll();
 		
 		m_logger.info("List Products: " + listProduct.toString());
-		return new ResponseEntity<List<Product>>(listProduct, HttpStatus.OK);
+		return new ResponseEntity<List<Products>>(listProduct, HttpStatus.OK);
 	}
 }

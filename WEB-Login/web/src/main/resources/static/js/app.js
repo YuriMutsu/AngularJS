@@ -1,6 +1,54 @@
 (function() {
 
 	var app = angular.module("myApp", [ 'ngResource' ]);
+	
+	app.factory('myService', ['$resource', function($resource){
+		var factory = {
+			pagination : function(uri, list, noOfPages, currentPage, numPerPage, setPage){
+				$resource(uri,
+			            {},
+			            {
+			                query: {
+			                    method: 'get',
+			                    isArray: true
+			                }
+			            }).query(
+			            	function(data){
+			            		numPerPage = 6;
+			            		noOfPages = Math.ceil(data.length / numPerPage);
+			            		currentPage = 1;
+
+			            		setPage = function () {
+			            			var offset = (currentPage - 1) * numPerPage;
+									var limit = numPerPage;
+									list = data.slice(offset, offset + limit);
+			            			
+			            			console.info(list);
+			            		};
+			            		  
+//			            		$scope.$watch('currentPage', setPage);
+			            	}
+			            );
+			},
+			get : function(data, list, noOfPages, currentPage, numPerPage, setPage, scope){
+				numPerPage = 6;
+        		noOfPages = Math.ceil(data.length / numPerPage);
+        		currentPage = 1;
+
+        		setPage = function () {
+        			var offset = (currentPage - 1) * numPerPage;
+					var limit = numPerPage;
+					list = data.slice(offset, offset + limit);
+        			
+        			console.info(list);
+        		};
+        		  
+        		scope.$watch('currentPage', setPage);
+			}
+		}
+		return factory;
+	}]);
+	
 	app.directive('pagination', function() {
 		  return {
 			restrict : 'E',
@@ -86,9 +134,31 @@
 				}
 			} ]);
 
-	app.controller('WapperCtrl', ['$scope', '$rootScope', function($scope, $rootScope) {
-		$scope.listItemTinTuc = [ '1', '2', '3', '4', '5', '6', '7', '8' ];
-		$scope.listItemSidebar = [ '1', '2', '3' ];
+	app.controller('WrapperCtrl', ['$scope', '$rootScope', '$resource', function($scope, $rootScope, $resource) {
+		$resource('/rest/16News', {}, {
+			query : {
+				method : 'get',
+				isArray : true
+			}
+		}).query(
+				function(data) {
+					$scope.listProduct = data;
+					$scope.numPerPage = 8;
+					$scope.noOfPages = Math.ceil(data.length
+							/ $scope.numPerPage);
+					$scope.currentPage = 1;
+
+					$scope.setPage = function() {
+						var offset = ($scope.currentPage - 1) * $scope.numPerPage;
+						var limit = $scope.numPerPage;
+						$scope.listNews = data.slice(offset, offset + limit);
+
+						console.info($scope.listNews);
+					};
+
+					$scope.$watch('currentPage', $scope.setPage);
+					
+				});
 	}]);
 
 	app.controller('HeaderCtrl', [ '$scope', '$rootScope',

@@ -8,7 +8,7 @@ import org.hibernate.ScrollMode;
 import org.hibernate.ScrollableResults;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.example.demo.entity.Product;
+import com.example.demo.entity.Products;
 import com.example.demo.service.ProductService;
 
 public class PaginationResult<E> {
@@ -36,7 +36,7 @@ public class PaginationResult<E> {
 
 		ScrollableResults resultScroll = query.scroll(ScrollMode.SCROLL_INSENSITIVE);
 
-		List<Product> listProduct = productService.findProductAll();
+		List<Products> listProduct = productService.findProductAll();
 		
 		List results = new ArrayList();
 

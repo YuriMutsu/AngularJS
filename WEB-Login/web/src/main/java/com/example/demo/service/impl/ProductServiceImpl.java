@@ -7,7 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.entity.Product;
+import com.example.demo.entity.Products;
 import com.example.demo.model.PaginationResult;
 import com.example.demo.model.ProductInfo;
 import com.example.demo.reponsitory.ProductRepository;
@@ -20,9 +20,9 @@ public class ProductServiceImpl implements ProductService {
 	private ProductRepository productRepository;
 
 	@Override
-	public Product findProduct(String code) {
-		List<Product> listProduct = (List<Product>) productRepository.findAll();
-		for (Product product : listProduct) {
+	public Products findProduct(String code) {
+		List<Products> listProduct = (List<Products>) productRepository.findAll();
+		for (Products product : listProduct) {
 			if (product.getCode().equals(code)) {
 				return product;
 			}
@@ -32,7 +32,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public ProductInfo findProductInfo(String code) {
-		Product product = findProduct(code);
+		Products product = findProduct(code);
 		if (product != null) {
 			return new ProductInfo(product);
 		}
@@ -52,7 +52,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public void save(ProductInfo productInfo) {
-		Product product = new Product();
+		Products product = new Products();
 
 		String code = productInfo.getCode();
 
@@ -62,7 +62,7 @@ public class ProductServiceImpl implements ProductService {
 		}
 		if (product == null) {
 			isNew = true;
-			product = new Product();
+			product = new Products();
 			product.setCreateDate(new Date());
 		}
 
@@ -82,15 +82,15 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<Product> findProductAll() {
-		return (List<Product>) productRepository.findAll();
+	public List<Products> findProductAll() {
+		return (List<Products>) productRepository.findAll();
 	}
 
 	@Override
 	public List<ProductInfo> findProductInfoAll() {
-		List<Product> listProduct = findProductAll();
+		List<Products> listProduct = findProductAll();
 		List<ProductInfo> listProductInfo = new ArrayList<>();
-		for (Product product : listProduct){
+		for (Products product : listProduct){
 			listProductInfo.add(new ProductInfo(product));
 		}
 		return listProductInfo;

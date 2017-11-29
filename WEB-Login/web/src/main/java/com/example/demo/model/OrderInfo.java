@@ -3,7 +3,7 @@ package com.example.demo.model;
 import java.util.Date;
 import java.util.List;
 
-import com.example.demo.entity.Order;
+import com.example.demo.entity.Orders;
 
 public class OrderInfo {
 
@@ -39,7 +39,7 @@ public class OrderInfo {
 		this.customerPhone = customerPhone;
 	}
 
-	public OrderInfo(Order order){
+	public OrderInfo(Orders order){
 		this.id = order.getId();
 		this.orderDate = order.getOrderDate();
 		this.orderNum = order.getOrderNum();

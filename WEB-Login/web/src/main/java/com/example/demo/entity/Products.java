@@ -13,7 +13,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "Products")
-public class Product implements Serializable {
+public class Products implements Serializable {
 
 	private static final long serialVersionUID = -1000119078147252957L;
 
@@ -25,7 +25,7 @@ public class Product implements Serializable {
 	// For sort.
 	private Date createDate;
 
-	public Product() {
+	public Products() {
 	}
 
 	@Id

@@ -1,9 +1,9 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.Account;
+import com.example.demo.entity.Accounts;
 
 public interface AccountService {
-	public Account findAccount(String userName);
+	public Accounts findAccount(String userName);
 	
-	public void save(Account account);
+	public void save(Accounts account);
 }

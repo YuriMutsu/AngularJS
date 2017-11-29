@@ -1,6 +1,6 @@
 package com.example.demo.config;
 
-import com.example.demo.entity.Account;
+import com.example.demo.entity.Accounts;
 import com.example.demo.service.AccountService;
 
 import java.util.Date;
@@ -27,7 +27,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 
         // Admin account
         if (userService.findAccount("admin") == null) {
-        	Account admin = new Account();
+        	Accounts admin = new Accounts();
             admin.setUserName("admin");
             admin.setPassword(passwordEncoder.encode("123456"));
             admin.setEmail("admin@gmail.com");
@@ -44,7 +44,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 
         // Member account
         if (userService.findAccount("member") == null) {
-        	Account member = new Account();
+        	Accounts member = new Accounts();
             member.setUserName("member");
             member.setPassword(passwordEncoder.encode("123456"));
             member.setEmail("member@gmail.com");

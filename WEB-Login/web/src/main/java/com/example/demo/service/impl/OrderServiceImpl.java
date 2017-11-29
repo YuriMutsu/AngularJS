@@ -8,9 +8,9 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.entity.Order;
-import com.example.demo.entity.OrderDetail;
-import com.example.demo.entity.Product;
+import com.example.demo.entity.Orders;
+import com.example.demo.entity.OrderDetails;
+import com.example.demo.entity.Products;
 import com.example.demo.model.CartInfo;
 import com.example.demo.model.CartLineInfo;
 import com.example.demo.model.CustomerInfo;
@@ -35,9 +35,9 @@ public class OrderServiceImpl implements OrderService {
 	private OrderDetailRepository orderDetailRepository;
 
 	private int getMaxOrderNum() {
-		List<Order> listOrder = (List<Order>) orderRepository.findAll();
+		List<Orders> listOrder = (List<Orders>) orderRepository.findAll();
 		int max = 0;
-		for (Order order : listOrder) {
+		for (Orders order : listOrder) {
 			if (order.getOrderNum() > max) {
 				max = order.getOrderNum();
 			}
@@ -49,7 +49,7 @@ public class OrderServiceImpl implements OrderService {
 	public void saveOrder(CartInfo cartInfo) {
 		int orderNum = getMaxOrderNum() + 1;
 
-		Order order = new Order();
+		Orders order = new Orders();
 
 		order.setId(UUID.randomUUID().toString());
 		order.setOrderNum(orderNum);
@@ -67,7 +67,7 @@ public class OrderServiceImpl implements OrderService {
 		List<CartLineInfo> lines = cartInfo.getCartLines();
 
 		for (CartLineInfo line : lines) {
-			OrderDetail detail = new OrderDetail();
+			OrderDetails detail = new OrderDetails();
 			detail.setId(UUID.randomUUID().toString());
 			detail.setOrder(order);
 			detail.setAmount(line.getAmount());
@@ -75,7 +75,7 @@ public class OrderServiceImpl implements OrderService {
 			detail.setQuanity(line.getQuantity());
 
 			String code = line.getProductInfo().getCode();
-			Product product = productService.findProduct(code);
+			Products product = productService.findProduct(code);
 			detail.setProduct(product);
 
 			orderDetailRepository.save(detail);
@@ -94,8 +94,8 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public OrderInfo getOrderInfo(String orderId) {
-		List<Order> listOrder = (List<Order>) orderRepository.findAll();
-		for (Order order : listOrder){
+		List<Orders> listOrder = (List<Orders>) orderRepository.findAll();
+		for (Orders order : listOrder){
 			if (order.getId().equals(orderId)){
 				return new OrderInfo(order);
 			}
@@ -105,9 +105,9 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public List<OrderDetailInfo> listOrderDetailInfos(String orderId) {
-		List<OrderDetail> listOrderDetail = (List<OrderDetail>) orderDetailRepository.findAll();
+		List<OrderDetails> listOrderDetail = (List<OrderDetails>) orderDetailRepository.findAll();
 		List<OrderDetailInfo> listOrderDetailInfo = new ArrayList<OrderDetailInfo>();
-		for (OrderDetail orderDetail : listOrderDetail){
+		for (OrderDetails orderDetail : listOrderDetail){
 			OrderDetailInfo orderDetailInfo = new OrderDetailInfo(orderDetail);
 			listOrderDetailInfo.add(orderDetailInfo);
 		}

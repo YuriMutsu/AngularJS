@@ -13,7 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.demo.entity.Account;
+import com.example.demo.entity.Accounts;
 
 
 @Service
@@ -25,7 +25,7 @@ public class AuthenticationService implements UserDetailsService{
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Account account = accountService.findAccount(username);
+		Accounts account = accountService.findAccount(username);
 		
 		System.out.println("Account = " + account);
 		 

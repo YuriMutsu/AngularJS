@@ -2,8 +2,8 @@ package com.example.demo.reponsitory;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.example.demo.entity.OrderDetail;
+import com.example.demo.entity.OrderDetails;
 
-public interface OrderDetailRepository extends CrudRepository<OrderDetail, Integer>{
+public interface OrderDetailRepository extends CrudRepository<OrderDetails, Integer>{
 
 }

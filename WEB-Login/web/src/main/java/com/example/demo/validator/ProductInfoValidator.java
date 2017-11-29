@@ -6,7 +6,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import com.example.demo.entity.Product;
+import com.example.demo.entity.Products;
 import com.example.demo.model.ProductInfo;
 import com.example.demo.service.ProductService;
 
@@ -37,7 +37,7 @@ public class ProductInfoValidator implements Validator {
 			if (code.matches("\\s+")) {
 				errors.rejectValue("code", "Pattern.productForm.code");
 			} else if (productInfo.isNewProduct()) {
-				Product product = productService.findProduct(code);
+				Products product = productService.findProduct(code);
 				if (product != null) {
 					errors.rejectValue("code", "Duplicate.productForm.code");
 				}

@@ -1,6 +1,6 @@
 package com.example.demo.model;
 
-import com.example.demo.entity.OrderDetail;
+import com.example.demo.entity.OrderDetails;
 
 public class OrderDetailInfo {
 	private String id;
@@ -28,7 +28,7 @@ public class OrderDetailInfo {
 		this.amount = amount;
 	}
 
-	public OrderDetailInfo(OrderDetail orderDetail){
+	public OrderDetailInfo(OrderDetails orderDetail){
 		this.id = orderDetail.getId();
 		this.productCode = orderDetail.getProduct().getCode();
 		this.productName = orderDetail.getProduct().getName();

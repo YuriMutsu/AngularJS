@@ -12,7 +12,7 @@
 		<div th:replace="fragments/menu :: menu" />
 
 		<!-- Wrapper -->
-		<div id="wrapper">
+		<div id="wrapper" ng-controller="WrapperCtrl">
 			<!-- Container -->
 			<div class="container">
 				<div class="row">
@@ -24,15 +24,25 @@
 							<h2>Tin tức</h2>
 							
 							<div class="row">
-								<div class="item col-md-3 col-sm-3 col-xs-6" ng-repeat="item in ['1', '2', '3', '4', '5', '6', '7', '8']">
-									<span><a href="#" class="thumbnail"><img
-											src="images/item1.jpg" /></a></span>
+								<div class="item col-md-3 col-sm-3 col-xs-6" ng-repeat="news in listNews">
+									<span>
+										<a ng-href="/newsInfo?title={{news.title}}" class="thumbnail">
+											<img ng-src="/rest/news/image?title={{news.title}}" />
+										</a>
+									</span>
 									<h3>
-										<a href="#">Tiêu đề bài viết</a>
+										<a ng-href="/newsInfo?title={{news.title}}">{{news.title}}</a>
 									</h3>
+								</div>
+								<div class="item col-md-2 col-sm-2 col-xs-6 container">
+									<div class="pagination">
+										<pagination num-pages="noOfPages" current-page="currentPage"
+											class="pagination-medium"></pagination>
+									</div>
 								</div>
 							</div>
 						</div>
+						
 						<div class="box-index">
 							<h2>Marketing Online</h2>
 							<div class="row">

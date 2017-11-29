@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.entity.Account;
+import com.example.demo.entity.Accounts;
 import com.example.demo.reponsitory.AccountRepository;
 import com.example.demo.service.AccountService;
 
@@ -16,9 +16,9 @@ public class AccountServiceImpl implements AccountService{
 	private AccountRepository accountRepository;
 	
 	@Override
-	public Account findAccount(String userName) {
-		List<Account> listAccount = (List<Account>) accountRepository.findAll();
-		for (Account account : listAccount){
+	public Accounts findAccount(String userName) {
+		List<Accounts> listAccount = (List<Accounts>) accountRepository.findAll();
+		for (Accounts account : listAccount){
 			if (account.getUserName().equals(userName)){
 				return account;
 			}
@@ -27,7 +27,7 @@ public class AccountServiceImpl implements AccountService{
 	}
 
 	@Override
-	public void save(Account account) {
+	public void save(Accounts account) {
 		accountRepository.save(account);
 	}
 

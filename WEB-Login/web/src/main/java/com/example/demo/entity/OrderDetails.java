@@ -13,14 +13,14 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Order_Details")
-public class OrderDetail implements Serializable {
+public class OrderDetails implements Serializable {
 
 	private static final long serialVersionUID = 7550745928843183535L;
 
 	private String id;
-	private Order order;
+	private Orders order;
 
-	private Product product;
+	private Products product;
 	private int quanity;
 	private double price;
 	private double amount;
@@ -38,22 +38,22 @@ public class OrderDetail implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ORDER_ID", nullable = false, //
 			foreignKey = @ForeignKey(name = "ORDER_DETAIL_ORD_FK"))
-	public Order getOrder() {
+	public Orders getOrder() {
 		return order;
 	}
 
-	public void setOrder(Order order) {
+	public void setOrder(Orders order) {
 		this.order = order;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "PRODUCT_ID", nullable = false, //
 			foreignKey = @ForeignKey(name = "ORDER_DETAIL_PROD_FK"))
-	public Product getProduct() {
+	public Products getProduct() {
 		return product;
 	}
 
-	public void setProduct(Product product) {
+	public void setProduct(Products product) {
 		this.product = product;
 	}
 
