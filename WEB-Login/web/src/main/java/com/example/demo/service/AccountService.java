@@ -4,4 +4,6 @@ import com.example.demo.entity.Account;
 
 public interface AccountService {
 	public Account findAccount(String userName);
+	
+	public void save(Account account);
 }

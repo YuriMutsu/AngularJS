@@ -15,17 +15,17 @@
 	<div class="container" ng-controller="ProductCtrl">
 		<div class="box-index">
 			<div class="row">
-				<div class="item col-md-2 col-sm-2 col-xs-6" ng-repeat="product in listProduct">
+				<div class="item col-md-3 col-sm-3 col-xs-6" ng-repeat="product in listProduct">
 					<ul>
 						<li>
 							<img alt="" src="/productImage?code=S005"/>
 						</li>
-						<li>Mã sản phẩm: {{product.code}}</li>
-						<li>Sản phẩm: {{product.name}}</li>
-						<li>Giá: {{product.price}}</li>
+						<li>Mã sản phẩm: {{product.code}}</li>
+						<li>Sản phẩm: {{product.name}}</li>
+						<li>Giá: {{product.price}}</li>
 						<li>
-							<button class="btn">Thêm vào giỏ hàng</button>
-							<button class="btn">Chi tiết</button>
+							<button class="btn btn-info">Thêm vào giỏ hàng</button>
+							<button class="btn btn-success">Chi tiết</button>
 						</li>
 					</ul>
 				</div>
