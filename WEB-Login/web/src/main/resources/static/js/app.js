@@ -2,53 +2,6 @@
 
 	var app = angular.module("myApp", [ 'ngResource' ]);
 	
-	app.factory('myService', ['$resource', function($resource){
-		var factory = {
-			pagination : function(uri, list, noOfPages, currentPage, numPerPage, setPage){
-				$resource(uri,
-			            {},
-			            {
-			                query: {
-			                    method: 'get',
-			                    isArray: true
-			                }
-			            }).query(
-			            	function(data){
-			            		numPerPage = 6;
-			            		noOfPages = Math.ceil(data.length / numPerPage);
-			            		currentPage = 1;
-
-			            		setPage = function () {
-			            			var offset = (currentPage - 1) * numPerPage;
-									var limit = numPerPage;
-									list = data.slice(offset, offset + limit);
-			            			
-			            			console.info(list);
-			            		};
-			            		  
-//			            		$scope.$watch('currentPage', setPage);
-			            	}
-			            );
-			},
-			get : function(data, list, noOfPages, currentPage, numPerPage, setPage, scope){
-				numPerPage = 6;
-        		noOfPages = Math.ceil(data.length / numPerPage);
-        		currentPage = 1;
-
-        		setPage = function () {
-        			var offset = (currentPage - 1) * numPerPage;
-					var limit = numPerPage;
-					list = data.slice(offset, offset + limit);
-        			
-        			console.info(list);
-        		};
-        		  
-        		scope.$watch('currentPage', setPage);
-			}
-		}
-		return factory;
-	}]);
-	
 	app.directive('pagination', function() {
 		  return {
 			restrict : 'E',
@@ -102,63 +55,128 @@
 		};
 	});
 	
-	app.controller('LoginCtrl', [ '$scope', '$rootScope', '$resource',
-			function($scope, $rootScope, $resource, $window) {
+	app.controller('CarouselDemoCtrl', function ($scope) {
+		$scope.myInterval = 5000;
+		$scope.noWrapSlides = false;
+		$scope.active = 0;
+		var slides = $scope.slides = [];
+		var currIndex = 0;
 
-				console.info(JSON.stringify($rootScope.user));
+		$scope.addSlide = function() {
+			var newWidth = 600 + slides.length + 1;
+		    slides.push({
+		      image: '//unsplash.it/' + newWidth + '/300',
+		      text: ['Nice image','Awesome photograph','That is so cool','I love that'][slides.length % 4],
+		      id: currIndex++
+		    });
+		};
 
-				$scope.logout = function() {
-					$resource('/logout').post(function(data) {
-						console.info(data);
-					}, function(err) {
-						console.error(err)
-					});
+		$scope.randomize = function() {
+		    var indexes = generateIndexesArray();
+		    assignNewIndexesToSlides(indexes);
+		};
 
+		for (var i = 0; i < 4; i++) {
+		    $scope.addSlide();
+		}
+
+		  // Randomize logic below
+
+		function assignNewIndexesToSlides(indexes) {
+		    for (var i = 0, l = slides.length; i < l; i++) {
+		      slides[i].id = indexes.pop();
+		    }
+		}
+
+		function generateIndexesArray() {
+		    var indexes = [];
+		    for (var i = 0; i < currIndex; ++i) {
+		      indexes[i] = i;
+		    }
+		    return shuffle(indexes);
+		}
+
+		  // http://stackoverflow.com/questions/962802#962890
+		function shuffle(array) {
+		    var tmp, current, top = array.length;
+
+		    if (top) {
+		      while (--top) {
+		        current = Math.floor(Math.random() * (top + 1));
+		        tmp = array[current];
+		        array[current] = array[top];
+		        array[top] = tmp;
+		      }
+		    }
+
+		    return array;
+		}
+	});
+	
+	app.controller('LoginCtrl', [ '$scope', '$rootScope', '$resource', function($scope, $rootScope, $resource, $window) {
+			
+		console.info(JSON.stringify($rootScope.user));
+
+		$scope.logout = function() {
+			$resource('/logout').post(function(data) {
+				console.info(data);
+			}, function(err) {
+				console.error(err)
+			});
+		}
+		
+		$scope.doLogin = function($rootScope) {
+			$resource('/doLogin', {
+				username : $rootScope.username,
+				password : $rootScope.password
+			}, {
+				query : {
+					method : 'post',
+					isArray : false
 				}
+			}).query().$promise.then(function(data) {
+				console.info(JSON.stringify(data));
+				alert(JSON.stringify(data));
+			}, function(err) {
+				console.error(err);
+			});
+		}
+	}]);
 
-				$scope.doLogin = function($rootScope) {
-					$resource('/doLogin', {
-						username : $rootScope.username,
-						password : $rootScope.password
-					}, {
-						query : {
-							method : 'post',
-							isArray : false
-						}
-					}).query().$promise.then(function(data) {
-						console.info(JSON.stringify(data));
-						alert(JSON.stringify(data));
-					}, function(err) {
-						console.error(err);
-					});
-				}
-			} ]);
-
-	app.controller('WrapperCtrl', ['$scope', '$rootScope', '$resource', function($scope, $rootScope, $resource) {
-		$resource('/rest/16News', {}, {
-			query : {
-				method : 'get',
-				isArray : true
+	
+	app.controller('RegisterCtrl', [ '$scope', '$rootScope', '$resource', function($scope, $rootScope, $resource, $window) {
+		$scope.doRegister = function(user){
+			if (user.password == user.retypepassword){
+				
 			}
-		}).query(
-				function(data) {
-					$scope.listProduct = data;
-					$scope.numPerPage = 8;
-					$scope.noOfPages = Math.ceil(data.length
-							/ $scope.numPerPage);
-					$scope.currentPage = 1;
-
-					$scope.setPage = function() {
-						var offset = ($scope.currentPage - 1) * $scope.numPerPage;
-						var limit = $scope.numPerPage;
-						$scope.listNews = data.slice(offset, offset + limit);
-
-						console.info($scope.listNews);
-					};
-
-					$scope.$watch('currentPage', $scope.setPage);
-					
-				});
+		}
+	}]);
+	
+	app.controller('WrapperCtrl', ['$scope', '$rootScope', '$resource', function($scope, $rootScope, $resource) {
+//		$resource('/rest/16News', {}, {
+//			query : {
+//				method : 'get',
+//				isArray : true
+//			}
+//		}).query(
+//				function(data) {
+//					$scope.listProduct = data;
+//					$scope.numPerPage = 8;
+//					$scope.noOfPages = Math.ceil(data.length
+//							/ $scope.numPerPage);
+//					$scope.currentPage = 1;
+//
+//					$scope.setPage = function() {
+//						var offset = ($scope.currentPage - 1) * $scope.numPerPage;
+//						var limit = $scope.numPerPage;
+//						$scope.listNews = data.slice(offset, offset + limit);
+//
+//						console.info($scope.listNews);
+//					};
+//
+//					$scope.$watch('currentPage', $scope.setPage);
+//					
+//				});
 	}]);
 
 	app.controller('HeaderCtrl', [ '$scope', '$rootScope',
@@ -185,7 +203,7 @@
 	            }).query(
 	            	function(data){
 	            		$scope.listProduct = data;
-	            		$scope.numPerPage = 6;
+	            		$scope.numPerPage = 4;
 	            		$scope.noOfPages = Math.ceil(data.length / $scope.numPerPage);
 	            		$scope.currentPage = 1;
 

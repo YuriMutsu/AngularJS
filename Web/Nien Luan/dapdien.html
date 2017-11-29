@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Trang bán hàng trực tuyến</title>
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <style>
+  .carousel-inner > .item > img,
+  .carousel-inner > .item > a > img {
+      width: 100%;
+      margin: auto;
+  }
+        
+      
+  </style>
+<style type="text/css">
+    div p a:hover {
+        background-color:aliceblue; 
+    }
+    
+    ul{
+    padding-left:2px;
+    }
+    ul li{
+      list-style : none;
+margin: auto;
+        border-bottom: 1px;
+    }
+    </style>    
+    
+</head>
+
+<body>
+    <div class="container" style="background-color: aliceblue">
+    <hr/>	<!-- Tao mot duong ngang -->
+     <div class="row">
+            <div class="col-sm-12">
+        <div>
+         		<div class="row" >
+
+         			<div class="col-sm-9">
+                	</div>
+                  
+            
+
+         			<div class="col-sm-3">
+						<a href="dangky.html">Đăng Ký/</a>
+                            
+		                  <a href="dangnhap.html">Đăng Nhập</a>
+				</div>
+                            
+                            
+		               
+                	</div>
+                    
+
+
+                </div>
+
+            
+            <div class="row">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-8">
+                <button type="button" ><h2>Hệ Thống Quản Lí Bán Hàng Online</h2></button>
+            
+            </div>
+            </div>
+           
+                        <br>
+            <br>
+            <div class="row">
+
+            <div class="col-sm-12">
+                
+                <div class="col-sm-3">
+                      <form class="form-inline" role="form">
+
+                    <div class="input-group has-success">
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-search"> </span>
+                        </span>
+                            <input type="text" class="form-control" width="100%" placeholder="Tìm sản phẩm theo tên hay nhãn hiệu">
+                    </div>
+                      </form>
+                   
+                </div> 
+                
+                <div class="col-sm-8">
+            
+                <div class="input-group has-success">
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-home"> </span>
+                            <a  href="trangchu.php">Trang Chủ</a>
+                        </span>
+                <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-gift"> </span>
+                            <a href="khuyemmai.html">Xem khuyến mãi</a>
+                        </span>
+                <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-shopping-cart"> </span>
+                            <a href="giohang.php">Quản lí giõ hàng</a>
+
+                        </span>
+                      <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-edit"> </span>
+                            <a href="dangsanpham.php">Đăng sản phẩm</a>
+
+                        </span>
+                
+            
+    
+            </div>
+            </div> 
+                </div>
+            </div>
+                <hr>
+        <div class="container">
+            <h4>Trang chủ > Xe Đạp điện > Mua ngay</h4>
+                <div class="row ">
+                    <table class="col-sm-10">
+                        <th class="col-sm-6">
+                            
+                        <aside class="left-aside">
+                            <div class=" form-group col-sm-5">
+                            <img src="xe2.jpg" width="260%" height="30%"> <br><br>
+                                <h5><strong>Giá bán:9.000.000đ</strong></h5>
+                            </div>
+                        
+                        </aside>
+                        
+                        </th>
+                        <th>
+                            
+                            <div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title"><center>Thông tin khách hàng</center></h3>
+					</div>
+					<div class="panel-body">
+						<form id="dangsanpham" method="post" class="form-dangsanpham" action="">
+                            <div class="form-gourp" >
+                            <label class="col-sm-4 control-label" for="gender">Gender:</label>
+                                <input type="radio" name="gender" value="Anh">Anh<b>/</b>
+                                <input type="radio" name="gender" value="Chi">Chị
+                                <br><br>
+                            </div>
+
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="name">Họ Tên của bạn*</label>
+								<div class="col-sm-5">
+									<input type="text" class="form-control" id="firstname" name="name" placeholder=" Họ Tên của bạn" />
+								</div>
+							</div><br><br>
+
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="numberphone">SDT*</label>
+								<div class="col-sm-5">
+									<input type="text" class="form-control" id="numberphone" name="numberphone" placeholder="Số điện thoại" />
+								</div>
+							</div><br><br>
+                            <div class="form-group">
+								<label class="col-sm-4 control-label" for="number">Số lượng</label>
+								<div class="col-sm-5">
+									<input type="number" class="form-control" id="number" name="numberphone" />
+								</div>
+							</div><br><br>
+
+							<div class="form-group">
+								<div class="col-sm-9 col-sm-offset-4">
+									<button type="submit" class="btn btn-primary" name="signup" value="Sign up">Mua Ngay</button>
+								</div>
+							</div>
+
+						</form>
+					</div>
+				</div>
+                        
+                        </th>
+                   
+                       </table> 
+                    
+                </div>
+            </div>
+    <footer>
+        <div class="col-sm-6">
+            <p>© Bản quyền thuộc .</p>
+        </div>
+        <div class="col-sm-6 col-sm-6">
+            <ul class="nav nav-pills">
+                <li><a href="index.html">Trang chủ</a></li>
+                <li><a href="sanpham.html">Sản Phẩm</a></li>
+                <li><a href="contact.html">Liên hệ</a></li>
+            </ul>
+        </div>
+    </footer>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+</body>
+
+</html>

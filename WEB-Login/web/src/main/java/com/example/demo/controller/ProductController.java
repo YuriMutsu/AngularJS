@@ -41,9 +41,10 @@ public class ProductController {
 
 	
 	@RequestMapping("/productInfo")
-	public String productInfo(Model model, @RequestParam("code") String code){
+	public String productInfo(HttpServletRequest request, HttpServletResponse response, Model model, @RequestParam("code") String code) throws IOException{
 		m_logger.info("Product Code : " + code);
-		
+		Products products = productService.findProduct(code);
+		model.addAttribute("productInfo", products);
 		return "/productInfo";
 	}
 	

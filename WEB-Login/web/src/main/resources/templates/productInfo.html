@@ -14,8 +14,22 @@
 
 
 		<div class="container">
-		
-			
+			<div class="box-index">
+				<h2>Sản phẩm</h2>
+
+				<div class="row">
+					<div class="item col-md-3 col-sm-3 col-xs-6 column">
+						<span>
+							<a ng-href="#" class="thumbnail">
+								<img ng-src="/rest/news/image?title={{news.title}}"/>
+							</a>
+						</span>
+						<h4 th:text="${productInfo.code}"></h4>
+						<h4 th:text="${productInfo.name}"></h4>
+						<h4 th:text="${productInfo.price}"></h4>
+					</div>
+				</div>
+			</div>
 		</div>
 		<!-- Footer -->
 		<div th:replace="fragments/footer :: footer" />
