@@ -22,12 +22,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.demo.entity.Products;
 import com.example.demo.model.CartInfo;
 import com.example.demo.model.CustomerInfo;
-import com.example.demo.model.PaginationResult;
+import com.example.demo.model.ProductDetailInfo;
 import com.example.demo.model.ProductInfo;
 import com.example.demo.service.OrderService;
+import com.example.demo.service.ProductDetailService;
 import com.example.demo.service.ProductService;
 import com.example.demo.utils.Utils;
 
+import static com.example.demo.contants.ResourceConstant.*;
 @Controller
 public class ProductController {
 	
@@ -39,12 +41,16 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 
+	@Autowired
+	private ProductDetailService productDetailService;
 	
 	@RequestMapping("/productInfo")
 	public String productInfo(HttpServletRequest request, HttpServletResponse response, Model model, @RequestParam("code") String code) throws IOException{
 		m_logger.info("Product Code : " + code);
-		Products products = productService.findProduct(code);
+		ProductDetailInfo products = productDetailService.findProductDetailInfo(code);
 		model.addAttribute("productInfo", products);
+		String uriImg = DELIMITER + IMAGES + DELIMITER + products.getCode() + DOT + JPG;
+		model.addAttribute("productInfoImage", uriImg);
 		return "/productInfo";
 	}
 	

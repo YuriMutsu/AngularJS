@@ -12,24 +12,75 @@
 		<!-- Menu -->
 		<div th:replace="fragments/menu :: menu" />
 
-
 		<div class="container">
 			<div class="box-index">
-				<h2>Sản phẩm</h2>
-
 				<div class="row">
-					<div class="item col-md-3 col-sm-3 col-xs-6 column">
-						<span>
-							<a ng-href="#" class="thumbnail">
-								<img ng-src="/rest/news/image?title={{news.title}}"/>
-							</a>
+					<div class="item col-md-2 col-sm-2 col-xs-6 column">
+						<span> <a ng-href="#" class="thumbnail">
+							<img th:src="${productInfoImage}"></img>
+						</a>
 						</span>
-						<h4 th:text="${productInfo.code}"></h4>
-						<h4 th:text="${productInfo.name}"></h4>
-						<h4 th:text="${productInfo.price}"></h4>
+						<button class="btn btn-primary">Thêm vào giỏ hàng</button>
+						<button class="btn btn-success">Mua sản phẩm</button>
+					</div>
+
+					<div class="item col-md-3 col-sm-3 col-xs-6 column">
+						<h2 th:text="${#numbers.formatDecimal({productInfo.price}, 0, 'COMMA', 0, 'POINT')}"></h2>
+						<table class="table">
+							<tr>
+								<td>CPU</td>
+								<td th:text="${productInfo.cpuType}"></td>
+							</tr>
+							
+							<tr>
+								<td>RAM</td>
+								<td th:text="${productInfo.ram}"></td>
+							</tr>
+							
+							<tr>
+								<td>Ổ cứng</td>
+								<td th:text="${productInfo.hardDrive}"></td>
+							</tr>
+							
+							<tr>
+								<td>Màn hình</td>
+								<td th:text="${productInfo.screenSize}"></td>
+							</tr>
+							
+						</table>
+						
+						<button class="btn btn-block" data-toggle="modal" data-target="#myModal">Thông số chi tiết</button>
+					</div>
+					<div class="item col-md-4 col-sm-4 col-xs-6 column">
+						<h3>Khuyến mãi tặng kèm</h3>
+					</div>
+					
+					<div class="item col-md-3 col-sm-3 col-xs-6 column">
+						<h3>Quảng cáo</h3>
 					</div>
 				</div>
+				
+				<br/>
+				<div class="col-md-10 col-center-block login-widget">
+					<div class="container" >
+						<h2 style="text-align: center;">Giới thiệu sản phẩm</h2>
+						<div>
+							<p th:text="${productInfo.describeOne}">Miêu tả</p>
+						</div>
+
+						<div>
+							<p th:text="${productInfo.describeTwo}">Miêu tả</p>
+						</div>
+
+						<div>
+							<p th:text="${productInfo.describeThree}">Miêu tả</p>
+						</div>
+					</div>
+					
+				</div>
 			</div>
+			<div th:replace="fragments/product :: product-info" />
+			
 		</div>
 		<!-- Footer -->
 		<div th:replace="fragments/footer :: footer" />

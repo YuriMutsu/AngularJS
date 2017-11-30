@@ -15,17 +15,21 @@
 	<div class="container" ng-controller="ProductCtrl">
 		<div class="box-index">
 			<div class="row">
-				<div class="item col-md-3 col-sm-3 col-xs-6" ng-repeat="product in listProduct">
+				<div class="item col-md-3 col-sm-3 col-xs-6" ng-repeat="product in listProductDetails">
 					<ul>
 						<li>
-							<img alt="" ng-src ="/productImage?code={{product.code}}"/>
+							<!-- Trigger the modal with a button -->
+							<a class="thumbnail"  ng-href="/productInfo?code={{product.code}}">
+								<img alt="" ng-src ="/productImage?code={{product.code}}"/>
+							</a>
+							<!-- <div th:replace="fragments/product :: product-info"/> -->
 						</li>
-						<li>Mã sản phẩm: {{product.code}}</li>
-						<li>Sản phẩm: {{product.name}}</li>
+						<li>Mã: {{product.code}}</li>
+						<li>Tên: {{product.name}}</li>
 						<li>Giá: {{product.price}}</li>
 						<li>
 							<button class="btn btn-info">Thêm vào giỏ hàng</button>
-							<a class="btn btn-success" ng-href="/productInfo?code={{product.code}}">Chi tiết</a>
+							<button class="btn btn-success">Mua sản phẩm</button>
 						</li>
 					</ul>
 				</div>

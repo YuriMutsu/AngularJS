@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.Products;
-import com.example.demo.model.PaginationResult;
 import com.example.demo.model.ProductInfo;
 import com.example.demo.reponsitory.ProductRepository;
 import com.example.demo.service.ProductService;
@@ -36,17 +35,6 @@ public class ProductServiceImpl implements ProductService {
 		if (product != null) {
 			return new ProductInfo(product);
 		}
-		return null;
-	}
-
-	@Override
-	public PaginationResult<ProductInfo> queryProducts(int page, int maxResult, int maxNavigationPage) {
-		return null;
-	}
-
-	@Override
-	public PaginationResult<ProductInfo> queryProducts(int page, int maxResult, int maxNavigationPage,
-			String likeName) {
 		return null;
 	}
 

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<div th:replace="fragments/header :: header-css" />
+<title>Sản Phẩm</title>
+</head>
+<body>
+	<div class="container">
+		<!-- Header -->
+		<div th:replace="fragments/header :: header" />
+
+		<!-- Menu -->
+		<div th:replace="fragments/menu :: menu" />
+		
+
+		<div class="modal fade" id="myModal" role="dialog" th:fragment="product-info">
+			<div class="row modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title" th:text="${productInfo.name}"></h4>
+					</div>
+					<div class="modal-body">
+						<table class="table">
+							<tr>
+								<td colspan="2" style="text-align: center;">
+								<img alt="" th:src="${productInfoImage}"/></td>
+							</tr>
+							<!-- ==================================================  -->
+							<tr>
+								<td colspan="2" style="color: red;">
+									<h3>CPU</h3>
+								</td>
+							</tr>
+
+							<tr>
+								<td>Loại CPU</td>
+								<td th:text="${productInfo.cpuType}"></td>
+							</tr>
+
+							<tr>
+								<td>Công nghệ CPU</td>
+								<td th:text="${productInfo.cpuTechnology}"></td>
+							</tr>
+
+							<tr>
+								<td>Tốc độ CPU</td>
+								<td th:text="${productInfo.cpuSpeed}"></td>
+							</tr>
+
+							<tr>
+								<td>Tốc dộ CPU lớn nhất</td>
+								<td th:text="${productInfo.cpuSpeedMax}"></td>
+							</tr>
+
+							<tr>
+								<td>Tốc dộ BUS CPU</td>
+								<td th:text="${productInfo.cpuBusSpeed}"></td>
+							</tr>
+							<!-- ==================================================  -->
+							<tr>
+								<td colspan="2" style="color: red;">
+									<h3>Bộ nhớ, RAM, Ổ cứng</h3>
+								</td>
+							</tr>
+
+							<tr>
+								<td>RAM</td>
+								<td th:text="${productInfo.ram}"></td>
+							</tr>
+
+							<tr>
+								<td>Loại RAM</td>
+								<td th:text="${productInfo.ramType}"></td>
+							</tr>
+
+							<tr>
+								<td>Ram tối đa</td>
+								<td th:text="${productInfo.ramMax}"></td>
+							</tr>
+
+							<tr>
+								<td>Tốc dộ BUS</td>
+								<td th:text="${productInfo.ramBusSpeed}"></td>
+							</tr>
+							
+							<tr>
+								<td>Ổ cứng</td>
+								<td th:text="${productInfo.hardDrive}"></td>
+							</tr>
+							<!-- ==================================================  -->
+							<tr>
+								<td colspan="2" style="color: red;">
+									<h3>Màn hình</h3>
+								</td>
+							</tr>
+
+							<tr>
+								<td>Kích thước màn hình</td>
+								<td th:text="${productInfo.screenSize}"></td>
+							</tr>
+
+							<tr>
+								<td>Độ phân giải</td>
+								<td th:text="${productInfo.resolution}"></td>
+							</tr>
+
+							<tr>
+								<td>Công nghệ màn hình</td>
+								<td th:text="${productInfo.screenTechnology}"></td>
+							</tr>
+
+							<tr>
+								<td>Màn hình cảm ứng</td>
+								<td th:text="${productInfo.screenTouch}"></td>
+							</tr>
+							<!-- ==================================================  -->
+							<tr>
+								<td colspan="2" style="color: red;">
+									<h3>Đồ họa và Âm thanh</h3>
+								</td>
+							</tr>
+
+							<tr>
+								<td>Thiết kế card</td>
+								<td th:text="${productInfo.cardDesign}"></td>
+							</tr>
+
+							<tr>
+								<td>Card đồ họa</td>
+								<td th:text="${productInfo.cardGraphics}"></td>
+							</tr>
+
+							<tr>
+								<td>Công nghệ âm thanh</td>
+								<td th:text="${productInfo.audioTechnology}"></td>
+							</tr>
+							<!-- ==================================================  -->
+							<tr>
+								<td colspan="2" style="color: red;">
+									<h3>Cổng kết nối</h3>
+								</td>
+							</tr>
+
+							<tr>
+								<td>Cổng giao tiếp</td>
+								<td th:text="${productInfo.connector}"></td>
+							</tr>
+
+							<tr>
+								<td>Kết nối không dây</td>
+								<td th:text="${productInfo.wirelessConnectivity}"></td>
+							</tr>
+
+							<tr>
+								<td>Khe đọc thẻ nhớ</td>
+								<td th:text="${productInfo.memoryCardReader}"></td>
+							</tr>
+
+							<tr>
+								<td>Ổ đĩa quang</td>
+								<td th:text="${productInfo.opticalDrive}"></td>
+							</tr>
+
+							<tr>
+								<td>Webcam</td>
+								<td th:text="${productInfo.webcam}"></td>
+							</tr>
+
+							<tr>
+								<td>Đèn bàn phím</td>
+								<td th:text="${productInfo.keyboadLight}"></td>
+							</tr>
+
+							<tr>
+								<td>Tính năng khác</td>
+								<td th:text="${productInfo.ortherFunction}"></td>
+							</tr>
+							<!-- ==================================================  -->
+							<tr>
+								<td colspan="2" style="color: red;">
+									<h3>Hệ điều hành</h3>
+								</td>
+							</tr>
+
+							<tr>
+								<td>Hệ điều hành</td>
+								<td th:text="${productInfo.operatingSystem}"></td>
+							</tr>
+							<!-- ==================================================  -->
+							<tr>
+								<td colspan="2" style="color: red;">
+									<h3>PIN</h3>
+								</td>
+							</tr>
+
+							<tr>
+								<td>Thông tin Pin</td>
+								<td th:text="${productInfo.pin}"></td>
+							</tr>
+							<!-- ==================================================  -->
+							<tr>
+								<td colspan="2" style="color: red;">
+									<h3>Kích thước và Trọng lượng</h3>
+								</td>
+							</tr>
+
+							<tr>
+								<td>Kích thước</td>
+								<td th:text="${productInfo.size}"></td>
+							</tr>
+
+							<tr>
+								<td>Trọng lượng</td>
+								<td th:text="${productInfo.weight}"></td>
+							</tr>
+
+							<tr>
+								<td>Chất liệu</td>
+								<td th:text="${productInfo.meterial}"></td>
+							</tr>
+						</table>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Footer -->
+		<div th:replace="fragments/footer :: footer" />
+
+	</div>
+</body>
+</html>

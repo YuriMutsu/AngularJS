@@ -28,7 +28,9 @@
                     	<li><a href="#" sec:authorize="hasRole('ROLE_ADMIN')">Thêm sản phẩm</a></li>
                     	<li><a href="#" sec:authorize="hasRole('ROLE_MEMBER')">Giỏ hàng (2)</a></li>
                         <li><a href="/register" sec:authorize="!isAuthenticated()">Đăng ký</a></li>
-                        <li><a href="/login" sec:authorize="!isAuthenticated()">Đăng nhập</a></li>
+                        <li>
+                        	<a href="/login" sec:authorize="!isAuthenticated()">Đăng nhập</a>
+						</li>
                         <li class="dropdown" sec:authorize="isAuthenticated()">
                             <a data-toggle="dropdown" href=""><span sec:authentication="name" /><span class="caret"/></a>
                             <ul class="dropdown-menu">

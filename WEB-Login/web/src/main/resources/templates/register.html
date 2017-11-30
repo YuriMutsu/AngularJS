@@ -16,14 +16,14 @@
                 <form class="form" role="form">
                     <div class="row">
                         <div class="col-xs-6 col-md-6">
-                            <input class="form-control" ng-model="user.firstname" name="firstname" placeholder="Họ" required="" autofocus=""
+                            <input class="form-control" ng-model="user.firstName" name="firstName" placeholder="Họ" required="" autofocus=""
                                    type="text"/>
                         </div>
                         <div class="col-xs-6 col-md-6">
-                            <input class="form-control" ng-model="user.lastname" name="lastname" placeholder="Tên" required="" type="text"/>
+                            <input class="form-control" ng-model="user.lastName" name="lastName" placeholder="Tên" required="" type="text"/>
                         </div>
                     </div>
-                    <input class="form-control" ng-model="user.username" name="username" placeholder="Tên đăng nhập" type="text"/>
+                    <input class="form-control" ng-model="user.userName" name="userName" placeholder="Tên đăng nhập" type="text"/>
                     <input class="form-control" ng-model="user.password" name="password" placeholder="Mật khẩu" type="password"/>
                     <input class="form-control" ng-model="user.retypepassword" name="retypepassword" placeholder="Nhập lại mật khẩu" type="password"/>
                     <input class="form-control" ng-model="user.address" name="address" placeholder="Địa chỉ" type="text"/>
@@ -32,19 +32,21 @@
                     <label>Ngày sinh</label>
                     <div class="container">
                         <div class="row">
-                            <input type='text' class="form-control" id='datetimepicker' />
-                            <script type="text/javascript">
+                            <input type='text' ng-model="user.birthday" name="birthday" class="form-control" id='datetimepicker' />
+                             <script type="text/javascript">
                                 $(function () {
-                                    $('#datetimepicker').datepicker({format : 'dd/mm/yy'});
+                                    $('#datetimepicker').datepicker({format : 'dd-mm-yyyy'});
                                 });
-                            </script>
+                            </script> 
+                            
+                            {{user.birthday}}
                         </div>
                     </div>
                     <label class="radio-inline">
-                        <input name="sex" id="inlineCheckbox1" ng-model="user.male" value="male" type="radio"/> Nam
+                        <input name="sex" id="inlineCheckbox1" ng-model="user.male" value="Nam" type="radio"/> Nam
                     </label>
                     <label class="radio-inline">
-                        <input name="sex" id="inlineCheckbox2" ng-model="user.female" value="female" type="radio"/> Nữ
+                        <input name="sex" id="inlineCheckbox2" ng-model="user.female" value="Nữ" type="radio"/> Nữ
                     </label>
                     <br/>
                     <br/>

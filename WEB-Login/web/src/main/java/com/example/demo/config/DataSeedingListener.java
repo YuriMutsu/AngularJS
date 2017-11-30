@@ -11,7 +11,7 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import static com.example.demo.contants.UserConstants.*;
+import static com.example.demo.contants.UserConstant.*;
 @Component
 public class DataSeedingListener implements ApplicationListener<ContextRefreshedEvent> {
 

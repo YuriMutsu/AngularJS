@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.entity.Products;
+import com.example.demo.model.ProductDetailInfo;
+import com.example.demo.service.ProductDetailService;
 import com.example.demo.service.ProductService;
 
 @RestController
@@ -21,11 +23,22 @@ public class RestProductController {
 	@Autowired
 	private ProductService productService;
 	
-	@RequestMapping("products")
+	@Autowired
+	private ProductDetailService productDetailService;
+	
+	@RequestMapping("/products")
 	public ResponseEntity<List<Products>> getAllProduct(){
 		List<Products> listProduct = productService.findProductAll();
 		
 		m_logger.info("List Products: " + listProduct.toString());
 		return new ResponseEntity<List<Products>>(listProduct, HttpStatus.OK);
+	}
+	
+	@RequestMapping("/productDetails")
+	public ResponseEntity<List<ProductDetailInfo>> getAllProductDetails(){
+		List<ProductDetailInfo> listProductDetailsInfo = productDetailService.findAllProductDetailsInfo();
+		
+		m_logger.info("List Product Details Info: " + listProductDetailsInfo.toString());
+		return new ResponseEntity<List<ProductDetailInfo>>(listProductDetailsInfo, HttpStatus.OK);
 	}
 }

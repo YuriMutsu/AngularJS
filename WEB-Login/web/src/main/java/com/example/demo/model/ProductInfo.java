@@ -7,7 +7,7 @@ import com.example.demo.entity.Products;
 public class ProductInfo {
 	private String code;
 	private String name;
-	private double price;
+	private int price;
 
 	private boolean newProduct = false;
 
@@ -25,7 +25,7 @@ public class ProductInfo {
 
 	// Không thay đổi Constructor này,
 	// nó được sử dụng trong Hibernate query.
-	public ProductInfo(String code, String name, double price) {
+	public ProductInfo(String code, String name, int price) {
 		this.code = code;
 		this.name = name;
 		this.price = price;
@@ -47,11 +47,11 @@ public class ProductInfo {
 		this.name = name;
 	}
 
-	public double getPrice() {
+	public int getPrice() {
 		return price;
 	}
 
-	public void setPrice(double price) {
+	public void setPrice(int price) {
 		this.price = price;
 	}
 

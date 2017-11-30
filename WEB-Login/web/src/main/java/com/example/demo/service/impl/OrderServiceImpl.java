@@ -16,7 +16,6 @@ import com.example.demo.model.CartLineInfo;
 import com.example.demo.model.CustomerInfo;
 import com.example.demo.model.OrderDetailInfo;
 import com.example.demo.model.OrderInfo;
-import com.example.demo.model.PaginationResult;
 import com.example.demo.reponsitory.OrderDetailRepository;
 import com.example.demo.reponsitory.OrderRepository;
 import com.example.demo.service.OrderService;
@@ -84,12 +83,6 @@ public class OrderServiceImpl implements OrderService {
 		// Set OrderNum for report.
 		// Set OrderNum để thông báo cho người dùng.
 		cartInfo.setOrderNum(orderNum);
-	}
-
-	// @page = 1, 2, ...
-	@Override
-	public PaginationResult<OrderInfo> listOrderInfo(int page, int maxResult, int maxNavigationPage) {
-		return null;
 	}
 
 	@Override

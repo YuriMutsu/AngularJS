@@ -1,6 +1,5 @@
 (function() {
-
-	var app = angular.module("myApp", [ 'ngResource' ]);
+	var app = angular.module("myApp", [ 'ngResource','ngCookies']);
 	
 	app.directive('pagination', function() {
 		  return {
@@ -147,36 +146,22 @@
 	app.controller('RegisterCtrl', [ '$scope', '$rootScope', '$resource', function($scope, $rootScope, $resource, $window) {
 		$scope.doRegister = function(user){
 			if (user.password == user.retypepassword){
+				console.info("birthday " + user.birthday);
 				
+				user.userRole = "ROLE_MEMBER";
+				$resource('/doRegister').save({}, user);
+			}else{
+				console.err(user);
 			}
 		}
 	}]);
 	
-	app.controller('WrapperCtrl', ['$scope', '$rootScope', '$resource', function($scope, $rootScope, $resource) {
-//		$resource('/rest/16News', {}, {
-//			query : {
-//				method : 'get',
-//				isArray : true
-//			}
-//		}).query(
-//				function(data) {
-//					$scope.listProduct = data;
-//					$scope.numPerPage = 8;
-//					$scope.noOfPages = Math.ceil(data.length
-//							/ $scope.numPerPage);
-//					$scope.currentPage = 1;
-//
-//					$scope.setPage = function() {
-//						var offset = ($scope.currentPage - 1) * $scope.numPerPage;
-//						var limit = $scope.numPerPage;
-//						$scope.listNews = data.slice(offset, offset + limit);
-//
-//						console.info($scope.listNews);
-//					};
-//
-//					$scope.$watch('currentPage', $scope.setPage);
-//					
-//				});
+	app.controller('ProductInfoCtrl', ['$scope', '$rootScope', '$resource', '$window', '$cookieStore', function($scope, $rootScope, $resource, $window, $cookieStore) {
+		
+	}]);
+
+	app.controller('WrapperCtrl', ['$scope', '$rootScope', '$resource', '$window', '$cookieStore', function($scope, $rootScope, $resource, $window, $cookieStore) {
+		
 	}]);
 
 	app.controller('HeaderCtrl', [ '$scope', '$rootScope',
@@ -193,7 +178,7 @@
 	app.controller('ProductCtrl', ['$scope', '$rootScope', '$resource',function($scope, $rootScope, $resource) {
 		$scope.listProduct = [];
 		
-		$resource('/rest/products',
+		$resource('/rest/productDetails',
 	            {},
 	            {
 	                query: {
@@ -202,7 +187,7 @@
 	                }
 	            }).query(
 	            	function(data){
-	            		$scope.listProduct = data;
+	            		$scope.listProductDetails = data;
 	            		$scope.numPerPage = 4;
 	            		$scope.noOfPages = Math.ceil(data.length / $scope.numPerPage);
 	            		$scope.currentPage = 1;
@@ -210,9 +195,7 @@
 	            		$scope.setPage = function () {
 	            			var offset = ($scope.currentPage - 1) * $scope.numPerPage;
 							var limit = $scope.numPerPage;
-	            			$scope.listProduct = data.slice(offset, offset + limit);
-	            			
-	            			console.info($scope.listProduct);
+	            			$scope.listProductDetails = data.slice(offset, offset + limit);
 	            		};
 	            		  
 	            		$scope.$watch('currentPage', $scope.setPage);

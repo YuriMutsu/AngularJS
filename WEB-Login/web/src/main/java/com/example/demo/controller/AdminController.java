@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Propagation;
@@ -20,9 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.model.OrderDetailInfo;
 import com.example.demo.model.OrderInfo;
-import com.example.demo.model.PaginationResult;
 import com.example.demo.model.ProductInfo;
-import com.example.demo.service.AuthenticationService;
 import com.example.demo.service.OrderService;
 import com.example.demo.service.ProductService;
 
@@ -35,8 +32,6 @@ public class AdminController {
 	@Autowired
 	private ProductService productDAO;
 	
-	@Autowired
-	private AuthenticationService authenticationService;
 
 	@RequestMapping(value = {"/accountInfo"}, method = RequestMethod.GET)
 	public String accountInfo(Model model) {
@@ -52,23 +47,23 @@ public class AdminController {
 		return "accountInfo";
 	}
 
-	@RequestMapping(value = { "/orderList" }, method = RequestMethod.GET)
-	public String orderList(Model model, //
-			@RequestParam(value = "page", defaultValue = "1") String pageStr) {
-		int page = 1;
-		try {
-			page = Integer.parseInt(pageStr);
-		} catch (Exception e) {
-		}
-		final int MAX_RESULT = 5;
-		final int MAX_NAVIGATION_PAGE = 10;
-
-		PaginationResult<OrderInfo> paginationResult //
-				= orderDAO.listOrderInfo(page, MAX_RESULT, MAX_NAVIGATION_PAGE);
-
-		model.addAttribute("paginationResult", paginationResult);
-		return "orderList";
-	}
+//	@RequestMapping(value = { "/orderList" }, method = RequestMethod.GET)
+//	public String orderList(Model model, //
+//			@RequestParam(value = "page", defaultValue = "1") String pageStr) {
+//		int page = 1;
+//		try {
+//			page = Integer.parseInt(pageStr);
+//		} catch (Exception e) {
+//		}
+//		final int MAX_RESULT = 5;
+//		final int MAX_NAVIGATION_PAGE = 10;
+//
+//		PaginationResult<OrderInfo> paginationResult //
+//				= orderDAO.listOrderInfo(page, MAX_RESULT, MAX_NAVIGATION_PAGE);
+//
+//		model.addAttribute("paginationResult", paginationResult);
+//		return "orderList";
+//	}
 
 	// GET: Show product.
 	// GET: Hiển thị product
