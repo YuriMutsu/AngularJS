@@ -28,13 +28,9 @@ public class UserController {
 
 	@PostMapping("/doRegister")
 	public String doRegister(@RequestBody Accounts account) {
-		m_logger.info("Account register: " + account);
-
-		m_logger.info("Account birthday: " + account.getBirthday());
-		
 		account.setPassword(passwordEncoder.encode(account.getPassword()));
-		
-		m_logger.info("Account password: " + account.getPassword());
+		accountService.save(account);
+		m_logger.info("Save Account Success");
 		
 		return "redirect:/";
 	}

@@ -21,7 +21,7 @@ public class Accounts implements Serializable {
 	private String userRole;
 	private String firstName;
 	private String lastName;
-	private Date birthday;
+	private String birthday;
 	private String address;
 	private String email;
 	private String phone;
@@ -83,13 +83,12 @@ public class Accounts implements Serializable {
 		this.lastName = lastName;
 	}
 	
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "birthday", nullable = false)
-	public Date getBirthday() {
+	public String getBirthday() {
 		return birthday;
 	}
 	
-	public void setBirthday(Date birthday) {
+	public void setBirthday(String birthday) {
 		this.birthday = birthday;
 	}
 	

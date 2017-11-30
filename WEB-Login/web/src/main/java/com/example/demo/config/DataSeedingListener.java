@@ -31,7 +31,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
             admin.setUserName("admin");
             admin.setPassword(passwordEncoder.encode("123456"));
             admin.setEmail("admin@gmail.com");
-            admin.setBirthday(new Date("04/09/1995"));
+            admin.setBirthday("04/09/1995");
             admin.setAddress("TP. HCM");
             admin.setPhone("0898133817");
             admin.setFirstName(("Administrator"));
@@ -48,7 +48,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
             member.setUserName("member");
             member.setPassword(passwordEncoder.encode("123456"));
             member.setEmail("member@gmail.com");
-            member.setBirthday(new Date("04/09/1995"));
+            member.setBirthday("04/09/1995");
             member.setAddress("TP. HCM");
             member.setPhone("0898133817");
             member.setFirstName("Member");

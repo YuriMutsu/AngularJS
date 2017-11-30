@@ -1,5 +1,7 @@
 (function() {
-	var app = angular.module("myApp", [ 'ngResource','ngCookies']);
+	'use strict';
+	
+	var app = angular.module("myApp", [ 'ngResource','ngCookies', '720kb.datepicker']);
 	
 	app.directive('pagination', function() {
 		  return {
@@ -151,7 +153,7 @@
 				user.userRole = "ROLE_MEMBER";
 				$resource('/doRegister').save({}, user);
 			}else{
-				console.err(user);
+				
 			}
 		}
 	}]);

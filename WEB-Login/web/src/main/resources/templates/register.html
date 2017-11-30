@@ -1,63 +1,100 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>REGISTER</title>
+<title>REGISTER</title>
 
-    <div th:replace="fragments/header :: header-css"/>
+<div th:replace="fragments/header :: header-css" />
 </head>
 <body ng-app="myApp">
-<div class="container" ng-controller="RegisterCtrl">
-    <div class="container">
-        <div class="row vertical-center-row">
-            <div class="col-xs-12 col-sm-12 col-md-4 well well-sm col-md-offset-4">
-                <legend style="text-align: center;">
-                    <i class="glyphicon glyphicon-globe"></i> Đăng ký thành viên!
-                </legend>
-                <form class="form" role="form">
-                    <div class="row">
-                        <div class="col-xs-6 col-md-6">
-                            <input class="form-control" ng-model="user.firstName" name="firstName" placeholder="Họ" required="" autofocus=""
-                                   type="text"/>
-                        </div>
-                        <div class="col-xs-6 col-md-6">
-                            <input class="form-control" ng-model="user.lastName" name="lastName" placeholder="Tên" required="" type="text"/>
-                        </div>
-                    </div>
-                    <input class="form-control" ng-model="user.userName" name="userName" placeholder="Tên đăng nhập" type="text"/>
-                    <input class="form-control" ng-model="user.password" name="password" placeholder="Mật khẩu" type="password"/>
-                    <input class="form-control" ng-model="user.retypepassword" name="retypepassword" placeholder="Nhập lại mật khẩu" type="password"/>
-                    <input class="form-control" ng-model="user.address" name="address" placeholder="Địa chỉ" type="text"/>
-                    <input class="form-control" ng-model="user.email" name="email" placeholder="Email" type="email"/>
-                    <input class="form-control" ng-model="user.phone" name="phone" placeholder="Điện thoại" type="text"/>
-                    <label>Ngày sinh</label>
-                    <div class="container">
-                        <div class="row">
-                            <input type='text' ng-model="user.birthday" name="birthday" class="form-control" id='datetimepicker' />
-                             <script type="text/javascript">
-                                $(function () {
-                                    $('#datetimepicker').datepicker({format : 'dd-mm-yyyy'});
-                                });
-                            </script> 
-                            
-                            {{user.birthday}}
-                        </div>
-                    </div>
-                    <label class="radio-inline">
-                        <input name="sex" id="inlineCheckbox1" ng-model="user.male" value="Nam" type="radio"/> Nam
-                    </label>
-                    <label class="radio-inline">
-                        <input name="sex" id="inlineCheckbox2" ng-model="user.female" value="Nữ" type="radio"/> Nữ
-                    </label>
-                    <br/>
-                    <br/>
-                    <div class="button-register">
-                    	<button class="btn btn-md btn-primary" type="submit" ng-click="doRegister(user)">Đăng ký</button>
-                    	<a class="btn btn-md btn-warning" href="/">Trở lại</a>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+	<div class="container" ng-controller="RegisterCtrl">
+		<div class="container">
+			<div class="row vertical-center-row">
+				<div
+					class="col-xs-12 col-sm-12 col-md-4 well well-sm col-md-offset-4">
+					<legend style="text-align: center;">
+						<i class="glyphicon glyphicon-globe"></i> Đăng ký thành viên !
+					</legend>
+					<form class="form-group" role="form" name="form">
+						<div class="row">
+							<div class="col-xs-6 col-md-6">
+								<input class="form-control" ng-model="user.firstName"
+									name="firstName" placeholder="Họ" required="required"
+									autofocus="" type="text" ng-minlength="2" ng-maxlength="32"
+									ng-pattern="/^[a-zA-Z]/" />
+							<i class="fa fa-check text-success" ng-show="form.firstName.$dirty &amp;&amp; form.firstName.$valid"></i>
+							<div ng-show="form.firstName.$dirty &amp;&amp; form.firstName.$invalid" class="text-danger">
+								<i class="fa fa-times text-danger"></i> 
+								<span ng-show="form.firstName.$error.required"> Họ không được bỏ trống </span> 
+								<span ng-show="form.firstName.$error.minlength"> Họ phải dài hơn 6 kí tự </span> 
+								<span ng-show="form.firstName.$error.maxlength"> Họ ngắn hơn 32 kí tự </span> 
+								<span ng-show="form.firstName.$error.pattern"> Họ chỉ bao gồm các kí tự chữ cái</span> 
+							</div>
+							</div>
+							<div class="col-xs-6 col-md-6">
+								<input class="form-control" ng-model="user.lastName"
+									name="lastName" placeholder="Tên" required="required"
+									type="text" ng-minlength="6" ng-maxlength="50"
+									ng-pattern="/^[a-zA-Z]+$/" />
+							</div>
+						</div>
+
+						<div>
+							<input class="form-control" ng-model="user.userName"
+								name="username" placeholder="Tên đăng nhập" type="text"
+								ng-minlength="6" ng-maxlength="32" ng-pattern="/^[a-zA-Z]+[0-9]/" required="required"/>
+							<i class="fa fa-check text-success" ng-show="form.username.$dirty &amp;&amp; form.username.$valid"></i>
+							<div ng-show="form.username.$dirty &amp;&amp; form.username.$invalid" class="text-danger">
+								<i class="fa fa-times text-danger"></i> 
+								<span ng-show="form.username.$error.required"> Tên đăng nhập không được bỏ trống </span> 
+								<span ng-show="form.username.$error.minlength"> Tên đăng nhập phải dài hơn 6 kí tự </span> 
+								<span ng-show="form.username.$error.maxlength"> Tên đăng nhập ngắn hơn 32 kí tự </span> 
+								<span ng-show="form.username.$error.pattern"> Tên đăng nhập chỉ bao gồm các kí tự chữ cái và số </span> 
+							</div>
+						</div>
+
+						<div>
+							<input class="form-control" ng-model="user.password" name="password" placeholder="Mật khẩu" type="password" />
+						</div>
+						
+						<div>
+							<input class="form-control" ng-model="user.retypepassword" name="retypepassword" placeholder="Nhập lại mật khẩu" type="password" />
+						</div>
+						 
+						 <div>
+							 <input class="form-control" ng-model="user.address" name="address" placeholder="Địa chỉ" type="text" />
+						 </div>
+						
+						<div>
+							<input class="form-control" ng-model="user.email" name="email" placeholder="Email" type="email" />
+						</div>
+						
+						<div>
+							<input class="form-control" ng-model="user.phone" name="phone" placeholder="Điện thoại" type="text" />
+						</div>
+						
+						<datepicker date-format="dd-MM-yyyy" selector="form-control">
+							<div class="input-group">
+								<input class="form-control" ng-model="user.birthday" placeholder="Ngày, tháng, năm sinh" />
+								<span class="input-group-addon" style="cursor: pointer">
+									<i class="fa fa-lg fa-calendar"></i>
+								</span>
+							</div>
+						</datepicker>
+						<label class="radio-inline"> <input name="sex"
+							id="inlineCheckbox1" ng-model="user.male" value="Nam" type="radio" /> Nam
+						</label> <label class="radio-inline"> <input name="sex"
+							id="inlineCheckbox2" ng-model="user.female" value="Nữ" type="radio" /> Nữ
+						</label> <br /> <br />
+						<div class="button-register">
+							<button class="btn btn-md btn-primary" type="submit" ng-click="doRegister(user)">Đăng ký
+								<i class="fa fa-sign-in"></i>
+							</button>
+							<a class="btn btn-md btn-warning" href="/">Trở lại</a>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
