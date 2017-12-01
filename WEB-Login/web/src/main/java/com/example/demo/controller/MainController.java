@@ -11,7 +11,7 @@ public class MainController {
 		return "/error/403";
 	}
 
-	@RequestMapping("/")
+	@RequestMapping({"/", "/home"})
 	public String home() {
 		return "index";
 	}
@@ -24,5 +24,10 @@ public class MainController {
 	@RequestMapping("/news")
 	public String news() {
 		return "news";
+	}
+	
+	@RequestMapping("/#/news")
+	public String news2() {
+		return "login";
 	}
 }

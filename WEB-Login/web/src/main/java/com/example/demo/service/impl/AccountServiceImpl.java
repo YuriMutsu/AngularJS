@@ -31,4 +31,13 @@ public class AccountServiceImpl implements AccountService{
 		accountRepository.save(account);
 	}
 
+	@Override
+	public boolean isExist(String username) {
+		Accounts account = findAccount(username);
+		if (account != null){
+			return true;
+		}
+		return false;
+	}
+
 }

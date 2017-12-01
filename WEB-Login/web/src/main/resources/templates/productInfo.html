@@ -25,7 +25,9 @@
 					</div>
 
 					<div class="item col-md-3 col-sm-3 col-xs-6 column">
-						<h2 th:text="${#numbers.formatDecimal({productInfo.price}, 0, 'COMMA', 0, 'POINT')}"></h2>
+						<div class="item row">
+							<h2 class="item col-md-4 col-sm-8 col-xs-8 column" th:text="${#numbers.formatDecimal({productInfo.price}, 0, 'COMMA', 0, 'POINT')}" style="color: red"></h2>
+						</div>
 						<table class="table">
 							<tr>
 								<td>CPU</td>
@@ -80,11 +82,7 @@
 				</div>
 			</div>
 			<div th:replace="fragments/product :: product-info" />
-			
 		</div>
-		<!-- Footer -->
-		<div th:replace="fragments/footer :: footer" />
-
 	</div>
 </body>
 </html>

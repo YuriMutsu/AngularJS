@@ -144,18 +144,50 @@
 		}
 	}]);
 
+	app.controller('TabsDemoCtrl', function($scope, $window) {
+		$scope.tabs = [ {
+			title : 'Dynamic Title 1',
+			content : 'Dynamic content 1'
+		}, {
+			title : 'Dynamic Title 2',
+			content : 'Dynamic content 2',
+			disabled : true
+		} ];
+
+		$scope.alertMe = function() {
+			setTimeout(function() {
+				$window.alert('You\'ve selected the alert tab!');
+			});
+		};
+
+		$scope.model = {
+			name : 'Tabs'
+		};
+	});
+	
+	app.controller('MenuCtrl', [ '$scope', '$rootScope', '$resource', '$location', function($scope, $rootScope, $resource, $window, $location) {
+		
+		$scope.clickHome = function(){
+			window.location = "/home";
+		}
+		
+		$scope.clickNews = function(){
+			window.location = "/news";
+		}
+		
+		$scope.clickTradeMark = function(){
+		}
+		
+		$scope.clickProductList = function(){
+			window.location = "/productList";
+		}
+		
+		$scope.clickCon = function(){
+			window.location = "/contact";
+		}
+	}]);
 	
 	app.controller('RegisterCtrl', [ '$scope', '$rootScope', '$resource', function($scope, $rootScope, $resource, $window) {
-		$scope.doRegister = function(user){
-			if (user.password == user.retypepassword){
-				console.info("birthday " + user.birthday);
-				
-				user.userRole = "ROLE_MEMBER";
-				$resource('/doRegister').save({}, user);
-			}else{
-				
-			}
-		}
 	}]);
 	
 	app.controller('ProductInfoCtrl', ['$scope', '$rootScope', '$resource', '$window', '$cookieStore', function($scope, $rootScope, $resource, $window, $cookieStore) {

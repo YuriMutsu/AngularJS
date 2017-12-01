@@ -6,4 +6,6 @@ public interface AccountService {
 	public Accounts findAccount(String userName);
 	
 	public void save(Accounts account);
+	
+	public boolean isExist(String username);
 }

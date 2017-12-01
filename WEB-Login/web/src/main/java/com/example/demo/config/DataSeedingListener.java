@@ -3,8 +3,6 @@ package com.example.demo.config;
 import com.example.demo.entity.Accounts;
 import com.example.demo.service.AccountService;
 
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -21,7 +19,6 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @SuppressWarnings("deprecation")
 	@Override
     public void onApplicationEvent(ContextRefreshedEvent arg0) {
 

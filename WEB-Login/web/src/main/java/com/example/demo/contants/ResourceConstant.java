@@ -7,5 +7,5 @@ public class ResourceConstant {
 	public static final String EQUALS = "=";
 	public static final String IMAGES = "images";
 	public static final String DELIMITER = "/";
-	
+	public static final String MINUS = "-";
 }
