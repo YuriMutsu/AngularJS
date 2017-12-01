@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.entity.Products;
@@ -37,6 +38,14 @@ public class RestProductController {
 	@RequestMapping("/productDetails")
 	public ResponseEntity<List<ProductDetailInfo>> getAllProductDetails(){
 		List<ProductDetailInfo> listProductDetailsInfo = productDetailService.findAllProductDetailsInfo();
+		
+		m_logger.info("List Product Details Info: " + listProductDetailsInfo.toString());
+		return new ResponseEntity<List<ProductDetailInfo>>(listProductDetailsInfo, HttpStatus.OK);
+	}
+	
+	@RequestMapping("/productDetailsByTradeMark")
+	public ResponseEntity<List<ProductDetailInfo>> getAllProductDetailsByTradeMark(@RequestParam("tradeMark") String tradeMark){
+		List<ProductDetailInfo> listProductDetailsInfo = productDetailService.findAllProductDetailsInfoByTradeMark(tradeMark);
 		
 		m_logger.info("List Product Details Info: " + listProductDetailsInfo.toString());
 		return new ResponseEntity<List<ProductDetailInfo>>(listProductDetailsInfo, HttpStatus.OK);

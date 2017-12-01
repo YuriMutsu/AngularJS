@@ -100,4 +100,28 @@ public class ProductDetailServiceImpl implements ProductDetailService{
 		return productDetailInfo;
 	}
 
+	@Override
+	public List<ProductDetails> findAllProductDetailsByTradeMark(String tradeMark){
+		List<ProductDetails> listProductDetails = findAllProductDetails();
+		List<ProductDetails> listProductDetailsByTradeMark = new ArrayList<ProductDetails>();
+		for (ProductDetails productDetail : listProductDetails) {
+			if (productDetail.getTrademark().equalsIgnoreCase(tradeMark)) {
+				listProductDetailsByTradeMark.add(productDetail);
+			}
+		}
+		return listProductDetailsByTradeMark;
+	}
+
+	@Override
+	public List<ProductDetailInfo> findAllProductDetailsInfoByTradeMark(String tradeMark) {
+		List<ProductDetailInfo> listProductDetailsInfo = findAllProductDetailsInfo();
+		List<ProductDetailInfo> listProductDetailsInfoByTradeMark = new ArrayList<ProductDetailInfo>();
+		for (ProductDetailInfo productDetail : listProductDetailsInfo) {
+			if (productDetail.getTrademark().equalsIgnoreCase(tradeMark)) {
+				listProductDetailsInfoByTradeMark.add(productDetail);
+			}
+		}
+		return listProductDetailsInfoByTradeMark;
+	}
+
 }

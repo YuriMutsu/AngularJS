@@ -166,6 +166,7 @@
 	});
 	
 	app.controller('MenuCtrl', [ '$scope', '$rootScope', '$resource', '$location', function($scope, $rootScope, $resource, $window, $location) {
+		$scope.listTradeMark = ['ASUS', 'DELL', 'HP', 'LENOVO', 'WAIO'];
 		
 		$scope.clickHome = function(){
 			window.location = "/home";
@@ -210,7 +211,12 @@
 			} ]);
 
 	app.controller('ProductCtrl', ['$scope', '$rootScope', '$resource',function($scope, $rootScope, $resource) {
+		$scope.listTradeMark = ['ASUS', 'DELL', 'HP', 'LENOVO', 'WAIO'];
+		
 		$scope.listProduct = [];
+		$scope.listNoOfPages = [];
+		$scope.listCurrentPage = [];
+		$scope.listSetPage = [];
 		
 		$resource('/rest/productDetails',
 	            {},
@@ -221,6 +227,17 @@
 	                }
 	            }).query(
 	            	function(data){
+	            		for (var i = 0; i<$scope.listTradeMark.length;i++){
+	            			var list = [];
+	            			for (var j=0;j<data.length;j++){
+	            				if (data[j].trademark === $scope.listTradeMark[i]){
+	            					list.push(data[j]);
+	            				}
+	            			}
+	            			$scope.listProduct.push(list);
+	            		}
+	            		
+	            		// ALL
 	            		$scope.listProductDetails = data;
 	            		$scope.numPerPage = 4;
 	            		$scope.noOfPages = Math.ceil(data.length / $scope.numPerPage);
@@ -233,8 +250,82 @@
 	            		};
 	            		  
 	            		$scope.$watch('currentPage', $scope.setPage);
+	            		
+	            		
+	            		// ASUS
+	            		$scope.listProductDetailsAsus = $scope.listProduct[0];
+	            		$scope.numPerPage = 4;
+	            		$scope.noOfPagesAsus = Math.ceil($scope.listProduct[0].length / $scope.numPerPage);
+	            		$scope.currentPageAsus = 1;
+
+	            		$scope.setPageAsus = function () {
+	            			var offset = ($scope.currentPageAsus - 1) * $scope.numPerPage;
+							var limit = $scope.numPerPage;
+	            			$scope.listProductDetailsAsus = $scope.listProduct[0].slice(offset, offset + limit);
+	            		};
+	            		
+	            		$scope.$watch('currentPageAsus', $scope.setPageAsus);
+	            		  
+	            		// DELL
+	            		$scope.listProductDetailsDell = $scope.listProduct[1];
+	            		$scope.numPerPage = 4;
+	            		$scope.noOfPagesDell = Math.ceil($scope.listProduct[1].length / $scope.numPerPage);
+	            		$scope.currentPageDell = 1;
+
+	            		$scope.setPageDell = function () {
+	            			var offset = ($scope.currentPageDell - 1) * $scope.numPerPage;
+							var limit = $scope.numPerPage;
+	            			$scope.listProductDetailsDell = $scope.listProduct[1].slice(offset, offset + limit);
+	            		};
+	            		
+	            		$scope.$watch('currentPageDell', $scope.setPageDell);
+	            		
+	            		
+	            		// HP
+	            		$scope.listProductDetailsHP = $scope.listProduct[2];
+	            		$scope.numPerPage = 4;
+	            		$scope.noOfPagesHP = Math.ceil($scope.listProduct[2].length / $scope.numPerPage);
+	            		$scope.currentPageHP = 1;
+
+	            		$scope.setPageHP = function () {
+	            			var offset = ($scope.currentPageHP - 1) * $scope.numPerPage;
+							var limit = $scope.numPerPage;
+	            			$scope.listProductDetailsHP = $scope.listProduct[2].slice(offset, offset + limit);
+	            		};
+	            		
+	            		$scope.$watch('currentPageHP', $scope.setPageHP);
+	            		
+	            		// Lenovo
+	            		$scope.listProductDetailsLenovo = $scope.listProduct[3];
+	            		$scope.numPerPage = 4;
+	            		$scope.noOfPagesLenovo = Math.ceil($scope.listProduct[3].length / $scope.numPerPage);
+	            		$scope.currentPageLenovo = 1;
+
+	            		$scope.setPageLenovo = function () {
+	            			var offset = ($scope.currentPageLenovo - 1) * $scope.numPerPage;
+							var limit = $scope.numPerPage;
+	            			$scope.listProductDetailsLenovo = $scope.listProduct[3].slice(offset, offset + limit);
+	            		};
+	            		
+	            		$scope.$watch('currentPageLenovo', $scope.setPageLenovo);
+	            		
+	            		// Waio
+	            		$scope.listProductDetailsWaio = $scope.listProduct[4];
+	            		$scope.numPerPage = 4;
+	            		$scope.noOfPagesWaio = Math.ceil($scope.listProduct[4].length / $scope.numPerPage);
+	            		$scope.currentPageWaio = 1;
+
+	            		$scope.setPageWaio = function () {
+	            			var offset = ($scope.currentPageWaio - 1) * $scope.numPerPage;
+							var limit = $scope.numPerPage;
+	            			$scope.listProductDetailsWaio = $scope.listProduct[4].slice(offset, offset + limit);
+	            		};
+	            		
+	            		$scope.$watch('currentPageWaio', $scope.setPageWaio);
+	            		  
 	            	}
 	            );
+		
 	}]);
 	
 })()

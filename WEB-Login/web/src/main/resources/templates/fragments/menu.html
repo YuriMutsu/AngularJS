@@ -13,14 +13,8 @@
                         		<span class="caret" />
                         	</a>
                         	<ul class="dropdown-menu">
-								<li>
-									<a>Dell</a>
-								</li>
-								<li>
-									<a>Asus</a>
-								</li>
-								<li>
-									<a>Lenovo</a>
+								<li ng-repeat="tradeMark in listTradeMark">
+									<a ng-href="/{{tradeMark}}">{{tradeMark}}</a>
 								</li>
 							</ul>
                         </li>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Product List</title>
+<div th:replace="fragments/header :: header-css" />
+</head>
+<body ng-app="myApp">
+<div class="container">
+	<!-- Header -->
+	<div th:replace="fragments/header :: header" />
+
+	<!-- Menu -->
+	<div th:replace="fragments/menu :: menu" />
+	
+	<div ng-controller="ProductCtrl">
+		<div class="box-index">
+			<div class="row">
+				<div class="item col-md-3 col-sm-3 col-xs-6" ng-repeat="product in listProductDetails">
+					<ul>
+						<li>
+							<!-- Trigger the modal with a button -->
+							<a class="thumbnail"  ng-href="/productInfo?code={{product.code}}">
+								<img alt="" ng-src ="/productImage?code={{product.code}}"/>
+							</a>
+						</li>
+						<li>Mã: {{product.code}}</li>
+						<li>Tên: {{product.name}}</li>
+						<li>Giá: {{product.price | number:'0'}} đ</li>
+						<li>
+							<button class="btn btn-info">Thêm vào giỏ hàng</button>
+							<button class="btn btn-success">Mua sản phẩm</button>
+						</li>
+					</ul>
+				</div>
+				<div class="item col-md-2 col-sm-2 col-xs-6 container">
+					<div class="pagination" >
+						<pagination num-pages="noOfPages" current-page="currentPage" class="pagination-medium"></pagination>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Footer -->
+	<div th:replace="fragments/footer :: footer" />
+</div>
+</body>
+</html>

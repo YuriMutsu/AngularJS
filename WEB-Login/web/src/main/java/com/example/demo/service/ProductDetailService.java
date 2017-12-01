@@ -7,6 +7,7 @@ import com.example.demo.model.ProductDetailInfo;
 
 public interface ProductDetailService {
 	public List<ProductDetails> findAllProductDetails();
+	public List<ProductDetails> findAllProductDetailsByTradeMark(String tradeMark);
 	public ProductDetails findProductDetail(int id);
 	public ProductDetails findProductDetail(String code);
 	public ProductDetails findProductDetailByName(String name);
@@ -16,4 +17,6 @@ public interface ProductDetailService {
 	public ProductDetailInfo findProductDetailInfo(int id);
 	public ProductDetailInfo findProductDetailInfo(String code);
 	public ProductDetailInfo findProductDetailInfoByName(String name);
+	
+	public List<ProductDetailInfo> findAllProductDetailsInfoByTradeMark(String tradeMark);
 }
