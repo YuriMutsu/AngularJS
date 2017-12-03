@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.Accounts;
+import com.example.demo.model.CustomerInfo;
 import com.example.demo.reponsitory.AccountRepository;
 import com.example.demo.service.AccountService;
 
@@ -38,6 +39,13 @@ public class AccountServiceImpl implements AccountService{
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public CustomerInfo getCustomer(String userName) {
+		Accounts account = findAccount(userName);
+		CustomerInfo customerInfo = new CustomerInfo(account);
+		return customerInfo;
 	}
 
 }

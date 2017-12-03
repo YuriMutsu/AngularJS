@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>CART</title>
+
+	<div th:replace="fragments/header :: header-css"/>
+</head>
+<body ng-app="myApp">
+<div class="container">
+    <!-- Header -->
+	<div th:replace="fragments/header :: header" />
+
+	<!-- Menu -->
+	<div th:replace="fragments/menu :: menu" />
+	
+    <!-- Giỏ Hàng -->
+    <div class="container" ng-controller="CartCtrl">
+        <table id="cart" class="table table-hover table-condensed">
+            <thead>
+            <tr>
+                <th class="col-md-1 col-sm-1 col-xs-1">Tên sản phẩm</th>
+                <th class="col-md-2 col-sm-2 col-xs-2">Giá</th>
+                <th class="col-md-1 col-sm-1 col-xs-1 text-center">Số lượng</th>
+                <th class="col-md-6 col-sm-6 col-xs-6 text-center">Thành tiền</th>
+                <th class="col-md-1 col-sm-1 col-xs-1 text-center"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="cartLine : ${session.myCart.cartLines}">
+                <td data-th="Product" class="col-md-1 col-sm-1 col-xs-1">
+                    <div class="row">
+                        <div class="col-sm-3 hidden-xs">
+                            <img th:src="@{/productImage(code=${cartLine.productInfo.code})}" class="img-responsive" width="100"/>
+                        </div>
+                        <div class="col-sm-6">
+                        	<h5 class="nomargin" th:text="${cartLine.productInfo.code}"></h5>
+                            <h4 class="nomargin" th:text="${cartLine.productInfo.name}"></h4>
+                            <p>Mô tả của sản phẩm</p>
+                        </div>
+                    </div>
+                </td>
+                <td style="vertical-align: middle" data-th="Price" class="col-md-2 col-sm-2 col-xs-2">
+                 	<span th:text="${cartLine.productInfo.price}"></span>
+                 	<span> đ</span>
+                 </td>
+                <td style="vertical-align: middle" data-th="Quantity" class="col-md-1 col-sm-1 col-x)s-1">
+                    <input class="form-control text-center" th:value="${cartLine.quantity}" type="number" min="0"/>
+                </td>
+                <td style="vertical-align: middle" data-th="Subtotal" class="text-center col-md-6 col-sm-6 col-xs-6">
+                	<span th:text="${cartLine.productInfo.price} * ${cartLine.quantity}"></span>
+                 	<span> đ</span>
+                </td>
+                <td style="vertical-align: middle" class="actions col-md-1 col-sm-1 col-xs-1" data-th="">
+                	<a href="">Cập nhật</a>
+                    <a href="">Xóa</a>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td>
+                    <a href="/productList" class="btn btn-warning">
+                        <i class="fa fa-angle-left"></i>
+                        Tiếp tục mua hàng
+                    </a>
+                </td>
+                <td colspan="2" class="hidden-xs"></td>
+                <td class="hidden-xs text-center">
+                    <strong th:text="${session.myCart.amountTotal}"></strong>
+                    <strong> đ</strong>
+                </td>
+                <td>
+                    <a href="http://hocwebgiare.com/" class="btn btn-success btn-block">
+                        Thanh toán
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <!-- Footer -->
+    <div th:replace="fragments/footer :: footer"/>
+</div>
+</body>
+</html>

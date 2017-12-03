@@ -143,27 +143,6 @@
 			});
 		}
 	}]);
-
-	app.controller('TabsDemoCtrl', function($scope, $window) {
-		$scope.tabs = [ {
-			title : 'Dynamic Title 1',
-			content : 'Dynamic content 1'
-		}, {
-			title : 'Dynamic Title 2',
-			content : 'Dynamic content 2',
-			disabled : true
-		} ];
-
-		$scope.alertMe = function() {
-			setTimeout(function() {
-				$window.alert('You\'ve selected the alert tab!');
-			});
-		};
-
-		$scope.model = {
-			name : 'Tabs'
-		};
-	});
 	
 	app.controller('MenuCtrl', [ '$scope', '$rootScope', '$resource', '$location', function($scope, $rootScope, $resource, $window, $location) {
 		$scope.listTradeMark = ['ASUS', 'DELL', 'HP', 'LENOVO', 'WAIO'];
@@ -217,7 +196,7 @@
 		$scope.listNoOfPages = [];
 		$scope.listCurrentPage = [];
 		$scope.listSetPage = [];
-		
+
 		$resource('/rest/productDetails',
 	            {},
 	            {
@@ -252,80 +231,183 @@
 	            		$scope.$watch('currentPage', $scope.setPage);
 	            		
 	            		
+	            		// Number Item will show
+	            		var numItemShow = 4;
+	            		
 	            		// ASUS
-	            		$scope.listProductDetailsAsus = $scope.listProduct[0];
-	            		$scope.numPerPage = 4;
-	            		$scope.noOfPagesAsus = Math.ceil($scope.listProduct[0].length / $scope.numPerPage);
-	            		$scope.currentPageAsus = 1;
-
-	            		$scope.setPageAsus = function () {
-	            			var offset = ($scope.currentPageAsus - 1) * $scope.numPerPage;
-							var limit = $scope.numPerPage;
-	            			$scope.listProductDetailsAsus = $scope.listProduct[0].slice(offset, offset + limit);
-	            		};
+	            		$scope.listAllProductDetailsAsus = $scope.listProduct[0];	// list all product by trade mark = ASUS.
+	            		$scope.listProductDetailsAsus = [];							// list product will be show.
 	            		
-	            		$scope.$watch('currentPageAsus', $scope.setPageAsus);
-	            		  
+	            		for (var i=0;i<numItemShow; i++){
+	            			$scope.listProductDetailsAsus.push($scope.listAllProductDetailsAsus[i]); // list product default.
+	            		}
+	            		
+	            		$scope.showItemAsus = function(){
+	            			var lengthListCurrent = $scope.listProductDetailsAsus.length;
+	            			var lengthListAll = $scope.listAllProductDetailsAsus.length;
+	            			var less = 0;
+	            			if (lengthListCurrent < lengthListAll){
+	            				var less = lengthListAll - lengthListCurrent;
+	            				if (less > numItemShow){
+	            					for (var i=0;i<numItemShow;i++){
+	            						$scope.listProductDetailsAsus.push($scope.listAllProductDetailsAsus[lengthListCurrent + i]);
+	            					}
+	            				}else{
+	            					for (var i=0;i<less;i++){
+	            						$scope.listProductDetailsAsus.push($scope.listAllProductDetailsAsus[lengthListCurrent + i]);
+	            					}
+	            				}
+	            			}
+	            			
+	            			if (lengthListCurrent == lengthListAll){
+	            				$scope.listProductDetailsAsus = [];
+	            				for (var i=0;i<numItemShow; i++){
+	    	            			$scope.listProductDetailsAsus.push($scope.listAllProductDetailsAsus[i]);
+	    	            		}
+	            			}
+	            		}
+	            		
 	            		// DELL
-	            		$scope.listProductDetailsDell = $scope.listProduct[1];
-	            		$scope.numPerPage = 4;
-	            		$scope.noOfPagesDell = Math.ceil($scope.listProduct[1].length / $scope.numPerPage);
-	            		$scope.currentPageDell = 1;
-
-	            		$scope.setPageDell = function () {
-	            			var offset = ($scope.currentPageDell - 1) * $scope.numPerPage;
-							var limit = $scope.numPerPage;
-	            			$scope.listProductDetailsDell = $scope.listProduct[1].slice(offset, offset + limit);
-	            		};
+	            		$scope.listAllProductDetailsDell = $scope.listProduct[1];	// list all product by trade mark = DELL.
+	            		$scope.listProductDetailsDell = [];							// list product will be show.
 	            		
-	            		$scope.$watch('currentPageDell', $scope.setPageDell);
+	            		for (var i=0;i<numItemShow; i++){
+	            			$scope.listProductDetailsDell.push($scope.listAllProductDetailsDell[i]); // list product default.
+	            		}
+	            		
+	            		$scope.showItemDell = function(){
+	            			var lengthListCurrent = $scope.listProductDetailsDell.length;
+	            			var lengthListAll = $scope.listAllProductDetailsDell.length;
+	            			var less = 0;
+	            			if (lengthListCurrent < lengthListAll){
+	            				var less = lengthListAll - lengthListCurrent;
+	            				if (less > numItemShow){
+	            					for (var i=0;i<numItemShow;i++){
+	            						$scope.listProductDetailsDell.push($scope.listAllProductDetailsDell[lengthListCurrent + i]);
+	            					}
+	            				}else{
+	            					for (var i=0;i<less;i++){
+	            						$scope.listProductDetailsDell.push($scope.listAllProductDetailsDell[lengthListCurrent + i]);
+	            					}
+	            				}
+	            			}
+	            			
+	            			if (lengthListCurrent == lengthListAll){
+	            				$scope.listProductDetailsDell = [];
+	            				for (var i=0;i<numItemShow; i++){
+	    	            			$scope.listProductDetailsDell.push($scope.listAllProductDetailsDell[i]);
+	    	            		}
+	            			}
+	            		}
 	            		
 	            		
 	            		// HP
-	            		$scope.listProductDetailsHP = $scope.listProduct[2];
-	            		$scope.numPerPage = 4;
-	            		$scope.noOfPagesHP = Math.ceil($scope.listProduct[2].length / $scope.numPerPage);
-	            		$scope.currentPageHP = 1;
-
-	            		$scope.setPageHP = function () {
-	            			var offset = ($scope.currentPageHP - 1) * $scope.numPerPage;
-							var limit = $scope.numPerPage;
-	            			$scope.listProductDetailsHP = $scope.listProduct[2].slice(offset, offset + limit);
-	            		};
+	            		$scope.listAllProductDetailsHP = $scope.listProduct[2];	// list all product by trade mark = HP.
+	            		$scope.listProductDetailsHP = [];							// list product will be show.
 	            		
-	            		$scope.$watch('currentPageHP', $scope.setPageHP);
+	            		for (var i=0;i<numItemShow; i++){
+	            			$scope.listProductDetailsHP.push($scope.listAllProductDetailsHP[i]); // list product default.
+	            		}
+	            		
+	            		$scope.showItemHP = function(){
+	            			var lengthListCurrent = $scope.listProductDetailsHP.length;
+	            			var lengthListAll = $scope.listAllProductDetailsHP.length;
+	            			var less = 0;
+	            			if (lengthListCurrent < lengthListAll){
+	            				var less = lengthListAll - lengthListCurrent;
+	            				if (less > numItemShow){
+	            					for (var i=0;i<numItemShow;i++){
+	            						$scope.listProductDetailsHP.push($scope.listAllProductDetailsHP[lengthListCurrent + i]);
+	            					}
+	            				}else{
+	            					for (var i=0;i<less;i++){
+	            						$scope.listProductDetailsHP.push($scope.listAllProductDetailsHP[lengthListCurrent + i]);
+	            					}
+	            				}
+	            			}
+	            			
+	            			if (lengthListCurrent == lengthListAll){
+	            				$scope.listProductDetailsHP = [];
+	            				for (var i=0;i<numItemShow; i++){
+	    	            			$scope.listProductDetailsHP.push($scope.listAllProductDetailsHP[i]);
+	    	            		}
+	            			}
+	            		}
 	            		
 	            		// Lenovo
-	            		$scope.listProductDetailsLenovo = $scope.listProduct[3];
-	            		$scope.numPerPage = 4;
-	            		$scope.noOfPagesLenovo = Math.ceil($scope.listProduct[3].length / $scope.numPerPage);
-	            		$scope.currentPageLenovo = 1;
-
-	            		$scope.setPageLenovo = function () {
-	            			var offset = ($scope.currentPageLenovo - 1) * $scope.numPerPage;
-							var limit = $scope.numPerPage;
-	            			$scope.listProductDetailsLenovo = $scope.listProduct[3].slice(offset, offset + limit);
-	            		};
+	            		$scope.listAllProductDetailsLenovo = $scope.listProduct[3];	// list all product by trade mark = LENOVO.
+	            		$scope.listProductDetailsLenovo = [];							// list product will be show.
 	            		
-	            		$scope.$watch('currentPageLenovo', $scope.setPageLenovo);
+	            		for (var i=0;i<numItemShow; i++){
+	            			$scope.listProductDetailsLenovo.push($scope.listAllProductDetailsLenovo[i]); // list product default.
+	            		}
+	            		
+	            		$scope.showItemLenovo = function(){
+	            			var lengthListCurrent = $scope.listProductDetailsLenovo.length;
+	            			var lengthListAll = $scope.listAllProductDetailsLenovo.length;
+	            			var less = 0;
+	            			if (lengthListCurrent < lengthListAll){
+	            				var less = lengthListAll - lengthListCurrent;
+	            				if (less > numItemShow){
+	            					for (var i=0;i<numItemShow;i++){
+	            						$scope.listProductDetailsLenovo.push($scope.listAllProductDetailsLenovo[lengthListCurrent + i]);
+	            					}
+	            				}else{
+	            					for (var i=0;i<less;i++){
+	            						$scope.listProductDetailsLenovo.push($scope.listAllProductDetailsLenovo[lengthListCurrent + i]);
+	            					}
+	            				}
+	            			}
+	            			
+	            			if (lengthListCurrent == lengthListAll){
+	            				$scope.listProductDetailsLenovo = [];
+	            				for (var i=0;i<numItemShow; i++){
+	    	            			$scope.listProductDetailsLenovo.push($scope.listAllProductDetailsLenovo[i]);
+	    	            		}
+	            			}
+	            		}
 	            		
 	            		// Waio
-	            		$scope.listProductDetailsWaio = $scope.listProduct[4];
-	            		$scope.numPerPage = 4;
-	            		$scope.noOfPagesWaio = Math.ceil($scope.listProduct[4].length / $scope.numPerPage);
-	            		$scope.currentPageWaio = 1;
-
-	            		$scope.setPageWaio = function () {
-	            			var offset = ($scope.currentPageWaio - 1) * $scope.numPerPage;
-							var limit = $scope.numPerPage;
-	            			$scope.listProductDetailsWaio = $scope.listProduct[4].slice(offset, offset + limit);
-	            		};
+	            		$scope.listAllProductDetailsWaio = $scope.listProduct[4];	// list all product by trade mark = WAIO.
+	            		$scope.listProductDetailsWaio = [];							// list product will be show.
 	            		
-	            		$scope.$watch('currentPageWaio', $scope.setPageWaio);
-	            		  
+	            		for (var i=0;i<numItemShow; i++){
+	            			if (numItemShow < $scope.listAllProductDetailsWaio.length){
+	            				$scope.listProductDetailsWaio.push($scope.listAllProductDetailsWaio[i]); // list product default.
+	            			}
+	            		}
+	            		
+	            		$scope.showItemWaio = function(){
+	            			var lengthListCurrent = $scope.listProductDetailsWaio.length;
+	            			var lengthListAll = $scope.listAllProductDetailsWaio.length;
+	            			var less = 0;
+	            			if (lengthListCurrent < lengthListAll){
+	            				var less = lengthListAll - lengthListCurrent;
+	            				if (less > numItemShow){
+	            					for (var i=0;i<numItemShow;i++){
+	            						$scope.listProductDetailsWaio.push($scope.listAllProductDetailsWaio[lengthListCurrent + i]);
+	            					}
+	            				}else{
+	            					for (var i=0;i<less;i++){
+	            						$scope.listProductDetailsWaio.push($scope.listAllProductDetailsWaio[lengthListCurrent + i]);
+	            					}
+	            				}
+	            			}
+	            			
+	            			if (lengthListCurrent == lengthListAll){
+	            				$scope.listProductDetailsWaio = [];
+	            				for (var i=0;i<numItemShow; i++){
+	    	            			if (numItemShow < $scope.listAllProductDetailsWaio.length){
+	    	            				$scope.listProductDetailsWaio.push($scope.listAllProductDetailsWaio[i]); // list product default.
+	    	            			}
+	    	            		}
+	            			}
+	            		}
 	            	}
 	            );
-		
 	}]);
 	
+	app.controller('CartCtrl', ['$scope', '$rootScope', function($scope, $rootScope) {
+		
+	}])
 })()

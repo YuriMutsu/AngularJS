@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.Products;
 import com.example.demo.model.ProductInfo;
+import com.example.demo.reponsitory.ProductDetailRepository;
 import com.example.demo.reponsitory.ProductRepository;
 import com.example.demo.service.ProductService;
 
@@ -17,7 +18,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Autowired
 	private ProductRepository productRepository;
-
+	
 	@Override
 	public Products findProduct(String code) {
 		List<Products> listProduct = (List<Products>) productRepository.findAll();

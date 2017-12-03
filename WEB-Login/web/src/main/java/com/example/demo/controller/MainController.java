@@ -1,10 +1,17 @@
 package com.example.demo.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.demo.utils.Utils;
+
 @Controller
 public class MainController {
+	
+	private Logger m_logger = Logger.getLogger(MainController.class);
 	
 	@RequestMapping("/403")
 	public String error403() {
@@ -12,7 +19,9 @@ public class MainController {
 	}
 
 	@RequestMapping({"/", "/home"})
-	public String home() {
+	public String home(HttpServletRequest request) {
+		Utils.getNumberProductOfCart(request);
+		Utils.getCartInSession(request);
 		return "index";
 	}
 

@@ -2,13 +2,15 @@ package com.example.demo.model;
 
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import com.example.demo.entity.ProductDetails;
 import com.example.demo.entity.Products;
 
 public class ProductInfo {
+	private byte[] image;
 	private String code;
 	private String name;
 	private int price;
-
+	
 	private boolean newProduct = false;
 
 	// Upload file.
@@ -18,11 +20,26 @@ public class ProductInfo {
 	}
 
 	public ProductInfo(Products product) {
+		this.image = product.getImage();
 		this.code = product.getCode();
 		this.name = product.getName();
 		this.price = product.getPrice();
 	}
+	
+	public ProductInfo(ProductDetails product) {
+		this.image = product.getProducts().getImage();
+		this.code = product.getProducts().getCode();
+		this.name = product.getProducts().getName();
+		this.price = product.getProducts().getPrice();
+	}
 
+	public ProductInfo(ProductDetailInfo product) {
+		this.image = product.getImage();
+		this.code = product.getCode();
+		this.name = product.getName();
+		this.price = product.getPrice();
+	}
+	
 	// Không thay đổi Constructor này,
 	// nó được sử dụng trong Hibernate query.
 	public ProductInfo(String code, String name, int price) {
@@ -70,5 +87,4 @@ public class ProductInfo {
 	public void setNewProduct(boolean newProduct) {
 		this.newProduct = newProduct;
 	}
-
 }

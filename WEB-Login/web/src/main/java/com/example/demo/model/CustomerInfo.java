@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import com.example.demo.entity.Accounts;
+
 public class CustomerInfo {
 
 	private String name;
@@ -9,6 +11,17 @@ public class CustomerInfo {
 
 	private boolean valid;
 
+	public CustomerInfo() {
+		
+	}
+	
+	public CustomerInfo(Accounts account) {
+		this.name = account.getFirstName() + " " + account.getLastName();
+		this.address = account.getAddress();
+		this.email = account.getEmail();
+		this.phone = account.getPhone();
+	}
+	
 	public String getName() {
 		return name;
 	}

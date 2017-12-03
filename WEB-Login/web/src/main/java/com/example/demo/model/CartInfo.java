@@ -8,11 +8,13 @@ public class CartInfo {
 	private int orderNum;
 
 	private CustomerInfo customerInfo;
-
+	
+	private int amountTotal;
+	
 	private final List<CartLineInfo> cartLines = new ArrayList<CartLineInfo>();
 
 	public CartInfo() {
-
+		this.amountTotal = 0;
 	}
 
 	public int getOrderNum() {
@@ -44,6 +46,17 @@ public class CartInfo {
 		return null;
 	}
 
+	public void addProduct(ProductInfo productInfo) {
+		CartLineInfo line = this.findLineByCode(productInfo.getCode());
+
+		if (line == null) {
+			line = new CartLineInfo();
+			line.setQuantity(1);
+			line.setProductInfo(productInfo);
+			this.cartLines.add(line);
+		}
+	}
+	
 	public void addProduct(ProductInfo productInfo, int quantity) {
 		CartLineInfo line = this.findLineByCode(productInfo.getCode());
 
@@ -60,7 +73,7 @@ public class CartInfo {
 			line.setQuantity(newQuantity);
 		}
 	}
-
+	
 	public void validate() {
 
 	}
@@ -73,6 +86,18 @@ public class CartInfo {
 				this.cartLines.remove(line);
 			} else {
 				line.setQuantity(quantity);
+			}
+		}
+	}
+	
+	public void updateProduct(String code) {
+		CartLineInfo line = this.findLineByCode(code);
+
+		if (line != null) {
+			if (line.getQuantity() <= 0) {
+				this.cartLines.remove(line);
+			} else {
+				line.setQuantity(line.getQuantity() + 1);
 			}
 		}
 	}
@@ -100,12 +125,13 @@ public class CartInfo {
 		return quantity;
 	}
 
-	public double getAmountTotal() {
-		double total = 0;
+	public int getAmountTotal() {
+		int total = 0;
 		for (CartLineInfo line : this.cartLines) {
 			total += line.getAmount();
 		}
-		return total;
+		this.amountTotal = total;
+		return amountTotal;
 	}
 
 	public void updateQuantity(CartInfo cartForm) {
@@ -115,6 +141,18 @@ public class CartInfo {
 				this.updateProduct(line.getProductInfo().getCode(), line.getQuantity());
 			}
 		}
+	}
+	
+	public boolean isExitsProduct(String code) {
+		for (CartLineInfo info : this.cartLines) {
+			if (info.getProductInfo().getCode().equals(code)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
+	public void setAmountTotal(int amountTotal) {
+		this.amountTotal = amountTotal;
 	}
 }

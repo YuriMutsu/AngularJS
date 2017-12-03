@@ -2,7 +2,7 @@
 <div th:fragment="menu" ng-app="myApp">	
 	<div ng-controller="MenuCtrl">
 		<div class="container">
-            <div style="margin: 10px; margin-right: 20px">
+            <div style="margin: 10px">
                 <div class="row">
                     <ul class="nav nav-tabs">
                         <li><a href="" data-toggle="tab" ng-click="clickHome()"><span class="glyphicon glyphicon-home"></span> Trang chủ</a></li>
@@ -19,9 +19,15 @@
 							</ul>
                         </li>
                         <li><a href="" data-toggle="tab" ng-click="clickProductList()"><i class="fa fa-list" aria-hidden="true"></i> Danh danh sản phẩm</a></li>
-						<li><a href="" data-toggle="tab" ng-click="clickContact()"><i class="fa fa-id-card-o" aria-hidden="true"></i> Liên hệ</a></li>
+						<li style="font-size: 14px"><a href="" data-toggle="tab" ng-click="clickContact()"><i class="fa fa-id-card-o" aria-hidden="true"></i> Liên hệ</a></li>
+                       <li>
+							<div class="container-1">
+								<span class="icon"><i class="fa fa-search"></i></span>
+									<input type="search" id="search" placeholder="Search..." />
+							</div>
+						</li>
                        
-                        <li class=" navbar-right">
+                       <li class=" navbar-right">
                         	<a href="/register" sec:authorize="!isAuthenticated()">
                         		<i class="fa fa-user-plus" aria-hidden="true"> Đăng ký</i>
                         	</a>
@@ -63,9 +69,13 @@
 							</ul>
 						</li>    
 						<li class=" navbar-right"><a href="#" sec:authorize="hasRole('ROLE_ADMIN')">Thêm sản phẩm</a></li>
+						
 						<li class=" navbar-right">
-							<a href="#" sec:authorize="hasRole('ROLE_MEMBER')">
-								<i class="fa fa-shopping-cart" aria-hidden="true"></i> Giỏ hàng (2)
+							<a href="/cart" sec:authorize="hasRole('ROLE_MEMBER')">
+								<i class="fa fa-shopping-cart" aria-hidden="true"></i>
+								<span>Giỏ hàng (</span>
+								<span th:text="${session.numProduct}"></span>
+								<span>)</span>
 							</a>
 						</li>
 						                   
