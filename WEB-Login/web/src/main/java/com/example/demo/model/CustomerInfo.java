@@ -12,7 +12,10 @@ public class CustomerInfo {
 	private boolean valid;
 
 	public CustomerInfo() {
-		
+		this.name = "";
+		this.address = "";
+		this.email = "";
+		this.phone = "";
 	}
 	
 	public CustomerInfo(Accounts account) {

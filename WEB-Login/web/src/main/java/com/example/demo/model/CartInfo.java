@@ -15,6 +15,7 @@ public class CartInfo {
 
 	public CartInfo() {
 		this.amountTotal = 0;
+		this.customerInfo = new CustomerInfo();
 	}
 
 	public int getOrderNum() {
@@ -37,7 +38,7 @@ public class CartInfo {
 		return this.cartLines;
 	}
 
-	private CartLineInfo findLineByCode(String code) {
+	public CartLineInfo findLineByCode(String code) {
 		for (CartLineInfo line : this.cartLines) {
 			if (line.getProductInfo().getCode().equals(code)) {
 				return line;
@@ -52,6 +53,19 @@ public class CartInfo {
 		if (line == null) {
 			line = new CartLineInfo();
 			line.setQuantity(1);
+			line.setMaxNumberOfProduct(productInfo.getMaxNumberProduct());
+			line.setProductInfo(productInfo);
+			this.cartLines.add(line);
+		}
+	}
+	
+	public void addProduct(ProductDetailInfo productDetail) {
+		CartLineInfo line = this.findLineByCode(productDetail.getCode());
+		ProductInfo productInfo = new ProductInfo(productDetail);
+		if (line == null) {
+			line = new CartLineInfo();
+			line.setQuantity(1);
+			line.setMaxNumberOfProduct(productInfo.getMaxNumberProduct());
 			line.setProductInfo(productInfo);
 			this.cartLines.add(line);
 		}
@@ -142,7 +156,7 @@ public class CartInfo {
 			}
 		}
 	}
-	
+
 	public boolean isExitsProduct(String code) {
 		for (CartLineInfo info : this.cartLines) {
 			if (info.getProductInfo().getCode().equals(code)) {

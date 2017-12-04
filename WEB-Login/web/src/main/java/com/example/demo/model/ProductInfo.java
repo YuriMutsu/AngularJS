@@ -10,6 +10,7 @@ public class ProductInfo {
 	private String code;
 	private String name;
 	private int price;
+	private int maxNumberProduct;
 	
 	private boolean newProduct = false;
 
@@ -31,6 +32,7 @@ public class ProductInfo {
 		this.code = product.getProducts().getCode();
 		this.name = product.getProducts().getName();
 		this.price = product.getProducts().getPrice();
+		this.maxNumberProduct = product.getQuantity();
 	}
 
 	public ProductInfo(ProductDetailInfo product) {
@@ -38,6 +40,7 @@ public class ProductInfo {
 		this.code = product.getCode();
 		this.name = product.getName();
 		this.price = product.getPrice();
+		this.maxNumberProduct = product.getQuantity();
 	}
 	
 	// Không thay đổi Constructor này,
@@ -86,5 +89,13 @@ public class ProductInfo {
 
 	public void setNewProduct(boolean newProduct) {
 		this.newProduct = newProduct;
+	}
+
+	public int getMaxNumberProduct() {
+		return maxNumberProduct;
+	}
+
+	public void setMaxNumberProduct(int maxNumberProduct) {
+		this.maxNumberProduct = maxNumberProduct;
 	}
 }

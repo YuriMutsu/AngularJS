@@ -189,7 +189,7 @@
 
 			} ]);
 
-	app.controller('ProductCtrl', ['$scope', '$rootScope', '$resource',function($scope, $rootScope, $resource) {
+	app.controller('ProductCtrl', ['$scope', '$rootScope', '$resource', '$window',function($scope, $rootScope, $resource, $window) {
 		$scope.listTradeMark = ['ASUS', 'DELL', 'HP', 'LENOVO', 'WAIO'];
 		
 		$scope.listProduct = [];
@@ -197,6 +197,45 @@
 		$scope.listCurrentPage = [];
 		$scope.listSetPage = [];
 
+		$scope.addToCart = function(product){
+			$resource('/addToCart', {}).save(product,
+				function(data){
+					$scope.add = true;
+					$scope.message_success = "Đã thêm sản phẩm vào giỏ hàng.";
+					$scope.$watch('add', function() {
+						window.location = "/productList";
+					});
+				},
+				function(err){
+					$scope.add = false;
+					if (err.status == '411'){
+						$scope.message_err = "Bạn đã thêm quá số lượng còn trong kho.";
+					}else{
+						$scope.message_err = "Bạn chưa đăng nhập. Vui lòng đăng nhập và thử lại !";
+					}
+				});
+		}
+		
+		$scope.updateCart = function(product) {
+			$resource('/updateCart', 
+				{
+					code: product.code,
+					quantity: product.quantity
+				},
+				{
+					query:{
+						method: 'post',
+						isArray: false
+					}
+				}).query().$promise.then(
+					function(data) {
+						console.info("ok");
+					},
+					function(err){
+						console.error(err);
+					});
+		}
+		
 		$resource('/rest/productDetails',
 	            {},
 	            {

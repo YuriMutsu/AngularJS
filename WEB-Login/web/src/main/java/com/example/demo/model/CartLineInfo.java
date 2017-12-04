@@ -5,8 +5,11 @@ public class CartLineInfo {
 	private ProductInfo productInfo;
 	private int quantity;
 
+	private int maxNumberOfProduct;
+	
 	public CartLineInfo() {
 		this.quantity = 0;
+		this.maxNumberOfProduct = 0;
 	}
 
 	public CartLineInfo(ProductInfo productInfo) {
@@ -34,4 +37,18 @@ public class CartLineInfo {
 		return this.productInfo.getPrice() * this.quantity;
 	}
 
+	public boolean isProductExist(String code){
+		if (productInfo.getCode().equalsIgnoreCase(code)){
+			return true;
+		}
+		return false;
+	}
+
+	public int getMaxNumberOfProduct() {
+		return maxNumberOfProduct;
+	}
+
+	public void setMaxNumberOfProduct(int maxNumberOfProduct) {
+		this.maxNumberOfProduct = maxNumberOfProduct;
+	}
 }

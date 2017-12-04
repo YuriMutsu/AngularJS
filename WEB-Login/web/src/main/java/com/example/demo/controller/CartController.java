@@ -6,6 +6,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -16,6 +19,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -68,43 +74,115 @@ public class CartController {
 		model.addAttribute("cartForm", myCart);
 		return "shoppingCart";
 	}
-
-	@GetMapping("/addToCart")
-	public String addToCartGet(HttpServletRequest request, Model model, @RequestParam("productCode") String code) {
-
-		if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().getClass().equals(String.class)) {
-			m_logger.info("User is not login !");
-			return "redirect:/login";
+	
+	@SuppressWarnings("deprecation")
+	@PostMapping("/addToCart")
+	public ResponseEntity<Void> addToCartPost(HttpServletRequest request, Model model, @RequestBody ProductDetailInfo productDetailInfo) {
+		
+		if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().getClass().equals(String.class)){
+			return new ResponseEntity<Void>(HttpStatus.METHOD_FAILURE);
 		}
 		
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		m_logger.info("ACCOUNT: " + userDetails);
-		
-		Utils.updateNumberProductOfCart(request);
-		
-		ProductDetailInfo productDetailInfo = productDetailService.findProductDetailInfo(code);
+		Accounts account = accountService.findAccount(userDetails.getUsername());
+		m_logger.info("ACCOUNTS: " + account.getFirstName());
+		CustomerInfo customerInfo = new CustomerInfo(account);
 		
 		ProductInfo productInfo = new ProductInfo(productDetailInfo);
 		
 		CartInfo cartInfo = Utils.getCartInSession(request);
+		cartInfo.setCustomerInfo(customerInfo);
 		
 		m_logger.info("CART INFO: " + cartInfo.isEmpty());
 		
 		if (cartInfo.isEmpty()) {
 			cartInfo.addProduct(productInfo);
 		}else {
-			if (cartInfo.isExitsProduct(code)) {
-				cartInfo.updateProduct(code);
+			if (cartInfo.isExitsProduct(productDetailInfo.getCode())) {
+				m_logger.info("Quantity of Product from DB in SERVER: " + productDetailInfo.getQuantity());
+				CartLineInfo cartLine = cartInfo.findLineByCode(productDetailInfo.getCode());
+				
+				m_logger.info("Quantity of Product from Cart: " + cartLine.getQuantity());
+				if (cartLine.getQuantity() < productDetailInfo.getQuantity()){
+					cartInfo.updateProduct(productDetailInfo.getCode());
+				}else{
+					return new ResponseEntity<Void>(HttpStatus.LENGTH_REQUIRED);
+				}
 			}else {
 				cartInfo.addProduct(productInfo);
 			}
 		}
+		Utils.updateNumberProductOfCart(request);
+		Utils.setCartInSession(request, cartInfo);
+		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+	
+	@PostMapping("/updateCart")
+	public String updateCartPost(HttpServletRequest request, @RequestParam("code") String code, @RequestParam("quantity") int quantity) {
+		
+		if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().getClass().equals(String.class)){
+			m_logger.info("You does not login !");
+			return "/login";
+		}
+		
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Accounts account = accountService.findAccount(userDetails.getUsername());
+		
+		m_logger.info("ACCOUNTS: " + account.getFirstName());
+		CustomerInfo customerInfo = new CustomerInfo(account);
+		
+		ProductDetailInfo productDetailInfo = productDetailService.findProductDetailInfo(code);
+		
+		CartInfo cartInfo = Utils.getCartInSession(request);
+		
+		cartInfo.setCustomerInfo(customerInfo);
+		
+		m_logger.info("CART INFO: " + cartInfo.isEmpty());
+
+		CartLineInfo cartLine = cartInfo.findLineByCode(productDetailInfo.getCode());
+		
+		int numProduct = Utils.getNumberProductOfCart(request);
+		
+		if (quantity > cartLine.getMaxNumberOfProduct()){
+			Utils.updateAddNumberProductOfCart(request, cartLine.getMaxNumberOfProduct());
+		}else{
+			if (quantity > cartLine.getQuantity()){
+				int less = quantity - cartLine.getQuantity();
+				Utils.updateAddNumberProductOfCart(request, numProduct + less);
+			}else{
+				int less = cartLine.getQuantity() - quantity;
+				Utils.updateAddNumberProductOfCart(request, numProduct - less);
+			}
+			
+		}
+		
+		cartInfo.updateProduct(code, quantity);
+		Utils.setCartInSession(request, cartInfo);
+		
+		return "redirect:/cart";
+	}
+	
+	@GetMapping("/removeFromCart")
+	public String removeFromCart(HttpServletRequest request, @RequestParam("code") String code){
+		ProductDetailInfo productDetailInfo = productDetailService.findProductDetailInfo(code);
+		
+		CartInfo cartInfo = Utils.getCartInSession(request);
+		
+		CartLineInfo cartLine = cartInfo.findLineByCode(productDetailInfo.getCode());
+		
+		int numProduct = Utils.getNumberProductOfCart(request);
+		
+		int less = numProduct - cartLine.getQuantity();
+		
+		Utils.updateAddNumberProductOfCart(request, less);
+		
+		cartInfo.updateProduct(code, 0);
 		
 		Utils.setCartInSession(request, cartInfo);
 		
-		return "redirect:/productList";
+		return "redirect:/cart";
 	}
-
+	
 	// POST: Cập nhập số lượng cho các sản phẩm đã mua.
 	@RequestMapping(value = { "/shoppingCart" }, method = RequestMethod.POST)
 	public String shoppingCartUpdateQty(HttpServletRequest request, Model model, @ModelAttribute("cartForm") CartInfo cartForm) {
