@@ -66,7 +66,7 @@
             <tr>
                 <td>
                     <a href="/productList" class="btn btn-warning">
-                        <i class="fa fa-angle-left"></i>
+                        <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
                         Tiếp tục mua hàng
                     </a>
                 </td>
@@ -76,9 +76,9 @@
                     <strong> đ</strong>
                 </td>
                 <td>
-                    <a href="/pay" class="btn btn-success btn-block">
+                    <a th:href="@{/pay(user=${session.myCart.customerInfo.username})}" class="btn btn-success btn-block">
                         Tiến hành đặt hàng
-                        <i class="fa fa-angle-right"></i>
+                    	 <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
                     </a>
                 </td>
             </tr>

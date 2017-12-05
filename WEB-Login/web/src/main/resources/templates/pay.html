@@ -12,26 +12,17 @@
 		<!-- Menu -->
 		<div th:replace="fragments/menu :: menu" />
 
-		<div class="container">
+		<div class="container" ng-controller="PayCtrl">
 			<div class="col-xs-12 col-sm-12 col-md-4 well well-sm col-md-offset-4">
 				<legend style="text-align: center;">
-					<i class="fa fa-info-circle" aria-hidden="true"></i> Thông tin giao hàng.
+					<i class="fa fa-id-card-o" aria-hidden="true"></i> Thông tin giao hàng.
 				</legend>
 				
 				<div class="item">
-					<div class="item col-sm-12">
+					<div class="item col-sm-12" style="text-align: center;">
 						<h2 th:text="${session.myCart.customerInfo.name}"></h2>
 					</div>
-					
-					<div class="item col-sm-12">
-						<div class="col-sm-4">
-							<h4>Địa chỉ: </h4>
-						</div>
-						<div class="col-sm-8">
-							<h4 th:text="${session.myCart.customerInfo.address}"></h4>
-						</div>
-					</div>
-					
+									
 					<div class="item col-sm-12">
 						<div class="col-sm-4">
 							<h4>Email: </h4>
@@ -50,9 +41,9 @@
 						</div>
 					</div>
 				</div>
-				
+				<br/>
 				<legend style="text-align: center;">
-					<i class="fa fa-info-circle" aria-hidden="true"></i> Thông tin đơn hàng
+					<i class="fa fa-calendar-check-o" aria-hidden="true"></i> Thông tin đơn hàng
 				</legend>
 				
 				<div class="item">
@@ -70,13 +61,34 @@
 							<h4>Thành tiền: </h4>
 						</div>
 						<div class="col-sm-8">
+							<!-- <h4 class="col-sm-2" th:text="${session.myCart.amountTotal}"></h4> -->
 							<h4 th:text="${session.myCart.amountTotal}"></h4>
 						</div>
 					</div>
 				</div>
 				
-				<div class="button-register">
+				<div class="item">
+					<div class="item col-sm-12">
+						<ng-map zoom="15" center="[40.74, -74.20]">
+							<marker
+								position="10.800494,106.67653" title="You are here" animation="Animation.BOUNCE" centered="true">
+							</marker>
+						</ng-map>
+					</div>
+					
+					<div class="item button-register">
+						<h4>{{address}}</h4>
+						<h5>[{{position}}]</h5>
+					</div>
+				</div>
+				
+				<div class="item button-register">
+					<a class="btn btn-md btn-warning" href="/cart">
+							<i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+							Trở lại
+					</a>
 					<button class="btn btn-md btn-success">
+						<i class="fa fa-check" aria-hidden="true"></i>
 						Đặt hàng
 					</button>
 				</div>

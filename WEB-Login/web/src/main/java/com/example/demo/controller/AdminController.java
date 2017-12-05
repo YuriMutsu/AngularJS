@@ -17,9 +17,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.demo.entity.Accounts;
+import com.example.demo.model.CustomerInfo;
 import com.example.demo.model.OrderDetailInfo;
 import com.example.demo.model.OrderInfo;
 import com.example.demo.model.ProductInfo;
+import com.example.demo.service.AccountService;
 import com.example.demo.service.OrderService;
 import com.example.demo.service.ProductService;
 
@@ -32,6 +35,8 @@ public class AdminController {
 	@Autowired
 	private ProductService productDAO;
 	
+	@Autowired
+	private AccountService accoutService;
 
 	@RequestMapping(value = {"/accountInfo"}, method = RequestMethod.GET)
 	public String accountInfo(Model model) {
@@ -39,11 +44,8 @@ public class AdminController {
 			return "redirect:/403";
 		}
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		System.out.println(userDetails.getPassword());
-		System.out.println(userDetails.getUsername());
-		System.out.println(userDetails.isEnabled());
-
-		model.addAttribute("userDetails", userDetails);
+		CustomerInfo customerInfo = accoutService.getCustomer(userDetails.getUsername());
+		model.addAttribute("customerInfo", customerInfo);
 		return "accountInfo";
 	}
 

@@ -1,7 +1,7 @@
 (function() {
 	'use strict';
 	
-	var app = angular.module("myApp", [ 'ngResource','ngCookies', '720kb.datepicker']);
+	var app = angular.module("myApp", [ 'ngResource','ngCookies', '720kb.datepicker', 'ngMap']);
 	
 	app.directive('pagination', function() {
 		  return {
@@ -127,7 +127,7 @@
 		}
 		
 		$scope.doLogin = function($rootScope) {
-			$resource('/doLogin', {
+			$resource('/login', {
 				username : $rootScope.username,
 				password : $rootScope.password
 			}, {
@@ -167,15 +167,64 @@
 		}
 	}]);
 	
-	app.controller('RegisterCtrl', [ '$scope', '$rootScope', '$resource', function($scope, $rootScope, $resource, $window) {
+	app.controller('PayCtrl', [ '$scope', '$rootScope', '$resource', function($scope, $rootScope, $resource, $window) {
+		var username = window.location.href.split("=")[1];
+		var keyAPI = "AIzaSyAEmqYXi6JPjfzig8Y9WBacb3VljK7VPtE";
+		var URL = "https://maps.googleapis.com/maps/api/geocode/json?address=";
+		var KEY_URL = "&key=" + keyAPI;
+		$scope.location = { Latitude : "", Longitude: ""}
+		
+		$scope.address = "";
+		console.info("username: " + username);
+		$resource('http://localhost:8080/rest/users/',
+			{ user : username},
+			{
+				query:{
+					method: 'get',
+					isArray: false
+				}
+			}).query().$promise.then(
+				function(data){
+					var uri = URL + data.address + KEY_URL;
+					$scope.address = data.address;
+					console.info(uri);
+					$resource(uri).get({}, function(data){
+						var location = data.results[0].geometry.location;
+						console.info(location);
+						$scope.location.Latitude = location.lat;
+						$scope.location.Longitude = location.lng;
+						
+						$scope.position=$scope.location.Latitude + "," + $scope.location.Longitude;
+						console.info("Postion: " + $scope.position);
+					});
+				},
+				function(err){
+					console.error(err)
+				});	
 	}]);
 	
 	app.controller('ProductInfoCtrl', ['$scope', '$rootScope', '$resource', '$window', '$cookieStore', function($scope, $rootScope, $resource, $window, $cookieStore) {
 		
 	}]);
 
-	app.controller('WrapperCtrl', ['$scope', '$rootScope', '$resource', '$window', '$cookieStore', function($scope, $rootScope, $resource, $window, $cookieStore) {
+	app.controller('AccountCtrl', ['$scope', '$rootScope', '$resource', '$window', '$cookieStore', function($scope, $rootScope, $resource, $window, $cookieStore) {
+		$scope.hideChangePassword = true;
+		$scope.hideUpdateProfile = true;
+		$scope.hideProfile = false;
 		
+		$scope.showUpdateProfile = function(){
+			$scope.hideUpdateProfile = false;
+			
+			$scope.hideChangePassword = true;
+			$scope.hideProfile = true;
+		}
+		
+		$scope.showChangePassword = function(){
+			$scope.hideChangePassword = false;
+			
+			$scope.hideUpdateProfile = true;
+			$scope.hideProfile = true;
+		}
 	}]);
 
 	app.controller('HeaderCtrl', [ '$scope', '$rootScope',

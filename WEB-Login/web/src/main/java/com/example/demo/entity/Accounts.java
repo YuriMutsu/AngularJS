@@ -1,14 +1,11 @@
 package com.example.demo.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "Accounts")
@@ -92,7 +89,7 @@ public class Accounts implements Serializable {
 		this.birthday = birthday;
 	}
 	
-	@Column(name = "address", length = 45, nullable = false)
+	@Column(name = "address", length = 255, nullable = false)
 	public String getAddress() {
 		return address;
 	}

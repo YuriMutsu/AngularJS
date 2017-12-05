@@ -10,22 +10,213 @@
 
 	<!-- Menu -->
 	<div th:replace="fragments/menu :: menu" />
+	<div class="container" style="height: 500px" ng-controller="AccountCtrl">
+		<div class="row profile col-md-12" style="height: 100%">
+			<div class="col-md-3 col-sm-3 col-lg-3"> 
+				<div class="profile-sidebar">
+					<div class="profile-userpic">
+						<img
+							src="https://hocwebgiare.com/thiet_ke_web_chuan_demo/bootstrap_user_profile/images/profile_user.jpg"
+							class="img-responsive" alt="Thông tin cá nhân" />
+					</div>
+					<div class="profile-usertitle">
+						<div class="profile-usertitle-name">
+							<span sec:authentication="name"></span>
+						</div>
+						<div class="profile-usertitle-job">
+							<span sec:authentication="principal.authorities">[ROLE_USER,ROLE_ADMIN]</span>
+						</div>
+					</div>
+					<div class="profile-usermenu">
+						<ul class="nav">
+							<li class="active" style="text-align: center;">
+								<a href="" ng-click="showUpdateProfile()">
+									<i class="glyphicon glyphicon-info-sign"></i> Cập nhật thông tin cá nhân
+								</a>
+							</li>
+							
+							<li>
+								<a href="" ng-click="showChangePassword()"> 
+									<i class="fa fa-pencil-square-o" aria-hidden="true"></i> Đổi mật khẩu
+								</a>
+							</li>
+							
+							<li><a href=""> <i
+									class="glyphicon glyphicon-heart"></i> Sản phẩm yêu thích
+							</a></li>
+							<li><a href="" target="_blank">
+									<i class="glyphicon glyphicon-shopping-cart"></i> Quản lý đơn hàng
+							</a></li>
+							<li><a href=""> <i
+									class="glyphicon glyphicon-envelope"></i> Tin nhắn
+							</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-md-9 col-sm-9 col-lg-9 login-widget" ng-int="hideProfile = true" ng-hide="hideProfile">
+				<h2 class="text-center">Thông tin cá nhân</h2>
+				<div class="profile-content">
+					<table class="table">
+						<tr>
+							<td class="item col-sm-2 col-md-2 col-lg-2" style="font-size: 16px">Họ và Tên: </td>
+							<td style="font-size: 16px" th:text="${customerInfo.name}"></td>
+						</tr>
+						
+						<tr>
+							<td class="item col-sm-2 col-md-2 col-lg-2"></td>
+							<td></td>
+						</tr>
+						
+						<tr>
+							<td class="item col-sm-2 col-md-2 col-lg-2" style="font-size: 16px">Địa chỉ: </td>
+							<td style="font-size: 16px" th:text="${customerInfo.address}"></td>
+						</tr>
+						
+						<tr>
+							<td class="item col-sm-2 col-md-2 col-lg-2"></td>
+							<td></td>
+						</tr>
+						
+						<tr>
+							<td class="item col-sm-2 col-md-2 col-lg-2" style="font-size: 16px">Ngày sinh: </td>
+							<td style="font-size: 16px" th:text="${customerInfo.birthday}"></td>
+						</tr>
+						
+						<tr>
+							<td class="item col-sm-2 col-md-2 col-lg-2"></td>
+							<td></td>
+						</tr>
+						
+						<tr>
+							<td class="item col-sm-2 col-md-2 col-lg-2" style="font-size: 16px">Email: </td>
+							<td style="font-size: 16px" th:text="${customerInfo.email}"></td>
+						</tr>
+						
+						<tr>
+							<td class="item col-sm-2 col-md-2 col-lg-2"></td>
+							<td></td>
+						</tr>
+						
+						<tr>
+							<td class="item col-sm-2 col-md-2 col-lg-2" style="font-size: 16px">Số điện thoại: </td>
+							<td style="font-size: 16px" th:text="${customerInfo.phone}"></td>
+						</tr>
+					</table>
+				</div>
+			</div>
 
-	<div class="container">
-		<div class="page-title">Account Info</div>
-		<div class="account-container">
-			<ul>
-				<li>User Name: <span sec:authentication="name"></span>
-				</li>
-				<li>Role:
-					<ul>
-						<li><span sec:authentication="principal.authorities">[ROLE_USER,ROLE_ADMIN]</span></li>
-					</ul>
-				</li>
-			</ul>
+			<div class="col-md-9 col-sm-9 col-lg-9 login-widget" ng-hide="hideUpdateProfile">
+				<div class="profile-content">
+					<h2 class="text-center">Cập nhật thông tin cá nhân</h2>
+					<form action="/updateProfile" class="form" role="form" name="form">
+						<div class="row">
+							<div class="col-xs-6 col-md-6">
+								<input class="form-control" th:value="${customerInfo.firstName}" name="firstName" placeholder="Họ" required="required"
+									autofocus="" type="text" ng-minlength="2" ng-maxlength="32"
+									ng-pattern="/^[a-zA-Z]/" />
+								<i class="fa fa-check text-success" ng-show="form.firstName.$dirty &amp;&amp; form.firstName.$valid"></i>
+								<div ng-show="form.firstName.$dirty &amp;&amp; form.firstName.$invalid" class="text-danger">
+									<i class="fa fa-times text-danger"></i> 
+									<span ng-show="form.firstName.$error.required">Họ không được bỏ trống </span> 
+									<span ng-show="form.firstName.$error.minlength">Họ phải dài hơn 2 kí tự </span> 
+									<span ng-show="form.firstName.$error.maxlength">Họ ngắn hơn 32 kí tự </span> 
+									<span ng-show="form.firstName.$error.pattern">Họ chỉ bao gồm các kí tự chữ cái</span> 
+								</div>
+							</div>
+							<div class="col-xs-6 col-md-6">
+								<input class="form-control" th:value="${customerInfo.lastName}" name="lastName" placeholder="Tên" required="required"
+									type="text" ng-minlength="3" ng-maxlength="50"
+									ng-pattern="/^[a-zA-Z]/" />
+								<i class="fa fa-check text-success" ng-show="form.lastName.$dirty &amp;&amp; form.lastName.$valid"></i>
+								<div ng-show="form.lastName.$dirty &amp;&amp; form.lastName.$invalid" class="text-danger">
+									<i class="fa fa-times text-danger"></i> 
+									<span ng-show="form.lastName.$error.required"> Tên không được bỏ trống </span> 
+									<span ng-show="form.lastName.$error.minlength"> Tên phải dài hơn 3 kí tự </span> 
+									<span ng-show="form.lastName.$error.maxlength"> Tên ngắn hơn 32 kí tự </span> 
+									<span ng-show="form.lastName.$error.pattern"> Tên chỉ bao gồm các kí tự chữ cái</span> 
+								</div>
+							</div>
+						</div>
+						<div>
+							<input class="form-control" th:value="${customerInfo.address}" name="address" placeholder="Địa chỉ" type="text"
+								ng-minlength="2" ng-maxlength="255" required="required" />
+							<i class="fa fa-check text-success" ng-show="form.address.$dirty &amp;&amp; form.address.$valid"></i>
+							<div ng-show="form.address.$dirty &amp;&amp; form.address.$invalid" class="text-danger">
+								<i class="fa fa-times text-danger"></i> 
+								<span ng-show="form.address.$error.required"> Địa chỉ không được bỏ trống </span> 
+								<span ng-show="form.address.$error.minlength"> Địa chỉ phải dài hơn 2 kí tự </span> 
+								<span ng-show="form.address.$error.maxlength"> Địa chỉ ngắn hơn 255 kí tự </span> 
+							</div>
+						</div>
+						
+						<div>
+							<input class="form-control" name="email" placeholder="Email" type="email" th:value="${customerInfo.email}"/>
+						</div>
+						
+						<div>
+							<input class="form-control" name="phone" th:value="${customerInfo.phone}" placeholder="Điện thoại" type="text" ng-minlength="10"
+								ng-maxlength="14" required="required" />
+							<i class="fa fa-check text-success" ng-show="form.phone.$dirty &amp;&amp; form.phone.$valid"></i>
+							<div ng-show="form.phone.$dirty &amp;&amp; form.phone.$invalid" class="text-danger">
+								<i class="fa fa-times text-danger"></i> 
+								<span ng-show="form.phone.$error.required">  Số điện thoại không được bỏ trống </span> 
+								<span ng-show="form.phone.$error.minlength"> Số điện thoại phải dài hơn 10 số </span> 
+								<span ng-show="form.phone.$error.maxlength"> Số điện thoại ngắn hơn 14 kí tự </span> 
+							</div>
+						</div>
+						
+						<datepicker date-format="dd-MM-yyyy" selector="form-control">
+							<div class="input-group">
+								<input class="form-control" th:value="${customerInfo.birthday}" name="birthday" placeholder="Ngày, tháng, năm sinh" />
+								<span class="input-group-addon" style="cursor: pointer">
+									<i class="fa fa-lg fa-calendar"></i>
+								</span>
+							</div>
+						</datepicker>
+						<label class="radio-inline">
+							<input name="gender" id="inlineCheckbox1" th:checked="${customerInfo.checkGender}" type="radio"/> Nam
+						</label> 
+						<label class="radio-inline">
+							<input name="gender" id="inlineCheckbox2" th:checked="!${customerInfo.checkGender}" type="radio" /> Nữ
+						</label>
+						<br /> <br />
+						<div class="button-register">
+							<button class="btn btn-md btn-primary"  type="submit">
+								<i class="fa fa-pencil-square-o" aria-hidden="true"></i> Cập nhật
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+
+			<div class="col-md-9 col-sm-9 col-lg-9 login-widget" ng-hide="hideChangePassword">
+				<legend ng-click="showChangePassword()">
+					<i class="glyphicon glyphicon-globe"></i> Đổi mật khẩu !
+				</legend>
+				<form class="form" role="form">
+					<input class="form-control" ng-model="user.password_old"
+						name="password_old" placeholder="Mật khẩu" type="password" /> <input
+						class="form-control" ng-model="user.password_new"
+						name="password_new" placeholder="Mật khẩu mới" type="password" />
+					<input class="form-control" ng-model="user.password_confirm"
+						name="password_confirm" placeholder="Xác nhận mật khẩu mới"
+						type="password" />
+					<div class="button-register">
+						<button class="btn btn-md btn-primary" type="submit"
+							ng-click="register(user)">Đổi mật khẩu</button>
+						<a class="btn btn-md btn-warning" href="/">Trở lại</a>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div>
+			<div>
+				
+			</div>
 		</div>
 	</div>
-	
 	<!-- Footer -->
 	<div th:replace="fragments/footer :: footer" />
 

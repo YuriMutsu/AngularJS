@@ -2,14 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>REGISTER</title>
-
 <div th:replace="fragments/header :: header-css" />
 </head>
 <body ng-app="myApp">
-	<div class="container" ng-controller="RegisterCtrl">
+	<div class="container">
 		<div class="container">
 			<div class="row vertical-center-row">
-				<div class="col-xs-12 col-sm-12 col-md-4 well well-sm col-md-offset-4">
+				<div class="col-xs-12 col-sm-12 col-md-4 login-widget well-sm col-md-offset-4">
 					<legend style="text-align: center;">
 						<i class="glyphicon glyphicon-globe"></i> Đăng ký thành viên !
 					</legend>
@@ -91,7 +90,7 @@
 							</div>
 						</div>
 						 
-						 <div>
+						<div>
 							<input class="form-control" ng-model="user.address"
 								name="address" placeholder="Địa chỉ" type="text"
 								ng-minlength="2" ng-maxlength="255" required="required" />
@@ -136,7 +135,7 @@
 							<input name="gender" id="inlineCheckbox2" ng-model="user.female" type="radio" /> Nữ
 						</label> <br /> <br />
 						<div class="button-register">
-							<button class="btn btn-md btn-primary" ng-disabled="!form.$dirty || (form.$dirty &amp;&amp; form.$invalid)">
+							<button class="btn btn-md btn-primary"  type="submit" ng-disabled="!form.$dirty || (form.$dirty &amp;&amp; form.$invalid)">
 								<i class="fa fa-sign-in" aria-hidden="true"> Đăng ký</i>
 							</button>
 							<a class="btn btn-md btn-warning" href="/"> 

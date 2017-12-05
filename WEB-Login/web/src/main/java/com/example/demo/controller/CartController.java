@@ -1,12 +1,8 @@
 package com.example.demo.controller;
-
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,7 +15,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.entity.Accounts;
-import com.example.demo.entity.Products;
 import com.example.demo.model.CartInfo;
 import com.example.demo.model.CartLineInfo;
 import com.example.demo.model.CustomerInfo;
@@ -37,7 +31,6 @@ import com.example.demo.model.ProductInfo;
 import com.example.demo.service.AccountService;
 import com.example.demo.service.OrderService;
 import com.example.demo.service.ProductDetailService;
-import com.example.demo.service.ProductService;
 import com.example.demo.utils.Utils;
 
 @Controller
@@ -49,13 +42,17 @@ public class CartController {
 	private OrderService orderService;
 
 	@Autowired
-	private ProductService productService;
-	
-	@Autowired
 	private ProductDetailService productDetailService;
 	
 	@Autowired
 	private AccountService accountService;
+	
+	private CustomerInfo getCustomerInfo(){
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Accounts account = accountService.findAccount(userDetails.getUsername());
+		CustomerInfo customerInfo = new CustomerInfo(account);
+		return customerInfo;
+	}
 	
 	// GET: Hiển thị giỏ hàng.
 	@RequestMapping(value = { "/cart" }, method = RequestMethod.GET)
@@ -80,20 +77,17 @@ public class CartController {
 	public ResponseEntity<Void> addToCartPost(HttpServletRequest request, Model model, @RequestBody ProductDetailInfo productDetailInfo) {
 		
 		if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().getClass().equals(String.class)){
+			m_logger.info("You does not login !");
 			return new ResponseEntity<Void>(HttpStatus.METHOD_FAILURE);
 		}
 		
-		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Accounts account = accountService.findAccount(userDetails.getUsername());
-		m_logger.info("ACCOUNTS: " + account.getFirstName());
-		CustomerInfo customerInfo = new CustomerInfo(account);
+		CustomerInfo customerInfo = getCustomerInfo();
 		
 		ProductInfo productInfo = new ProductInfo(productDetailInfo);
 		
 		CartInfo cartInfo = Utils.getCartInSession(request);
-		cartInfo.setCustomerInfo(customerInfo);
 		
-		m_logger.info("CART INFO: " + cartInfo.isEmpty());
+		cartInfo.setCustomerInfo(customerInfo);
 		
 		if (cartInfo.isEmpty()) {
 			cartInfo.addProduct(productInfo);
@@ -125,11 +119,7 @@ public class CartController {
 			return "/login";
 		}
 		
-		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Accounts account = accountService.findAccount(userDetails.getUsername());
-		
-		m_logger.info("ACCOUNTS: " + account.getFirstName());
-		CustomerInfo customerInfo = new CustomerInfo(account);
+		CustomerInfo customerInfo = getCustomerInfo();
 		
 		ProductDetailInfo productDetailInfo = productDetailService.findProductDetailInfo(code);
 		
@@ -137,8 +127,6 @@ public class CartController {
 		
 		cartInfo.setCustomerInfo(customerInfo);
 		
-		m_logger.info("CART INFO: " + cartInfo.isEmpty());
-
 		CartLineInfo cartLine = cartInfo.findLineByCode(productDetailInfo.getCode());
 		
 		int numProduct = Utils.getNumberProductOfCart(request);
@@ -153,7 +141,6 @@ public class CartController {
 				int less = cartLine.getQuantity() - quantity;
 				Utils.updateAddNumberProductOfCart(request, numProduct - less);
 			}
-			
 		}
 		
 		cartInfo.updateProduct(code, quantity);

@@ -6,7 +6,6 @@ import com.example.demo.entity.ProductDetails;
 import com.example.demo.entity.Products;
 
 public class ProductInfo {
-	private byte[] image;
 	private String code;
 	private String name;
 	private int price;
@@ -21,14 +20,12 @@ public class ProductInfo {
 	}
 
 	public ProductInfo(Products product) {
-		this.image = product.getImage();
 		this.code = product.getCode();
 		this.name = product.getName();
 		this.price = product.getPrice();
 	}
 	
 	public ProductInfo(ProductDetails product) {
-		this.image = product.getProducts().getImage();
 		this.code = product.getProducts().getCode();
 		this.name = product.getProducts().getName();
 		this.price = product.getProducts().getPrice();
@@ -36,7 +33,6 @@ public class ProductInfo {
 	}
 
 	public ProductInfo(ProductDetailInfo product) {
-		this.image = product.getImage();
 		this.code = product.getCode();
 		this.name = product.getName();
 		this.price = product.getPrice();

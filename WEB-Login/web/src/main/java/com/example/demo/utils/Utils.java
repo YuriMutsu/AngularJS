@@ -3,7 +3,6 @@ package com.example.demo.utils;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -11,8 +10,6 @@ import com.example.demo.model.CartInfo;
 import com.example.demo.model.CustomerInfo;
 
 public class Utils {
-	
-	private static Logger m_logger = Logger.getLogger(Utils.class);
 	
 	// Thông tin các mặt hàng đã mua, được lưu trữ trong Session.
 	public static CartInfo getCartInSession(HttpServletRequest request) {
@@ -23,7 +20,6 @@ public class Utils {
 		// Nếu chưa tạo giỏ hàng, tạo nó.
 		if (cartInfo == null) {
 			cartInfo = new CartInfo();
-			
 			if (!SecurityContextHolder.getContext().getAuthentication().getPrincipal().getClass().equals(String.class)){
 				UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 				CustomerInfo customerInfo = new CustomerInfo();
@@ -32,6 +28,7 @@ public class Utils {
 			}
 			// Và lưu vào trong session.
 			request.getSession().setAttribute("myCart", cartInfo);
+			request.getSession().setAttribute("numProduct", 0);
 		}
 		return cartInfo;
 	}
