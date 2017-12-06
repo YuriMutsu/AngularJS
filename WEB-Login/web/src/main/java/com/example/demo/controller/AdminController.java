@@ -18,12 +18,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.entity.Accounts;
+import com.example.demo.entity.ProductFavorite;
 import com.example.demo.model.CustomerInfo;
 import com.example.demo.model.OrderDetailInfo;
 import com.example.demo.model.OrderInfo;
 import com.example.demo.model.ProductInfo;
 import com.example.demo.service.AccountService;
 import com.example.demo.service.OrderService;
+import com.example.demo.service.ProductFavoriteService;
 import com.example.demo.service.ProductService;
 
 @Controller
@@ -38,6 +40,9 @@ public class AdminController {
 	@Autowired
 	private AccountService accoutService;
 
+	@Autowired
+	private ProductFavoriteService productFavoriteService;
+	
 	@RequestMapping(value = {"/accountInfo"}, method = RequestMethod.GET)
 	public String accountInfo(Model model) {
 		if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().getClass().equals(String.class)){
@@ -46,6 +51,10 @@ public class AdminController {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		CustomerInfo customerInfo = accoutService.getCustomer(userDetails.getUsername());
 		model.addAttribute("customerInfo", customerInfo);
+		
+		List<ProductFavorite> listProductFavorites = productFavoriteService.findByUsername(userDetails.getUsername());
+		model.addAttribute("listProductFavorites", listProductFavorites);
+		
 		return "accountInfo";
 	}
 

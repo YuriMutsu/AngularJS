@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.entity.Accounts;
+import com.example.demo.entity.ProductFavorite;
+import com.example.demo.entity.Products;
 import com.example.demo.model.CartInfo;
 import com.example.demo.model.CartLineInfo;
 import com.example.demo.model.CustomerInfo;
@@ -31,6 +33,7 @@ import com.example.demo.model.ProductInfo;
 import com.example.demo.service.AccountService;
 import com.example.demo.service.OrderService;
 import com.example.demo.service.ProductDetailService;
+import com.example.demo.service.ProductFavoriteService;
 import com.example.demo.utils.Utils;
 
 @Controller
@@ -46,6 +49,9 @@ public class CartController {
 	
 	@Autowired
 	private AccountService accountService;
+	
+	@Autowired
+	private ProductFavoriteService productFavoriteService;
 	
 	private CustomerInfo getCustomerInfo(){
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -71,6 +77,31 @@ public class CartController {
 		model.addAttribute("cartForm", myCart);
 		return "shoppingCart";
 	}
+	
+	@SuppressWarnings("deprecation")
+	@PostMapping("/addToFavorite")
+	public ResponseEntity<Void> addToFavorite(HttpServletRequest request, Model model, @RequestBody ProductDetailInfo productDetailInfo) {
+		
+		if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().getClass().equals(String.class)){
+			m_logger.info("You does not login !");
+			return new ResponseEntity<Void>(HttpStatus.METHOD_FAILURE);
+		}
+		
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Accounts account = accountService.findAccount(userDetails.getUsername());
+		Products product = new Products(productDetailInfo);
+		
+		ProductFavorite productFavorite = new ProductFavorite(account, product);
+		
+		if (productFavoriteService.isExist(productFavorite)){
+			return new ResponseEntity<Void>(HttpStatus.METHOD_FAILURE);
+		}else{
+			productFavoriteService.saveProductFavorite(productFavorite);
+		}
+		
+		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+	
 	
 	@SuppressWarnings("deprecation")
 	@PostMapping("/addToCart")

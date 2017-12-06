@@ -14,6 +14,8 @@
 		<div class="row profile col-md-12" style="height: 100%">
 			<div class="col-md-3 col-sm-3 col-lg-3"> 
 				<div class="profile-sidebar">
+					<h3 class="text-center">Thông tin cá nhân</h3>
+				
 					<div class="profile-userpic">
 						<img th:src="@{/rest/avatar/(user=${customerInfo.username})}"
 							class="img-responsive" alt="Thông tin cá nhân" ng-click="newAvatar()"/>
@@ -43,9 +45,11 @@
 								</a>
 							</li>
 							
-							<li><a href=""> <i
-									class="glyphicon glyphicon-heart"></i> Sản phẩm yêu thích
-							</a></li>
+							<li>
+								<a href="" ng-click="showProductFavorite()">
+									<i class="glyphicon glyphicon-heart"></i> Sản phẩm yêu thích
+								</a>
+							</li>
 							<li><a href="" target="_blank">
 									<i class="glyphicon glyphicon-shopping-cart"></i> Quản lý đơn hàng
 							</a></li>
@@ -58,7 +62,7 @@
 			</div>
 			
 			<div class="col-md-9 col-sm-9 col-lg-9 login-widget" ng-int="hideProfile = true" ng-hide="hideProfile">
-				<h2 class="text-center">Thông tin cá nhân</h2>
+				
 				<div class="profile-content">
 					<table class="table">
 						<tr>
@@ -194,8 +198,8 @@
 			</div>
 
 			<div class="col-md-9 col-sm-9 col-lg-9 login-widget" ng-hide="hideChangePassword">
-				<legend ng-click="showChangePassword()">
-					<i class="glyphicon glyphicon-globe"></i> Đổi mật khẩu !
+				<legend class="text-center">
+					<i class="fa fa-pencil-square-o" aria-hidden="true"></i> Đổi mật khẩu !
 				</legend>
 				<form class="form" role="form">
 					<input class="form-control" ng-model="user.password_old"
@@ -211,6 +215,41 @@
 						<a class="btn btn-md btn-warning" href="/">Trở lại</a>
 					</div>
 				</form>
+			</div>
+
+			<!-- Sản phẩm yêu thích -->
+			<div class="col-md-9 col-sm-9 col-lg-9 login-widget" ng-hide="hideProductFavorite">
+				<legend class="text-center">
+					<i class="glyphicon glyphicon-heart"></i> Sản phẩm yêu thích
+				</legend>
+
+				<div class="box-index middle">
+					<div class="row">
+						<div class="item col-md-3 col-sm-3 col-xs-6"
+							th:each="pro : ${listProductFavorites}">
+							<span>
+								<a th:href="@{/productInfo(code=${pro.products.name})}" class="thumbnail">
+								<img th:src="@{/productImage(code=${pro.products.code})}" />
+							</a>
+							</span>
+							<h3>
+								<a th:href="@{/productInfo(code=${pro.products.code})}">
+									<h4 th:text="${pro.products.name}"></h4>
+								</a>
+							</h3>
+						</div>
+						<div class="item col-md-2 col-sm-2 col-xs-6 container">
+							<div class="pagination">
+								<pagination num-pages="noOfPages" current-page="currentPage"
+									class="pagination-medium"></pagination>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div th:each="pro : ${listProductFavorites}">
+					
+				</div>
 			</div>
 		</div>
 		<div>

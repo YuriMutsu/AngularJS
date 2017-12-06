@@ -211,12 +211,15 @@
 		$scope.hideChangePassword = true;
 		$scope.hideUpdateProfile = true;
 		$scope.hideProfile = false;
+		$scope.hideProductFavorite = true;
+		
 		
 		$scope.showProfile = function(){
 			$scope.hideProfile = false;
 			
 			$scope.hideUpdateProfile = true;
 			$scope.hideChangePassword = true;
+			$scope.hideProductFavorite = true;
 		}
 		
 		$scope.showUpdateProfile = function(){
@@ -224,6 +227,7 @@
 			
 			$scope.hideChangePassword = true;
 			$scope.hideProfile = true;
+			$scope.hideProductFavorite = true;
 		}
 		
 		$scope.showChangePassword = function(){
@@ -231,6 +235,16 @@
 			
 			$scope.hideUpdateProfile = true;
 			$scope.hideProfile = true;
+			$scope.hideProductFavorite = true;
+		}
+		
+		$scope.showProductFavorite = function(){
+			$scope.hideProductFavorite = false;
+			
+			$scope.hideChangePassword = true;
+			$scope.hideUpdateProfile = true;
+			$scope.hideProfile = true;
+			
 		}
 		
 		$scope.newAvatar = function(){
@@ -504,6 +518,22 @@
 	            		}
 	            	}
 	            );
+		
+		$scope.addToFavorite = function(product){
+			$resource('/addToFavorite', {}).save(product,
+				function(data){
+					$scope.add = true;
+					$scope.message_success = "Đã thêm sản phẩm vào danh sách yêu thích.";
+				},
+				function(err){
+					$scope.add = false;
+					if (err.status == '411'){
+						$scope.message_err = "Bạn đã thêm quá số lượng còn trong kho.";
+					}else{
+						$scope.message_err = "Bạn chưa đăng nhập. Vui lòng đăng nhập và thử lại !";
+					}
+				});
+		}
 	}]);
 	
 	app.controller('CartCtrl', ['$scope', '$rootScope', function($scope, $rootScope) {

@@ -11,6 +11,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.example.demo.model.ProductDetailInfo;
+
 @Entity
 @Table(name = "Products")
 public class Products implements Serializable {
@@ -28,6 +30,20 @@ public class Products implements Serializable {
 	public Products() {
 	}
 
+	public Products(ProductDetailInfo productDetails) {
+		this.code = productDetails.getCode();
+		this.name = productDetails.getName();
+		this.price = productDetails.getPrice();
+		this.image = productDetails.getImage();
+	}
+	
+	public Products(Products products){
+		this.code = products.getCode();
+		this.name = products.getName();
+		this.price = products.getPrice();
+		this.image = products.getImage();
+	}
+	
 	@Id
 	@Column(name = "Code", length = 20, nullable = false)
 	public String getCode() {
