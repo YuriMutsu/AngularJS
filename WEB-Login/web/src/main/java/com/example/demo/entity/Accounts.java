@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 @Entity
@@ -25,6 +26,7 @@ public class Accounts implements Serializable {
 	private String gender;
 	private boolean active;
 
+	private byte[] avatar;
 	@Id
 	@Column(name = "username", length = 45, nullable = false)
 	public String getUserName() {
@@ -123,6 +125,16 @@ public class Accounts implements Serializable {
 
 	public void setGender(String gender) {
 		this.gender = gender;
+	}
+
+	@Lob
+	@Column(name = "avatar", length = Integer.MAX_VALUE, nullable = true)
+	public byte[] getAvatar() {
+		return avatar;
+	}
+	
+	public void setAvatar(byte[] avatar) {
+		this.avatar = avatar;
 	}
 
 	@Override

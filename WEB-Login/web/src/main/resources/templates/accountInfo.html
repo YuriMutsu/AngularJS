@@ -15,13 +15,15 @@
 			<div class="col-md-3 col-sm-3 col-lg-3"> 
 				<div class="profile-sidebar">
 					<div class="profile-userpic">
-						<img
-							src="https://hocwebgiare.com/thiet_ke_web_chuan_demo/bootstrap_user_profile/images/profile_user.jpg"
-							class="img-responsive" alt="Thông tin cá nhân" />
+						<img th:src="@{/rest/avatar/(user=${customerInfo.username})}"
+							class="img-responsive" alt="Thông tin cá nhân" ng-click="newAvatar()"/>
 					</div>
 					<div class="profile-usertitle">
 						<div class="profile-usertitle-name">
-							<span sec:authentication="name"></span>
+							<a href="" ng-click="showProfile()">
+								<span sec:authentication="name"></span>
+							</a>
+							
 						</div>
 						<div class="profile-usertitle-job">
 							<span sec:authentication="principal.authorities">[ROLE_USER,ROLE_ADMIN]</span>

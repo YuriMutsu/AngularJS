@@ -212,6 +212,13 @@
 		$scope.hideUpdateProfile = true;
 		$scope.hideProfile = false;
 		
+		$scope.showProfile = function(){
+			$scope.hideProfile = false;
+			
+			$scope.hideUpdateProfile = true;
+			$scope.hideChangePassword = true;
+		}
+		
 		$scope.showUpdateProfile = function(){
 			$scope.hideUpdateProfile = false;
 			
@@ -224,6 +231,10 @@
 			
 			$scope.hideUpdateProfile = true;
 			$scope.hideProfile = true;
+		}
+		
+		$scope.newAvatar = function(){
+			console.info("new avatar");
 		}
 	}]);
 
