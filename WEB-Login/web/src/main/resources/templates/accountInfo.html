@@ -236,13 +236,9 @@
 								<a th:href="@{/productInfo(code=${pro.products.code})}">
 									<h4 th:text="${pro.products.name}"></h4>
 								</a>
+								<h4 th:text="${#numbers.formatDecimal(pro.products.price, 0, 'COMMA', 0, 'POINT')}"> VND</h4>
 							</h3>
-						</div>
-						<div class="item col-md-2 col-sm-2 col-xs-6 container">
-							<div class="pagination">
-								<pagination num-pages="noOfPages" current-page="currentPage"
-									class="pagination-medium"></pagination>
-							</div>
+							<button class="btn" ng-click="deleteFromFarovite()">Xóa khỏi danh sách</button>
 						</div>
 					</div>
 				</div>

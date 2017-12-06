@@ -247,6 +247,10 @@
 			
 		}
 		
+		$scope.deleteFromFarovite = function(){
+			
+		}
+		
 		$scope.newAvatar = function(){
 			console.info("new avatar");
 		}
@@ -526,11 +530,15 @@
 					$scope.message_success = "Đã thêm sản phẩm vào danh sách yêu thích.";
 				},
 				function(err){
+					console.error(err);
 					$scope.add = false;
 					if (err.status == '411'){
 						$scope.message_err = "Bạn đã thêm quá số lượng còn trong kho.";
+					}
+					if(err.status == '500'){
+						$scope.message_err = "Sản phẩm đã tồn tại trong danh sách !";
 					}else{
-						$scope.message_err = "Bạn chưa đăng nhập. Vui lòng đăng nhập và thử lại !";
+						$scope.message_err = "Bạn chưa đăng nhập. Vui lòng đăng nhập và thử lại.";
 					}
 				});
 		}

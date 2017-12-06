@@ -84,7 +84,7 @@ public class CartController {
 		
 		if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().getClass().equals(String.class)){
 			m_logger.info("You does not login !");
-			return new ResponseEntity<Void>(HttpStatus.METHOD_FAILURE);
+			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
 		}
 		
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -94,7 +94,7 @@ public class CartController {
 		ProductFavorite productFavorite = new ProductFavorite(account, product);
 		
 		if (productFavoriteService.isExist(productFavorite)){
-			return new ResponseEntity<Void>(HttpStatus.METHOD_FAILURE);
+			return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}else{
 			productFavoriteService.saveProductFavorite(productFavorite);
 		}

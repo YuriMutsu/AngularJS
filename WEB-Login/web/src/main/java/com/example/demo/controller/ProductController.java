@@ -50,28 +50,7 @@ public class ProductController {
 		return "productList";
 	}
 	
-//	@RequestMapping({ "/buyProduct" })
-//	public String listProductHandler(HttpServletRequest request, Model model, //
-//			@RequestParam(value = "code", defaultValue = "") String code) {
-//
-//		Products product = null;
-//		if (code != null && code.length() > 0) {
-//			product = productService.findProduct(code);
-//		}
-//		if (product != null) {
-//
-//			// Thông tin giỏ hàng có thể đã lưu vào trong Session trước đó.
-//			CartInfo cartInfo = Utils.getCartInSession(request);
-//
-//			ProductInfo productInfo = new ProductInfo(product);
-//
-//			cartInfo.addProduct(productInfo, 1);
-//		}
-//
-//		// Chuyển sang trang danh sách các sản phẩm đã mua.
-//		return "redirect:/shoppingCart";
-//	}
-
+	
 	@RequestMapping(value = { "/productImage" }, method = RequestMethod.GET)
 	public void productImage(HttpServletRequest request, HttpServletResponse response, Model model,
 			@RequestParam("code") String code) throws IOException {
