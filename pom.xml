@@ -8,8 +8,8 @@
    <packaging>pom</packaging>
 
  <modules>
-    <module>WEB-Login/web/web</module>
-    <module>Web-BanHang-ThietBiMayTinh/web-thietbimaytinh/thietbimaytinh</module>
+    <module>WEB-Login/web</module>
+    <module>Web-BanHang-ThietBiMayTinh/web-thietbimaytinh</module>
   </modules>
     
 </project>
