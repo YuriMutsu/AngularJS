@@ -8,6 +8,7 @@
    <groupId>com.tmtai.project</groupId>
    <artifactId>parent-project</artifactId>
    <version>1.0-SNAPSHOT</version>
+   <packaging>pom</packaging>
 
  <modules>
     <module>thietbimaytinh</module>
